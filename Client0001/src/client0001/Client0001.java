@@ -1,21 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package client0001;
 
-/**
- *
- * @author juli
- */
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Client0001 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            
+            //cria conexão entre o cliente e o servidor
+            Socket socket = new Socket("localhost", 12345);
+            
+            //criação dos streams de entrada e de saída
+            
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+            
+            
+        String msg = "hello";
+        output.writeUTF(msg);
+
+        msg = input.readUTF();
+        System.out.println("Resposta: " + msg);
+
+        //>>>>>>> Método pra usar depois do writeUTF
+        output.flush();
+        // Ele força a ler qualquer mensagem por completo            
+            
+            input.close();
+            output.close();
+            socket.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Client0001.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+    /*
+    Ex: 
+    String msg = 'hello'
+    output.writeUTF(msg);
     
+    msg = input.readUTF();
+    System.out.println("Resposta: " + msg);
+    
+    //>>>>>>> Método pra usar depois do writeUTF
+    output.flush();
+    // Ele força a ler qualquer mensagem por completo
+    
+    
+    */
 }
