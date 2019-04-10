@@ -14,10 +14,16 @@ public class Servidor0001 {
     public static void main(String[] args){
         
         try {
+            
             Servidor0001 server = new Servidor0001();
             server.criarServerSocket(12345);
-            Socket socket = server.esperaConexao();
-            server.tratarConexao(socket);
+                
+            while(true){
+                //Esse loop faz a coneão não se "quebrar" em apenas uma conexão
+                Socket socket = server.esperandoConexao();
+                server.tratarConexao(socket);
+            }
+            
             
             
         } catch (IOException ex) {
@@ -27,14 +33,20 @@ public class Servidor0001 {
     }
     
     private void criarServerSocket(int porta) throws IOException{
+        //cria um socket
         serverSocket = new ServerSocket(porta);
     }
     
-    private Socket esperaConexao() throws IOException{
-        //Faz o socket esperar uma conexão
-        Socket socket = serverSocket.accept();
+    
+    
+    private Socket esperandoConexao() throws IOException{     
+        //Faz o socket esperar uma conexão, só da o retorno quando a conexão não é estabelecida
+        Socket socket = serverSocket.accept();        
         return socket;
     }
+    
+
+    
     
     private void tratarConexao(Socket socket) throws IOException{
         //Ponto entre o cliente e o servidor
@@ -46,23 +58,27 @@ public class Servidor0001 {
              // pode usar o input.readObject pra pegar um obj do cliente
              
              String msg = input.readUTF();
-             System.out.println("Mensagem Recebida");
+             System.out.println("Mensagem Recebida: " + msg);
              output.writeUTF(msg);
              
              input.close();
              output.close();
+             
         }catch(IOException e) {
             
         }finally{
             //idependente de erro ele fecha o socket
-            fechaSocket(socket);
+            fecharSocket(socket);
         }
         
     }
     
-    private void fechaSocket(Socket s) throws IOException{
+    private void fecharSocket(Socket s) throws IOException{
         s.close();
     }
+    
+    
+    
 }
     
 

@@ -1,12 +1,25 @@
 package servidor0001.model;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Partida {
     private String id;
-    private String inicio;
-    private List<Participante> participantes;
-    private double tempoDeCorrida;
-    private Participante voltaMaisRapida;
+    private Date tempoTotal;
+    private ArrayList<Participante> participantes;
+    private Participante voltaMaisRapida;   
+
+    public Partida() {
+        participantes = new ArrayList<>();
+    }
+    
+    public void addParticipante(Participante p){
+        participantes.add(p);
+    }
+    
+    public void MudaVoltaMaisRapida(Participante p){
+        voltaMaisRapida = p;
+    }
+    
     
 }
