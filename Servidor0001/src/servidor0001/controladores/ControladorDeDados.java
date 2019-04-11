@@ -90,4 +90,20 @@ public class ControladorDeDados {
         }      
         return null; //jogar exceção piloto não existe
     }   
+
+    public ArrayList<Piloto> getPilotos() {
+        return pilotos;
+    }
+
+    public ArrayList<Equipe> getEquipes() {
+        return equipes;
+    }
+
+    public ArrayList<Carro> getCarros() {
+        return carros;
+    }
+    
+    
+    
+    
 }

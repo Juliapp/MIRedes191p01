@@ -7,6 +7,13 @@ public class Piloto {
     private String foto;
     private Equipe equipe;
 
+    public Piloto(String nome, String foto) {
+        this.nome = nome;
+        this.foto = foto;
+    }
+    
+    
+
     public String getNome() {
         return nome;
     }
