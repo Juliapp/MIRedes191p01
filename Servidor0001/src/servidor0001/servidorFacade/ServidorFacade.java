@@ -25,8 +25,8 @@ public class ServidorFacade {
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
     
     public void cadastrarEquipe(String nome){
-        Equipe nova = new Equipe(nome);
-        Dados.addEquipe(nova);
+        
+        Dados.addEquipe(new Equipe(nome));
     }    
     
     public Equipe getEquipe(String nome){

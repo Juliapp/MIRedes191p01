@@ -63,11 +63,12 @@ public class ControladorDeDados {
         if(!hasEquipe(e.getNome())) { 
             equipes.add(e); 
         }
+
+                
     }
     
-    public boolean hasEquipe(String nome) {
-        return equipes.contains(nome);
-
+    public boolean hasEquipe(String nome) {       
+        return getEquipe(nome) != null ? true : false;
     }
     
     public Iterator<Equipe> itEquipe(){
@@ -84,7 +85,7 @@ public class ControladorDeDados {
     }
     
     public boolean deleteEquipe(String nome){
-        return equipes.remove(nome);
+       return equipes.remove(nome);
     }
     
     public ArrayList<Equipe> getEquipes() {
