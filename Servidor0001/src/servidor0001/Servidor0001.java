@@ -7,11 +7,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import servidor0001.servidorFacade.ServidorFacade;
 
 public class Servidor0001 {
     private ServerSocket serverSocket;
-
+    //private ServidorFacade f;
+        
+    
     public static void main(String[] args){
+        
+        ServidorFacade f = new ServidorFacade();
+        System.out.println("Cadastrando");
+        String equipe = "RedBull";
+        f.cadastrarEquipe(equipe);
+        System.out.println(f.deleteEquipe(equipe));
+        
+        
+        
+        /*
         
         try {
             
@@ -29,6 +42,9 @@ public class Servidor0001 {
         } catch (IOException ex) {
             Logger.getLogger(Servidor0001.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        */
         
     }
     

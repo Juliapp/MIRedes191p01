@@ -6,15 +6,15 @@ import java.util.Date;
 public class Partida {
     private String id;
     private Date tempoTotal;
-    private ArrayList<Participante> participantes;
+    private ArrayList<Participante> participantesDaCorrida;
     private Participante voltaMaisRapida;   
 
     public Partida() {
-        participantes = new ArrayList<>();
+        participantesDaCorrida = new ArrayList<>();
     }
     
     public void addParticipante(Participante p){
-        participantes.add(p);
+        participantesDaCorrida.add(p);
     }
     
     public void MudaVoltaMaisRapida(Participante p){

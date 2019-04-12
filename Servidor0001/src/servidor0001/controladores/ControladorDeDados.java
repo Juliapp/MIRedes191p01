@@ -2,25 +2,37 @@ package servidor0001.controladores;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import servidor0001.execoes.PilotoNaoExisteException;
 import servidor0001.model.Carro;
 import servidor0001.model.Equipe;
+import servidor0001.model.Participante;
 import servidor0001.model.Piloto;
 
 public class ControladorDeDados {
     private ArrayList<Piloto> pilotos;
     private ArrayList<Equipe> equipes;
     private ArrayList<Carro> carros;
+    private ArrayList<Participante> participantes;
     //hash map de partidas
+
+    public ControladorDeDados() {
+        pilotos = new ArrayList<>();
+        equipes = new ArrayList<>();
+        carros  = new ArrayList<>();    
+        participantes = new ArrayList<>();
+    }
     
     
-    public void addPiloto(Piloto p){
+    
+    public void addPiloto(Piloto p) throws PilotoNaoExisteException{
         if(!hasPiloto(p.getNome())) { 
             pilotos.add(p); 
         }
     }
     
-    public boolean hasPiloto(String nome){
+    public boolean hasPiloto(String nome) throws PilotoNaoExisteException {
         return pilotos.contains(nome); //Exceção não contem piloto
+        
     }
     
     public Iterator<Piloto> itPiloto(){
@@ -36,6 +48,13 @@ public class ControladorDeDados {
         return null; //jogar exceção piloto não existe
     }
     
+    public boolean deletePiloto(String nome){
+        return pilotos.remove(nome);
+    }
+    
+    public ArrayList<Piloto> getPilotos() {
+        return pilotos;
+    }
     
     
     
@@ -46,8 +65,9 @@ public class ControladorDeDados {
         }
     }
     
-    public boolean hasEquipe(String nome){
-        return equipes.contains(nome); //Exceção não contem piloto
+    public boolean hasEquipe(String nome) {
+        return equipes.contains(nome);
+
     }
     
     public Iterator<Equipe> itEquipe(){
@@ -63,8 +83,13 @@ public class ControladorDeDados {
         return null; //jogar exceção piloto não existe
     }
     
+    public boolean deleteEquipe(String nome){
+        return equipes.remove(nome);
+    }
     
-    
+    public ArrayList<Equipe> getEquipes() {
+        return equipes;
+    }
     
     
     
@@ -90,18 +115,16 @@ public class ControladorDeDados {
         }      
         return null; //jogar exceção piloto não existe
     }   
-
-    public ArrayList<Piloto> getPilotos() {
-        return pilotos;
+    
+    public boolean deleteCarro(double tag){
+        return carros.remove(tag);
     }
-
-    public ArrayList<Equipe> getEquipes() {
-        return equipes;
-    }
+    
 
     public ArrayList<Carro> getCarros() {
         return carros;
     }
+    
     
     
     
