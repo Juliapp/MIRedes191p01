@@ -1,57 +1,92 @@
 package client0001;
 
+import br.uefs.ecomp.internetdosbrinquedos.util.Console;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import cliente1.controllers.ControladorCorrida;
+import cliente1.controllers.ControladorDeDados;
+import cliente1.controllers.ControladorFactory;
+import cliente1.model.Carro;
+import cliente1.model.Piloto;
+import java.util.Iterator;
 
 public class Client0001 {
 
-    public static void main(String[] args) {
-        try {
-            
-            //cria conexão entre o cliente e o servidor
-            Socket socket = new Socket("localhost", 12345);
-            
-            //criação dos streams de entrada e de saída
-            
-            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-            
-            
-        String msg = "hello";
-        output.writeUTF(msg);
+    public static void main(String[] args) throws IOException {
+        ControladorCorrida cc = new ControladorCorrida();
+        ControladorDeDados cdd = new ControladorDeDados();
+        ControladorFactory ccf = new ControladorFactory() {
+        };
 
-        msg = input.readUTF();
-        System.out.println("Resposta: " + msg);
+        int opc;
 
-        //>>>>>>> Método pra usar depois do writeUTF
-        output.flush();
-        // Ele força a ler qualquer mensagem por completo            
+        System.out.println("Menu Internet dos Brinquedos");
+
+        System.out.println("1- Realizar Cadastro de Carros\n"
+                + "2- Realizar Cadastro de Participantes"
+                + "3- Iniciar Partida");
+        opc = Console.readInt();
+
+        if (opc == 1) {
+            System.out.println("Infome a tag do carro(ID)!");
+            String tag = Console.readString();
+
+            System.out.println("Informe a cor do carro!");
+            String cor = Console.readString();
+
+            System.out.println("Informe a equipe pertencente!");
+            String equipe = Console.readString();
+
+            ccf.factoryC(tag, cor, ccf.factoryE(equipe));
+
+        } else if (opc == 2) {
+            System.out.println("Informe o seu nome:");
+            String nome = Console.readString(); 
             
-            input.close();
-            output.close();
-            socket.close();
+            Piloto p = ccf.factoryP(nome, null);
             
-        } catch (IOException ex) {
-            Logger.getLogger(Client0001.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Escolha o seu carro!");
+            Iterator iter_Cars = cdd.itCarro();
+            int count = 0;
+            while(iter_Cars.hasNext()){
+                Carro c = (Carro)iter_Cars.next();
+                System.out.println(count+1 + " - "+ c.getCor());
+                count++;
+            }
+            String cor = Console.readString();
+            
+            if(cdd.getCarroPorCor(cor) != null){
+                System.out.println("Funfou!!!");
+            }
+            
+            cc.adicionaParticipantes(p, cdd.getCarroPorCor(cor));
+            
         }
-        
+
     }
-    /*
-    Ex: 
-    String msg = 'hello'
-    output.writeUTF(msg);
-    
-    msg = input.readUTF();
-    System.out.println("Resposta: " + msg);
-    
-    //>>>>>>> Método pra usar depois do writeUTF
-    output.flush();
-    // Ele força a ler qualquer mensagem por completo
-    
-    
-    */
+
+    /*System.out.println("Realizar novo cadastro?\n" + "S/N");
+            opcao = Console.readString();
+            
+            //} while (opcao.equals('S'));
+     */
+ /*
+        System.out.println("Bem vindo cliente");
+        Socket socket = new Socket("localhost", 5555);
+        System.out.println("Cliente conectado");
+        ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+        System.out.println("Ok");
+        Object obj = (Object) controll.cadastrarUsuario("Mateus", null);
+        os.writeObject(obj);
+        System.out.println("Enviando Informações");
+
+        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+        Participante returnMessage = (Participante) is.readObject();
+        System.out.println("return Message is=" + returnMessage.getNome());
+        socket.close();
+     */
 }
