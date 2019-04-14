@@ -46,14 +46,10 @@ public class Piloto {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        if (Objects.equals(this.nome, obj)) {
+            return true;
         }
-        final Piloto other = (Piloto) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        return true;
+        return false;
     }
     
     

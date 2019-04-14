@@ -8,6 +8,7 @@ import servidor0001.model.Equipe;
 import servidor0001.model.Participante;
 import servidor0001.model.Piloto;
 
+
 public class ControladorDeDados {
     private ArrayList<Piloto> pilotos;
     private ArrayList<Equipe> equipes;
@@ -24,10 +25,11 @@ public class ControladorDeDados {
     
     
     
-    public void addPiloto(Piloto p) throws PilotoNaoExisteException{
+    public boolean addPiloto(Piloto p) throws PilotoNaoExisteException{
         if(!hasPiloto(p.getNome())) { 
-            pilotos.add(p); 
+            return pilotos.add(p); 
         }
+        return false;
     }
     
     public boolean hasPiloto(String nome) throws PilotoNaoExisteException {
@@ -59,16 +61,20 @@ public class ControladorDeDados {
     
     
     
-    public void addEquipe(Equipe e){
+    public boolean addEquipe(Equipe e){
         if(!hasEquipe(e.getNome())) { 
-            equipes.add(e); 
+            return equipes.add(e); 
         }
-
-                
+        return false;
     }
     
-    public boolean hasEquipe(String nome) {       
-        return getEquipe(nome) != null ? true : false;
+    public boolean hasEquipe(String nome) { 
+        while(itEquipe().hasNext()){
+            Equipe e = itEquipe().next();
+            System.out.println(e.getNome());
+        }
+        
+        return equipes.contains(nome);
     }
     
     public Iterator<Equipe> itEquipe(){
@@ -94,13 +100,14 @@ public class ControladorDeDados {
     
     
     
-    public void addCarros(Carro c){
+    public boolean addCarros(Carro c){
         if(!hasCarro(c.getTag())) { 
-            carros.add(c); 
+            return carros.add(c); 
         }
+        return false;
     }
     
-    public boolean hasCarro(double tag){
+    public boolean hasCarro(String tag){
         return pilotos.contains(tag); //Exceção não contem piloto
     }
     
@@ -108,7 +115,7 @@ public class ControladorDeDados {
         return carros.iterator();
     }
     
-    public Carro getCarro(double tag){
+    public Carro getCarro(String tag){
         Carro c;
         while(itCarro().hasNext()){
             c = itCarro().next();
@@ -117,7 +124,7 @@ public class ControladorDeDados {
         return null; //jogar exceção piloto não existe
     }   
     
-    public boolean deleteCarro(double tag){
+    public boolean deleteCarro(String tag){
         return carros.remove(tag);
     }
     

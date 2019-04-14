@@ -18,12 +18,15 @@ public class Servidor0001 {
         
         ServidorFacade f = new ServidorFacade();
         System.out.println("Cadastrando");
-        String equipe = "RedBull";
-        f.cadastrarEquipe(equipe);
-        System.out.println(f.deleteEquipe(equipe));
-        
-        
-        
+        String equipe1 = "RedBull";
+        String equipe2 = "Tesla";
+        String equipe3 = "Monster";
+        String equipe4 = "Mustang";
+        System.out.println(f.cadastrarEquipe(equipe1));
+        System.out.println(f.cadastrarEquipe(equipe1));
+        System.out.println(f.cadastrarEquipe(equipe2));        
+        System.out.println(f.cadastrarEquipe(equipe3));        
+        System.out.println(f.cadastrarEquipe(equipe4));        
         /*
         
         try {

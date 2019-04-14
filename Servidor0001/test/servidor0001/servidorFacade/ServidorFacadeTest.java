@@ -94,9 +94,9 @@ public class ServidorFacadeTest {
     @Test
     public void testCadastrarCarro() {
         System.out.println("cadastrarCarro");
-        double tag = 0.0;
+        String tag = "";
         String cor = "";
-        Equipe e = null;
+        String e = null;
         ServidorFacade instance = new ServidorFacade();
         instance.cadastrarCarro(tag, cor, e);
         // TODO review the generated test code and remove the default call to fail.
@@ -109,7 +109,7 @@ public class ServidorFacadeTest {
     @Test
     public void testGetCarro() {
         System.out.println("getCarro");
-        double tag = 0.0;
+        String tag = "";
         ServidorFacade instance = new ServidorFacade();
         Carro expResult = null;
         Carro result = instance.getCarro(tag);
@@ -124,7 +124,7 @@ public class ServidorFacadeTest {
     @Test
     public void testDeleteCarro() {
         System.out.println("deleteCarro");
-        double tag = 0.0;
+        String tag = "";
         ServidorFacade instance = new ServidorFacade();
         boolean expResult = false;
         boolean result = instance.deleteCarro(tag);

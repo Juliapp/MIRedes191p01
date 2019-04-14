@@ -24,9 +24,8 @@ public class ServidorFacade {
     
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
     
-    public void cadastrarEquipe(String nome){
-        
-        Dados.addEquipe(new Equipe(nome));
+    public boolean cadastrarEquipe(String nome){
+        return Dados.addEquipe(new Equipe(nome));
     }    
     
     public Equipe getEquipe(String nome){
@@ -38,25 +37,25 @@ public class ServidorFacade {
     }    
     
     
-    public void cadastrarCarro(double tag, String cor, String equipe){
+    public boolean cadastrarCarro(String tag, String cor, String equipe){
         Equipe e = getEquipe(equipe);
         Carro c = cf.factoryC(tag, cor, e);
-        Dados.addCarros(c);
         e.addCarro(c);
+        return Dados.addCarros(c);
     }
     
-    public Carro getCarro(double tag){
+    public Carro getCarro(String tag){
         return Dados.getCarro(tag);
     }
     
-    public boolean deleteCarro(double tag){
+    public boolean deleteCarro(String tag){
         return Dados.deleteCarro(tag);
     }        
     
     
      
-    public void cadastrarPilogo(String nome, String foto) throws PilotoNaoExisteException{
-        Dados.addPiloto(cf.factoryP(nome, foto));
+    public boolean cadastrarPilogo(String nome, String foto) throws PilotoNaoExisteException{
+        return Dados.addPiloto(cf.factoryP(nome, foto));
     }    
     
     public Equipe getPiloto(String nome){

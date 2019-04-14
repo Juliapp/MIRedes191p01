@@ -1,21 +1,23 @@
 package servidor0001.model;
 
+import java.util.Objects;
+
 public class Carro {
-    private double tag;
+    private String tag;
     private String cor;
     private Equipe equipe; 
 
-    public Carro(double id, String cor, Equipe equipe) {
-        this.tag = id;
+    public Carro(String tag, String cor, Equipe equipe) {
+        this.tag = tag;
         this.cor = cor;
         this.equipe = equipe;
     }
 
-    public double getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(double tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
@@ -37,12 +39,6 @@ public class Carro {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -50,15 +46,13 @@ public class Carro {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        if (Objects.equals(this.tag, tag)) {
+            return true;
         }
-        final Carro other = (Carro) obj;
-        if (Double.doubleToLongBits(this.tag) != Double.doubleToLongBits(other.tag)) {
-            return false;
-        }
-        return true;
+        return false;
     }
+
+
 
 
     

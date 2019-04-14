@@ -8,7 +8,7 @@ import servidor0001.model.Piloto;
 
 public abstract class ControladorFactory {
 
-    public Carro factoryC(double tag, String cor, Equipe e){
+    public Carro factoryC(String tag, String cor, Equipe e){
         return new Carro(tag, cor, e);
     }    
     
