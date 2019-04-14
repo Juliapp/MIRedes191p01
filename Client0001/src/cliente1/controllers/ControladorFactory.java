@@ -6,7 +6,7 @@ import cliente1.model.Equipe;
 import cliente1.model.Participante;
 import cliente1.model.Piloto;
 
-public abstract class ControladorFactory {
+public class ControladorFactory {
 
     public Carro factoryC(String tag, String cor, Equipe e){
         return new Carro(tag, cor, e);

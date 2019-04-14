@@ -12,61 +12,97 @@ import cliente1.controllers.ControladorDeDados;
 import cliente1.controllers.ControladorFactory;
 import cliente1.model.Carro;
 import cliente1.model.Piloto;
+import cliente1.model.Equipe;
 import java.util.Iterator;
 
 public class Client0001 {
 
+    String opc = "N";
+
+    private int voltarMenu(String opc) {
+        this.opc = opc;
+        if (opc.equals('S')) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    public String getOpc() {
+        return opc;
+    }
+    
+    
+
     public static void main(String[] args) throws IOException {
+        Client0001 client = new Client0001();
         ControladorCorrida cc = new ControladorCorrida();
         ControladorDeDados cdd = new ControladorDeDados();
         ControladorFactory ccf = new ControladorFactory() {
         };
 
         int opc;
+        String op;
+        do {
 
-        System.out.println("Menu Internet dos Brinquedos");
+            System.out.println("Menu Internet dos Brinquedos");
+            System.out.println("1- Realizar Cadastro de Carros\n"
+                    + "2- Realizar Cadastro de Participantes"
+                    + "3- Iniciar Partida");
+            opc = Console.readInt();
 
-        System.out.println("1- Realizar Cadastro de Carros\n"
-                + "2- Realizar Cadastro de Participantes"
-                + "3- Iniciar Partida");
-        opc = Console.readInt();
+            switch (opc) {
 
-        if (opc == 1) {
-            System.out.println("Infome a tag do carro(ID)!");
-            String tag = Console.readString();
+                case 1:
+                    do {
+                        System.out.println("Infome a tag do carro(ID)!");
+                        String tag = Console.readString();
 
-            System.out.println("Informe a cor do carro!");
-            String cor = Console.readString();
+                        System.out.println("Informe a cor do carro!");
+                        String cor = Console.readString();
 
-            System.out.println("Informe a equipe pertencente!");
-            String equipe = Console.readString();
+                        System.out.println("Informe a equipe pertencente!");
+                        String equipe = Console.readString();
+                        
+                        Equipe e = cdd.addEquipe(equipe);
 
-            ccf.factoryC(tag, cor, ccf.factoryE(equipe));
+                        Carro c = cdd.addCarros(tag, cor, e);
+                        
+                        System.out.println("Deseja cadastrar novamente? S/N");
+                       op = Console.readString();
+                       client.voltarMenu(op);
 
-        } else if (opc == 2) {
-            System.out.println("Informe o seu nome:");
-            String nome = Console.readString(); 
-            
-            Piloto p = ccf.factoryP(nome, null);
-            
-            System.out.println("Escolha o seu carro!");
-            Iterator iter_Cars = cdd.itCarro();
-            int count = 0;
-            while(iter_Cars.hasNext()){
-                Carro c = (Carro)iter_Cars.next();
-                System.out.println(count+1 + " - "+ c.getCor());
-                count++;
+                    } while (client.getOpc().equals(op));
+                    break;
+                case 2:
+                    do {
+                        System.out.println("Informe o seu nome:");
+                        String nome = Console.readString();
+
+                        Piloto p = cdd.addPiloto(nome,null);
+                        System.out.println("Escolha o seu carro!");
+                        Iterator iter_Cars = cdd.itCarro();
+                        int count = 0;
+                        while (iter_Cars.hasNext()) {
+                            Carro c = (Carro) iter_Cars.next();
+                            System.out.println(count + 1 + " - " + c.getCor());
+                            count++;
+                        }
+                        String corCarro = Console.readString();
+
+                        if (cdd.getCarroPorCor(corCarro) != null) {
+                            System.out.println("Funfou!!!");
+                        }
+
+                        cc.adicionaParticipantes(p, cdd.getCarroPorCor(corCarro));
+                        System.out.println("Deseja cadastrar novamente? S/N");
+                        op = Console.readString();
+                        break;
+                    } while (client.voltarMenu(op) == 1);
+
             }
-            String cor = Console.readString();
-            
-            if(cdd.getCarroPorCor(cor) != null){
-                System.out.println("Funfou!!!");
-            }
-            
-            cc.adicionaParticipantes(p, cdd.getCarroPorCor(cor));
-            
-        }
 
+        } while (client.getOpc().equals("N"));
     }
 
     /*System.out.println("Realizar novo cadastro?\n" + "S/N");
