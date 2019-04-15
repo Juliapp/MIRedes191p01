@@ -33,11 +33,7 @@ public class Equipe {
         carros.add(c);
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
-    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -47,7 +43,7 @@ public class Equipe {
         if (obj == null) {
             return false;
         }
-        if (Objects.equals(this.nome, obj)) {
+        if (this.nome.equals(obj)) {
             return true;
         }
         return false;

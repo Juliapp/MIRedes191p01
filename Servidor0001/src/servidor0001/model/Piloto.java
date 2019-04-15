@@ -46,7 +46,7 @@ public class Piloto {
         if (obj == null) {
             return false;
         }
-        if (Objects.equals(this.nome, obj)) {
+        if (this.nome.equals(obj)) {
             return true;
         }
         return false;

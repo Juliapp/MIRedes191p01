@@ -46,7 +46,7 @@ public class Carro {
         if (obj == null) {
             return false;
         }
-        if (Objects.equals(this.tag, tag)) {
+        if (this.tag.equals(obj)) {
             return true;
         }
         return false;

@@ -28,7 +28,7 @@ public class ControladorDeDados {
         if (this.pilotos.isEmpty()) {
             this.pilotos.add(p);
             return true;
-        } else if (!hasPiloto(p)) {
+        } else if (!hasPiloto(p.getNome())) {
             pilotos.add(p);
             return true;
         } else {
@@ -36,7 +36,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasPiloto(Piloto p) {
+    public boolean hasPiloto(Object p) {
         return pilotos.contains(p); //Exceção não contem piloto
     }
 
@@ -74,7 +74,7 @@ public class ControladorDeDados {
         if (this.equipes.isEmpty()) {
             this.equipes.add(e);
             return true;
-        } else if (!hasEquipe(e)) {
+        } else if (!hasEquipe(e.getNome())) {
             equipes.add(e);
             return true;
         } else {
@@ -82,7 +82,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasEquipe(Equipe e) {
+    public boolean hasEquipe(Object e) {
         return equipes.contains(e); //Exceção não contem piloto
     }
 
@@ -121,7 +121,7 @@ public class ControladorDeDados {
         if (this.carros.isEmpty()) {
             this.carros.add(c);
             return true;
-        } else if (!hasCarro(c)) {
+        } else if (!hasCarro(c.getTag())) {
             carros.add(c);
             return true;
         } else {
@@ -129,7 +129,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasCarro(Carro c) {
+    public boolean hasCarro(Object c) {
         //Exceção não contem piloto
         return this.carros.contains(c);
 
@@ -229,16 +229,6 @@ public class ControladorDeDados {
     public ArrayList<Carro> getCarros() {
         return carros;
     }
-
-
-
-
-    
-    
-    
-
-
-
 
 
 }
