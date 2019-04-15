@@ -40,15 +40,17 @@ public class Piloto {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+        
+        if(obj instanceof String){
+           String aux  = (String) obj;
+           return this.nome.equals(aux);  
         }
-        if (obj == null) {
-            return false;
+ 
+        if(obj instanceof Piloto){
+           Piloto aux  = (Piloto) obj;
+            return this.nome.equals(aux.getNome());  
         }
-        if (this.nome.equals(obj)) {
-            return true;
-        }
+        
         return false;
     }
     

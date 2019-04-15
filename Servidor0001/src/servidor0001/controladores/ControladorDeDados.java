@@ -36,7 +36,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasPiloto(Object p) {
+    public boolean hasPiloto(String p) {
         return pilotos.contains(p); //Exceção não contem piloto
     }
 
@@ -82,7 +82,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasEquipe(Object e) {
+    public boolean hasEquipe(String e) {
         return equipes.contains(e); //Exceção não contem piloto
     }
 
@@ -129,7 +129,7 @@ public class ControladorDeDados {
         }
     }
 
-    public boolean hasCarro(Object c) {
+    public boolean hasCarro(String c) {
         //Exceção não contem piloto
         return this.carros.contains(c);
 

@@ -1,5 +1,9 @@
 package servidor0001.model;
 
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
+import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import java.util.Objects;
 
 public class Carro {
@@ -40,23 +44,18 @@ public class Carro {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+        
+        if(obj instanceof String){
+           String aux  = (String) obj;
+            return this.tag.equals(aux);  
         }
-        if (obj == null) {
-            return false;
+ 
+        if(obj instanceof Carro){
+           Carro aux  = (Carro) obj;
+           return this.tag.equals(aux.getTag());  
         }
-        if (this.tag.equals(obj)) {
-            return true;
-        }
+        
         return false;
     }
 
-
-
-
-    
-    
-    
-    
 }
