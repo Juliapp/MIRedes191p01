@@ -27,13 +27,12 @@ public class ControladorDeDados {
     public boolean addPiloto(Piloto p) {
         if (this.pilotos.isEmpty()) {
             this.pilotos.add(p);
-            return true;
         } else if (!hasPiloto(p.getNome())) {
             pilotos.add(p);
-            return true;
         } else {
             return false;
-        }
+        }      
+        return true;
     }
 
     public boolean hasPiloto(String p) {
@@ -46,11 +45,10 @@ public class ControladorDeDados {
 
     public Piloto getPiloto(String n) {
         Piloto p;
-        while (itPiloto().hasNext()) {
-            p = itPiloto().next();
-            if (p.equals(n)) {
-                return p;
-            }
+        Iterator<Piloto> it = itPiloto();
+        while (it.hasNext()) {
+            p = it.next();
+            if(p.equals(n)){ return p; }
         }
         return null; //jogar exceção piloto não existe
     }
@@ -73,13 +71,12 @@ public class ControladorDeDados {
     public boolean addEquipe(Equipe e) {
         if (this.equipes.isEmpty()) {
             this.equipes.add(e);
-            return true;
         } else if (!hasEquipe(e.getNome())) {
             equipes.add(e);
-            return true;
         } else {
             return false;
         }
+        return true;
     }
 
     public boolean hasEquipe(String e) {
@@ -92,12 +89,11 @@ public class ControladorDeDados {
 
     public Equipe getEquipe(String n) {
         Equipe e;
-        while (itEquipe().hasNext()) {
-            e = itEquipe().next();
-            if (e.equals(n)) {
-                return e;
-            }
-        }
+        Iterator<Equipe> it = itEquipe();
+        while (it.hasNext()) {
+            e = it.next();
+            if (e.equals(n)) { return e; }
+        }   
         return null; //jogar exceção piloto não existe
     }
     
@@ -120,13 +116,12 @@ public class ControladorDeDados {
     public boolean addCarro(Carro c) {
         if (this.carros.isEmpty()) {
             this.carros.add(c);
-            return true;
         } else if (!hasCarro(c.getTag())) {
             carros.add(c);
-            return true;
         } else {
             return false;
         }
+        return true;
     }
 
     public boolean hasCarro(String c) {
@@ -141,11 +136,10 @@ public class ControladorDeDados {
 
     public Carro getCarro(String tag) {
         Carro c;
-        while (itCarro().hasNext()) {
-            c = (Carro) itCarro().next();
-            if (c.getTag().equals(tag)) {
-                return c;
-            }
+        Iterator<Carro> it = itCarro();
+        while (it.hasNext()) {
+            c = it.next();
+            if(c.equals(tag)) { return c; }
         }
         return null; //jogar exceção piloto não existe
     }
