@@ -16,7 +16,7 @@ public class ServidorFacade {
 
     public ServidorFacade() {
         Dados = new ControladorDeDados();
-    
+        cf = new ControladorFactory();
     }
     
     
@@ -25,7 +25,7 @@ public class ServidorFacade {
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
     
     public boolean cadastrarEquipe(String nome){
-        return Dados.addEquipe(new Equipe(nome));
+        return Dados.addEquipe(cf.factoryE(nome));
     }    
     
     public Equipe getEquipe(String nome){
@@ -36,12 +36,18 @@ public class ServidorFacade {
         return Dados.deleteEquipe(nome);
     }    
     
+    public void listarEquipes() {
+        Dados.listarEquipes();
+    }
+    
+    
+    
     
     public boolean cadastrarCarro(String tag, String cor, String equipe){
         Equipe e = getEquipe(equipe);
         Carro c = cf.factoryC(tag, cor, e);
         e.addCarro(c);
-        return Dados.addCarros(c);
+        return Dados.addCarro(c);
     }
     
     public Carro getCarro(String tag){
@@ -52,6 +58,9 @@ public class ServidorFacade {
         return Dados.deleteCarro(tag);
     }        
     
+    public void listarCarros() {
+        Dados.listarCarros();
+    }    
     
      
     public boolean cadastrarPilogo(String nome, String foto) throws PilotoNaoExisteException{
@@ -64,7 +73,11 @@ public class ServidorFacade {
     
     public boolean deletePiloto(String nome){
         return Dados.deletePiloto(nome);
-    }        
+    }     
+    
+    public void listarPilotos() {
+        Dados.listarPilotos();
+    }    
     
     ////Pegando as listas
     
@@ -85,6 +98,8 @@ public class ServidorFacade {
     //Segunda parte do Facade dedicado ao recebimento de dados do sensor
     
     //Terceira parte do Facade dedicado a partida
+
+
     
     
     

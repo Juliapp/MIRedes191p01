@@ -21,120 +21,225 @@ public class ControladorDeDados {
         equipes = new ArrayList<>();
         carros  = new ArrayList<>();    
         participantes = new ArrayList<>();
-    }
+    }    
     
-    
-    
-    public boolean addPiloto(Piloto p) throws PilotoNaoExisteException{
-        if(!hasPiloto(p.getNome())) { 
-            return pilotos.add(p); 
+
+    public boolean addPiloto(Piloto p) {
+        if (this.pilotos.isEmpty()) {
+            this.pilotos.add(p);
+            return true;
+        } else if (!hasPiloto(p)) {
+            pilotos.add(p);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
-    
-    public boolean hasPiloto(String nome) throws PilotoNaoExisteException {
-        return pilotos.contains(nome); //Exceção não contem piloto
-        
+
+    public boolean hasPiloto(Piloto p) {
+        return pilotos.contains(p); //Exceção não contem piloto
     }
-    
-    public Iterator<Piloto> itPiloto(){
+
+    public Iterator<Piloto> itPiloto() {
         return pilotos.iterator();
     }
-    
-    public Piloto getPiloto(String n){
+
+    public Piloto getPiloto(String n) {
         Piloto p;
-        while(itPiloto().hasNext()){
+        while (itPiloto().hasNext()) {
             p = itPiloto().next();
-            if(p.equals(n)) { return p; }
-        }      
+            if (p.equals(n)) {
+                return p;
+            }
+        }
         return null; //jogar exceção piloto não existe
     }
     
-    public boolean deletePiloto(String nome){
+    public boolean deletePiloto(String nome) {
         return pilotos.remove(nome);
+    }
+    
+    public void listarPilotos() {
+        Piloto p;
+        Iterator<Piloto> it = itPiloto();
+        while (it.hasNext()) {
+            p = it.next();
+            System.out.println(p.getNome());
+        }
+    }
+    
+
+    
+    public boolean addEquipe(Equipe e) {
+        if (this.equipes.isEmpty()) {
+            this.equipes.add(e);
+            return true;
+        } else if (!hasEquipe(e)) {
+            equipes.add(e);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasEquipe(Equipe e) {
+        return equipes.contains(e); //Exceção não contem piloto
+    }
+
+    public Iterator<Equipe> itEquipe() {
+        return equipes.iterator();
+    }
+
+    public Equipe getEquipe(String n) {
+        Equipe e;
+        while (itEquipe().hasNext()) {
+            e = itEquipe().next();
+            if (e.equals(n)) {
+                return e;
+            }
+        }
+        return null; //jogar exceção piloto não existe
+    }
+    
+    public void listarEquipes() {
+        Equipe e;
+        Iterator<Equipe> it = itEquipe();
+        while (it.hasNext()) {
+            e = it.next();
+            System.out.println(e.getNome());
+        }        
+    }
+    
+    public boolean deleteEquipe(String nome) {
+        return equipes.remove(nome);
+    }
+    
+    
+    
+
+    public boolean addCarro(Carro c) {
+        if (this.carros.isEmpty()) {
+            this.carros.add(c);
+            return true;
+        } else if (!hasCarro(c)) {
+            carros.add(c);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasCarro(Carro c) {
+        //Exceção não contem piloto
+        return this.carros.contains(c);
+
+    }
+
+    public Iterator<Carro> itCarro() {
+        return carros.iterator();
+    }
+
+    public Carro getCarro(String tag) {
+        Carro c;
+        while (itCarro().hasNext()) {
+            c = (Carro) itCarro().next();
+            if (c.getTag().equals(tag)) {
+                return c;
+            }
+        }
+        return null; //jogar exceção piloto não existe
+    }
+
+    public Carro getCarroPorCor(String cor) {
+        Carro c;
+        while (itCarro().hasNext()) {
+            c = (Carro) itCarro().next();
+            if (c.getCor().equals(cor)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    public boolean deleteCarro(String tag) {
+        return carros.remove(tag);
+    }
+    
+    public void listarCarros() {
+        Carro c;
+        Iterator<Carro> it = itCarro();
+        while (it.hasNext()) {
+            c = it.next();
+            System.out.println(c.getTag());
+        }
+    }
+    
+    
+    
+
+    public void addParticipantes(Carro c, Piloto p) {
+        Participante part = new Participante(c, p);
+        if (!hasParticipantes(part)) {
+            this.participantes.add(part);
+        }
+    }
+
+    public boolean hasParticipantes(Participante part) {
+        return this.participantes.contains(part);
+    }
+
+    public Iterator itParticipantes() {
+        return this.participantes.iterator();
+    }
+
+    public Participante getParticipantes(String nome) {
+        while (itPiloto().hasNext()) {
+            Piloto p = (Piloto) itPiloto().next();
+            if (p.getNome().equals(nome)) {
+                while (itParticipantes().hasNext()) {
+                    Participante part = (Participante) itParticipantes().next();
+                    if (part.getPiloto().equals(p)) {
+                        return part;
+                    }
+
+                }
+                return null;
+            }
+
+        }
+        return null;
+    }
+    
+    
+    
+    
+
+    public ArrayList<Participante> getParticipantes() {
+        return participantes;
     }
     
     public ArrayList<Piloto> getPilotos() {
         return pilotos;
     }
-    
-    
-    
-    
-    public boolean addEquipe(Equipe e){
-        if(!hasEquipe(e.getNome())) { 
-            return equipes.add(e); 
-        }
-        return false;
-    }
-    
-    public boolean hasEquipe(String nome) { 
-        while(itEquipe().hasNext()){
-            Equipe e = itEquipe().next();
-            System.out.println(e.getNome());
-        }
-        
-        return equipes.contains(nome);
-    }
-    
-    public Iterator<Equipe> itEquipe(){
-        return equipes.iterator();
-    }
-    
-    public Equipe getEquipe(String n){
-        Equipe e;
-        while(itEquipe().hasNext()){
-            e = itEquipe().next();
-            if(e.equals(n)) { return e; }
-        }      
-        return null; //jogar exceção piloto não existe
-    }
-    
-    public boolean deleteEquipe(String nome){
-       return equipes.remove(nome);
-    }
-    
+
     public ArrayList<Equipe> getEquipes() {
         return equipes;
     }
-    
-    
-    
-    public boolean addCarros(Carro c){
-        if(!hasCarro(c.getTag())) { 
-            return carros.add(c); 
-        }
-        return false;
-    }
-    
-    public boolean hasCarro(String tag){
-        return pilotos.contains(tag); //Exceção não contem piloto
-    }
-    
-    public Iterator<Carro> itCarro(){
-        return carros.iterator();
-    }
-    
-    public Carro getCarro(String tag){
-        Carro c;
-        while(itCarro().hasNext()){
-            c = itCarro().next();
-            if(c.equals(tag)) { return c; }
-        }      
-        return null; //jogar exceção piloto não existe
-    }   
-    
-    public boolean deleteCarro(String tag){
-        return carros.remove(tag);
-    }
-    
 
     public ArrayList<Carro> getCarros() {
         return carros;
     }
+
+
+
+
     
     
     
-    
-    
+
+
+
+
+
 }
+    

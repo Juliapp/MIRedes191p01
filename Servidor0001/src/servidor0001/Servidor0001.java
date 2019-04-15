@@ -26,7 +26,13 @@ public class Servidor0001 {
         System.out.println(f.cadastrarEquipe(equipe1));
         System.out.println(f.cadastrarEquipe(equipe2));        
         System.out.println(f.cadastrarEquipe(equipe3));        
-        System.out.println(f.cadastrarEquipe(equipe4));        
+        System.out.println(f.cadastrarEquipe(equipe4));
+        f.listarEquipes();
+        System.out.println("\n\n" + f.deleteEquipe(equipe4));
+        f.listarEquipes();
+        
+        
+        
         /*
         
         try {
