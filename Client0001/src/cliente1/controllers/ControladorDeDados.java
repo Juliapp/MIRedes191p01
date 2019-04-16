@@ -6,20 +6,21 @@ import cliente1.model.Carro;
 import cliente1.model.Equipe;
 import cliente1.model.Participante;
 import cliente1.model.Piloto;
+import java.util.LinkedList;
 
 public class ControladorDeDados {
 
-    private ArrayList<Piloto> pilotos;
-    private ArrayList<Equipe> equipes;
-    private ArrayList<Carro> carros;
-    private ArrayList<Participante> participantes;
+    private LinkedList<Piloto> pilotos;
+    private LinkedList<Equipe> equipes;
+    private LinkedList<Carro> carros;
+    private LinkedList<Participante> participantes;
     //hash map de partidas
 
     public ControladorDeDados() {
-        this.pilotos = new ArrayList<>();
-        this.equipes = new ArrayList<>();
-        this.carros = new ArrayList<>();
-        this.participantes = new ArrayList<>();
+        this.pilotos = new LinkedList<>();
+        this.equipes = new LinkedList<>();
+        this.carros = new LinkedList<>();
+        this.participantes = new LinkedList<>();
     }
 
     public Piloto addPiloto(Piloto p) {
@@ -86,6 +87,7 @@ public class ControladorDeDados {
 
     public Carro addCarros(Carro c) {
         if (this.carros.isEmpty()) {
+            System.out.println("Entrou");
             this.carros.add(c);
             return c;
         } else if (!hasCarro(c)) {
@@ -162,19 +164,19 @@ public class ControladorDeDados {
         return null;
     }
 
-    public ArrayList<Participante> getParticipantes() {
+    public LinkedList<Participante> getParticipantes() {
         return participantes;
     }
 
-    public ArrayList<Piloto> getPilotos() {
+    public LinkedList<Piloto> getPilotos() {
         return pilotos;
     }
 
-    public ArrayList<Equipe> getEquipes() {
+    public LinkedList<Equipe> getEquipes() {
         return equipes;
     }
 
-    public ArrayList<Carro> getCarros() {
+    public LinkedList<Carro> getCarros() {
         return carros;
     }
 

@@ -7,6 +7,7 @@ import cliente1.controllers.ControladorDeDados;
 import cliente1.model.Carro;
 import cliente1.model.Equipe;
 import cliente1.model.Piloto;
+import java.util.LinkedList;
 
 public class ServidorFacade {
 
@@ -54,15 +55,15 @@ public class ServidorFacade {
     }
 
     ////Pegando as listas
-    public ArrayList<Piloto> getPilotos() {
+    public LinkedList<Piloto> getPilotos() {
         return controladorDados.getPilotos();
     }
 
-    public ArrayList<Equipe> getEquipes() {
+    public LinkedList<Equipe> getEquipes() {
         return controladorDados.getEquipes();
     }
 
-    public ArrayList<Carro> getCarros() {
+    public LinkedList<Carro> getCarros() {
         return controladorDados.getCarros();
     }
 

@@ -20,12 +20,11 @@ public class Client0001 {
 
     String opc = "N";
     ControladorCorrida cc;
-    ControladorDeDados cdd;
+
     ServidorFacade sf;
 
     private Client0001() {
         this.cc = new ControladorCorrida();
-        this.cdd = new ControladorDeDados();
         this.sf = new ServidorFacade();
     }
 
@@ -66,8 +65,12 @@ public class Client0001 {
         Equipe e = this.sf.cadastrarEquipe(equipe);
 
         Carro c = this.sf.cadastrarCarro(tag, cor, e);
-        
-        System.out.println(c.getCor()+ c.getTag()+ c.getEquipe().getNome());
+
+        boolean existe = sf.getCarros().contains(c);
+        if (existe == true) {
+            System.out.println("Cadastrado");
+        }
+
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
         if (op.equals("S")) {
@@ -77,14 +80,14 @@ public class Client0001 {
         }
 
     }
-    
-    public void iteraArrayCarros(){
+
+    public void iteraArrayCarros() {
         System.out.println("OTÁRIO");
-        Iterator<Carro> iterCarro = cdd.itCarro();
+        Iterator<Carro> iterCarro = sf.getCarros().iterator();
         boolean valor = iterCarro.hasNext();
-        if(valor == true){
+        if (valor == true) {
             System.out.println("Tem Próximo");
-        }else{
+        } else {
             System.out.println("Vazio");
         }
     }
@@ -97,7 +100,7 @@ public class Client0001 {
         Piloto p = sf.cadastrarPiloto(nome, null);
         System.out.println("Escolha o seu carro!");
          */
-        
+
         iteraArrayCarros();
 
         /* String corCarro = Console.readString();
