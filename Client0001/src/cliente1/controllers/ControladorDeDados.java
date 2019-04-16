@@ -21,11 +21,8 @@ public class ControladorDeDados {
         this.carros = new ArrayList<>();
         this.participantes = new ArrayList<>();
     }
-    
-    
 
-    public Piloto addPiloto(String nome, String foto) {
-        Piloto p = new Piloto(nome, null);
+    public Piloto addPiloto(Piloto p) {
         if (this.pilotos.isEmpty()) {
             this.pilotos.add(p);
             return p;
@@ -48,16 +45,15 @@ public class ControladorDeDados {
     public Piloto getPiloto(String n) {
         Piloto p;
         while (itPiloto().hasNext()) {
-            p = itPiloto().next();
-            if (p.equals(n)) {
+            p =(Piloto) itPiloto().next();
+            if (p.getNome().equals(n)) {
                 return p;
             }
         }
         return null; //jogar exceção piloto não existe
     }
 
-    public Equipe addEquipe(String nome) {
-        Equipe e = new Equipe(nome);
+    public Equipe addEquipe(Equipe e) {
         if (this.equipes.isEmpty()) {
             this.equipes.add(e);
             return e;
@@ -80,16 +76,15 @@ public class ControladorDeDados {
     public Equipe getEquipe(String n) {
         Equipe e;
         while (itEquipe().hasNext()) {
-            e = itEquipe().next();
-            if (e.equals(n)) {
+            e = (Equipe) itEquipe().next();
+            if (e.getNome().equals(n)) {
                 return e;
             }
         }
         return null; //jogar exceção piloto não existe
     }
 
-    public Carro addCarros(String tag, String cor, Equipe e) {
-        Carro c = new Carro(tag, cor, e);
+    public Carro addCarros(Carro c) {
         if (this.carros.isEmpty()) {
             this.carros.add(c);
             return c;

@@ -8,10 +8,12 @@ import cliente1.controllers.ControladorDeDados;
 import cliente1.controllers.ControladorFactory;
 import cliente1.model.Carro;
 import cliente1.model.Equipe;
+import java.util.Iterator;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import servidor0001.servidorFacade.ServidorFacade;
 
 /**
  *
@@ -20,9 +22,12 @@ import static org.junit.Assert.*;
 public class TesteControladorDeDados {
     ControladorDeDados cdd;
     ControladorFactory ccf;
+    ServidorFacade sf;
     public TesteControladorDeDados() {
         
         this.cdd = new ControladorDeDados();
+        this.ccf = new ControladorFactory();
+        this.sf = new ServidorFacade();
     }
     
     @BeforeClass
@@ -34,11 +39,34 @@ public class TesteControladorDeDados {
     }
     
     @Test
-    public void cadastraCarros(){
-       Equipe e = cdd.addEquipe("Velozes");
-       Carro c = cdd.addCarros("AHUSHAUSHUA", "Vermelho", e);
-       
-       assertEquals(c, c);
+    public void testCadastraEquipe(){
+       Equipe e = sf.cadastrarEquipe("Topzera");
+       assertEquals(e, e);
+    }
+    
+    @Test
+    public void testGetNomeEquipe(){
+        Equipe e = sf.cadastrarEquipe("Heaisaisa");
+        Equipe v = sf.getEquipe("Heaisaisa");
+        
+        assertEquals(e, v);
+    }
+    
+    @Test
+    public void testCadastraCarros(){
+      Equipe e = sf.cadastrarEquipe("Velozes");
+      Carro c = sf.cadastrarCarro("HHSUAHSUA", "Vermelho", e);
+  
+      assertEquals(c, c);
         
     }
+    
+    @Test
+    public void testGetCarrosPorCor(){
+        Carro c = cdd.getCarroPorCor("Vermelho");
+        Carro v = cdd.getCarroPorCor("Vermelho");
+        
+        assertEquals(v, c);
+    }
+   
 }
