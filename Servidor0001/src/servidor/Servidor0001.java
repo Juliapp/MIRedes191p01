@@ -1,4 +1,4 @@
-package servidor0001;
+package servidor;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import servidor0001.servidorFacade.ServidorFacade;
+import servidor.servidorFacade.ServidorFacade;
 
 public class Servidor0001 {
     private ServerSocket serverSocket;

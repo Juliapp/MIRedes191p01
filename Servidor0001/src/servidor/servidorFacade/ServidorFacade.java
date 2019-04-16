@@ -1,14 +1,14 @@
-package servidor0001.servidorFacade;
+package servidor.servidorFacade;
 
 import java.util.ArrayList;
-import servidor0001.controladores.ControladorFactory;
-import servidor0001.controladores.ControladorCorrida;
-import servidor0001.controladores.ControladorDeDados;
-import servidor0001.execoes.PilotoNaoExisteException;
-import servidor0001.model.Carro;
-import servidor0001.model.Equipe;
-import servidor0001.model.Participante;
-import servidor0001.model.Piloto;
+import servidor.controladores.ControladorFactory;
+import servidor.controladores.ControladorCorrida;
+import servidor.controladores.ControladorDeDados;
+import servidor.execoes.PilotoNaoExisteException;
+import servidor.model.Carro;
+import servidor.model.Equipe;
+import servidor.model.Participante;
+import servidor.model.Piloto;
 
 public class ServidorFacade {
     ControladorCorrida controladorCorrida;

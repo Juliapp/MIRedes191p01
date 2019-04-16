@@ -1,4 +1,4 @@
-package servidor0001.model;
+package servidor.model;
 
 public class Cronometro {
     

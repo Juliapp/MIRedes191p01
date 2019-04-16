@@ -1,4 +1,4 @@
-package servidor0001.execoes;
+package servidor.execoes;
 
 public class PilotoNaoExisteException extends Exception {
 

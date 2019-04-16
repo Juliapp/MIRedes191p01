@@ -1,12 +1,12 @@
-package servidor0001.controladores;
+package servidor.controladores;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import servidor0001.execoes.PilotoNaoExisteException;
-import servidor0001.model.Carro;
-import servidor0001.model.Equipe;
-import servidor0001.model.Participante;
-import servidor0001.model.Piloto;
+import servidor.execoes.PilotoNaoExisteException;
+import servidor.model.Carro;
+import servidor.model.Equipe;
+import servidor.model.Participante;
+import servidor.model.Piloto;
 
 
 public class ControladorDeDados {

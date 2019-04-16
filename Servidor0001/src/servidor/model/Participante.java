@@ -1,4 +1,4 @@
-package servidor0001.model;
+package servidor.model;
 
 import java.util.Date;
 import java.util.List;

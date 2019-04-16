@@ -1,4 +1,4 @@
-package servidor0001.util;
+package servidor.util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

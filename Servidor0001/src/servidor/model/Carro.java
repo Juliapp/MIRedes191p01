@@ -1,4 +1,4 @@
-package servidor0001.model;
+package servidor.model;
 
 import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import static com.sun.org.apache.bcel.internal.Repository.instanceOf;

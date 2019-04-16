@@ -1,8 +1,8 @@
-package servidor0001.controladores;
+package servidor.controladores;
 
 import java.util.ArrayList;
-import servidor0001.model.Participante;
-import servidor0001.util.ColetorRFID;
+import servidor.model.Participante;
+import servidor.util.ColetorRFID;
 
 public class ControladorCorrida {
     private ArrayList<Participante> participantes;

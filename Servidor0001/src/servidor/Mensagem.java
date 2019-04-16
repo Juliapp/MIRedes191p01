@@ -1,4 +1,4 @@
-package servidor0001;
+package servidor;
 
 public class Mensagem {
     private String operacao;

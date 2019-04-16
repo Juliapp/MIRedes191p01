@@ -5,6 +5,7 @@
  */
 package servidor0001.servidorFacade;
 
+import servidor.servidorFacade.ServidorFacade;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,10 +13,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import servidor0001.execoes.PilotoNaoExisteException;
-import servidor0001.model.Carro;
-import servidor0001.model.Equipe;
-import servidor0001.model.Piloto;
+import servidor.execoes.PilotoNaoExisteException;
+import servidor.model.Carro;
+import servidor.model.Equipe;
+import servidor.model.Piloto;
 
 /**
  *
