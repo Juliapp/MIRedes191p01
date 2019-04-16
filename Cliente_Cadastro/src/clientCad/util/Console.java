@@ -1,4 +1,4 @@
-package br.uefs.ecomp.internetdosbrinquedos.util;
+package clientCad.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

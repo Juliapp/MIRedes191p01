@@ -1,6 +1,6 @@
-package client0001;
+package clientCad;
 
-import br.uefs.ecomp.internetdosbrinquedos.util.Console;
+import clientCad.util.Console;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
