@@ -7,6 +7,7 @@ import servidor0001.controladores.ControladorDeDados;
 import servidor0001.execoes.PilotoNaoExisteException;
 import servidor0001.model.Carro;
 import servidor0001.model.Equipe;
+import servidor0001.model.Participante;
 import servidor0001.model.Piloto;
 
 public class ServidorFacade {
@@ -18,9 +19,6 @@ public class ServidorFacade {
         Dados = new ControladorDeDados();
         cf = new ControladorFactory();
     }
-    
-    
-    
     
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
     
@@ -40,6 +38,9 @@ public class ServidorFacade {
         Dados.listarEquipes();
     }
     
+    public ArrayList<Equipe> getEquipes() {
+        return Dados.getEquipes();
+    }
     
     
     
@@ -60,15 +61,20 @@ public class ServidorFacade {
     
     public void listarCarros() {
         Dados.listarCarros();
-    }    
+    }   
+    
+    public ArrayList<Carro> getCarros() {
+        return Dados.getCarros();
+    }
+    
     
      
     public boolean cadastrarPilogo(String nome, String foto) throws PilotoNaoExisteException{
         return Dados.addPiloto(cf.factoryP(nome, foto));
     }    
     
-    public Equipe getPiloto(String nome){
-        return Dados.getEquipe(nome);
+    public Piloto getPiloto(String nome){
+        return Dados.getPiloto(nome);
     }     
     
     public boolean deletePiloto(String nome){
@@ -78,19 +84,33 @@ public class ServidorFacade {
     public void listarPilotos() {
         Dados.listarPilotos();
     }    
-    
-    ////Pegando as listas
-    
+   
     public ArrayList<Piloto> getPilotos() {
         return Dados.getPilotos();
     }
 
-    public ArrayList<Equipe> getEquipes() {
-        return Dados.getEquipes();
+    
+    
+    
+    
+    public boolean CadastrarParticipante(String tag, String piloto){
+        return Dados.addParticipante(cf.factoryPar(getCarro(tag), getPiloto(piloto)));
     }
 
-    public ArrayList<Carro> getCarros() {
-        return Dados.getCarros();
+    public Participante getParticipante(String tag, String piloto){
+        return Dados.getParticipantes(cf.factoryPar(getCarro(tag), getPiloto(piloto)));
+    }
+    
+    public boolean DeleteParticipante(String tag, String piloto){
+        return Dados.deleteParticipante(cf.factoryPar(getCarro(tag), getPiloto(piloto)));
+    }
+    
+    public ArrayList<Participante> getParticipantes(){
+        return Dados.getParticipantes();
+    }
+    
+    public Participante getPartPorPiloto(String piloto){
+        return Dados.getPartPorPiloto(piloto);
     }
     
     //ainda falta decidir como vai icar as partidas

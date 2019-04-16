@@ -85,6 +85,10 @@ public class ControladorDeDados {
         }
     }
     
+    public ArrayList<Piloto> getPilotos() {
+        return pilotos;
+    }    
+    
 
     
     
@@ -149,6 +153,9 @@ public class ControladorDeDados {
         return false;
     }
     
+    public ArrayList<Equipe> getEquipes() {
+        return equipes;
+    }
     
     
 
@@ -224,61 +231,79 @@ public class ControladorDeDados {
         }
     }
     
+    public ArrayList<Carro> getCarros() {
+        return carros;
+    }
+    
+    
+    
     
     
 
-    public void addParticipantes(Carro c, Piloto p) {
-        Participante part = new Participante(c, p);
-        if (!hasParticipantes(part)) {
-            this.participantes.add(part);
+    public boolean addParticipante(Participante part) {
+        return participantes.add(part);
+    }
+
+    public boolean hasParticipante(Participante part) {
+        Participante p;
+        Iterator<Participante> it = itParticipantes();
+        while(it.hasNext()){
+            p = it.next();
+            if(p.equals(part)){ return true; }
         }
+        return false;
     }
 
-    public boolean hasParticipantes(Participante part) {
-        return this.participantes.contains(part);
-    }
-
-    public Iterator itParticipantes() {
+    public Iterator<Participante> itParticipantes() {
         return this.participantes.iterator();
     }
 
-    public Participante getParticipantes(String nome) {
-        while (itPiloto().hasNext()) {
-            Piloto p = (Piloto) itPiloto().next();
-            if (p.getNome().equals(nome)) {
-                while (itParticipantes().hasNext()) {
-                    Participante part = (Participante) itParticipantes().next();
-                    if (part.getPiloto().equals(p)) {
-                        return part;
-                    }
-
-                }
-                return null;
-            }
-
+    public Participante getParticipantes(Participante part) {
+        if(hasParticipante(part)){
+            return participantes.get(getIndexParticipante(part));
         }
         return null;
     }
     
+    public int getIndexParticipante(Participante part){
+        Participante p;
+        Iterator<Participante> it = itParticipantes();
+        int i = 0;
+        while(it.hasNext()){
+            p = it.next();
+            if(p.equals(part)){ return i; }
+            i++;
+        }
+        return 0;
+    }
     
+    public Participante getPartPorPiloto(String piloto){
+        if(hasPiloto(piloto)){
+            
+          Iterator<Participante> it = itParticipantes();
+          Participante p;
+          
+            while(it.hasNext()){
+                p = it.next();
+                if(p.getPiloto().equals(piloto)){ return p; }
+            }          
+        }
+        return null;
+    }
     
+    public boolean deleteParticipante(Participante part){
+        if(hasParticipante(part)){
+            participantes.remove(getIndexParticipante(part));
+            return true;
+        }
+        return false;
+    }
     
-
     public ArrayList<Participante> getParticipantes() {
         return participantes;
     }
     
-    public ArrayList<Piloto> getPilotos() {
-        return pilotos;
-    }
-
-    public ArrayList<Equipe> getEquipes() {
-        return equipes;
-    }
-
-    public ArrayList<Carro> getCarros() {
-        return carros;
-    }
+    
 
 
 }

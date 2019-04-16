@@ -2,6 +2,7 @@ package servidor0001.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Participante {
     private Carro carro;
@@ -78,6 +79,29 @@ public class Participante {
     public void completouVolta(){
         voltas++;
     }
+
+    public int getVoltas() {
+        return voltas;
+    }
+
+    public void setVoltas(int voltas) {
+        this.voltas = voltas;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(obj instanceof Participante){
+           Participante aux  = (Participante) obj;
+           return this.carro.equals(aux.getCarro()) && this.piloto.equals(aux.getPiloto());  
+        }
+        return false;
+        
+    }
+    
+    
+    
     
     
     

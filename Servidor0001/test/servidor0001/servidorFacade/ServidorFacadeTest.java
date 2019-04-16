@@ -156,7 +156,7 @@ public class ServidorFacadeTest {
         String nome = "";
         ServidorFacade instance = new ServidorFacade();
         Equipe expResult = null;
-        Equipe result = instance.getPiloto(nome);
+        Piloto result = instance.getPiloto(nome);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
