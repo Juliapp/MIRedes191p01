@@ -1,8 +1,8 @@
-package servidor0001.model;
+package cliente1.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class Participante {
     private Carro carro;

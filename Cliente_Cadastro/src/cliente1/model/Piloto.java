@@ -1,5 +1,6 @@
-package servidor0001.model;
+package cliente1.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 public class Piloto {
