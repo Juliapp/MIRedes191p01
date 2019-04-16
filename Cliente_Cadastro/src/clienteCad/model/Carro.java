@@ -1,4 +1,4 @@
-package cliente1.model;
+package clienteCad.model;
 
 import java.io.Serializable;
 

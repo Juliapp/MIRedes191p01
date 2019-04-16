@@ -1,12 +1,12 @@
-package cliente1.controllers;
+package clienteCad.controllers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import cliente1.model.Carro;
-import cliente1.model.Equipe;
-import cliente1.model.Participante;
-import cliente1.model.Piloto;
+import clienteCad.model.Carro;
+import clienteCad.model.Equipe;
+import clienteCad.model.Participante;
+import clienteCad.model.Piloto;
 
 public class ControladorCorrida {
     ControladorDeDados cdd;

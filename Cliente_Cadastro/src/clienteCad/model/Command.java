@@ -1,4 +1,4 @@
-package cliente1.model;
+package clienteCad.model;
 
 public enum Command {
     CadPiloto, CadCarro, CadParticipante, CadEquipe, 

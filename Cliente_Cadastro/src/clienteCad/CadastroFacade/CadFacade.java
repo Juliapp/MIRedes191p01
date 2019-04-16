@@ -1,21 +1,23 @@
-package servidor0001.servidorFacade;
+package clienteCad.CadastroFacade;
 
 import java.util.ArrayList;
-import cliente1.controllers.ControladorFactory;
-import cliente1.controllers.ControladorCorrida;
-import cliente1.controllers.ControladorDeDados;
-import cliente1.model.Carro;
-import cliente1.model.Equipe;
-import cliente1.model.Piloto;
+import clienteCad.controllers.ControladorFactory;
+import clienteCad.controllers.ControladorCorrida;
+import clienteCad.controllers.ControladorDeDados;
+import clienteCad.model.Carro;
+import clienteCad.model.Equipe;
+import clienteCad.model.Piloto;
 import java.util.LinkedList;
 
-public class ServidorFacade {
+public class CadFacade {
 
     ControladorCorrida controladorCorrida;
     ControladorDeDados controladorDados;
     ControladorFactory cf;
-
-    public ServidorFacade() {
+    
+    //A gente pode instanciar a comunicação com o servidor e controlar por aqui
+    
+    public CadFacade() {
         this.controladorCorrida = new ControladorCorrida();
         this.controladorDados = new ControladorDeDados();
         this.cf = new ControladorFactory();

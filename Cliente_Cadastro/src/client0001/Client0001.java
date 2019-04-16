@@ -7,25 +7,25 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import cliente1.controllers.ControladorCorrida;
-import cliente1.controllers.ControladorDeDados;
-import cliente1.controllers.ControladorFactory;
-import cliente1.model.Carro;
-import cliente1.model.Piloto;
-import cliente1.model.Equipe;
+import clienteCad.controllers.ControladorCorrida;
+import clienteCad.controllers.ControladorDeDados;
+import clienteCad.controllers.ControladorFactory;
+import clienteCad.model.Carro;
+import clienteCad.model.Piloto;
+import clienteCad.model.Equipe;
 import java.util.Iterator;
-import servidor0001.servidorFacade.ServidorFacade;
+import clienteCad.CadastroFacade.CadFacade;
 
 public class Client0001 {
 
     String opc = "N";
     ControladorCorrida cc;
 
-    ServidorFacade sf;
+    CadFacade sf;
 
     private Client0001() {
         this.cc = new ControladorCorrida();
-        this.sf = new ServidorFacade();
+        this.sf = new CadFacade();
     }
 
     private int voltarMenu(String opc) {

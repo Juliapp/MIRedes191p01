@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-import cliente1.controllers.ControladorDeDados;
-import cliente1.controllers.ControladorFactory;
-import cliente1.model.Carro;
-import cliente1.model.Equipe;
+import clienteCad.controllers.ControladorDeDados;
+import clienteCad.controllers.ControladorFactory;
+import clienteCad.model.Carro;
+import clienteCad.model.Equipe;
 import java.util.Iterator;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import servidor0001.servidorFacade.ServidorFacade;
+import clienteCad.CadastroFacade.CadFacade;
 
 /**
  *
@@ -22,12 +22,12 @@ import servidor0001.servidorFacade.ServidorFacade;
 public class TesteControladorDeDados {
     ControladorDeDados cdd;
     ControladorFactory ccf;
-    ServidorFacade sf;
+    CadFacade sf;
     public TesteControladorDeDados() {
         
         this.cdd = new ControladorDeDados();
         this.ccf = new ControladorFactory();
-        this.sf = new ServidorFacade();
+        this.sf = new CadFacade();
     }
     
     @BeforeClass
