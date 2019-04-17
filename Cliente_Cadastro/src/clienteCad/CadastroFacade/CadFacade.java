@@ -41,6 +41,10 @@ public class CadFacade {
         return c;
     }
 
+     public ControladorDeDados getController(){
+        return this.controladorDados;
+    }
+    
     public Carro getCarro(String tag) {
         return controladorDados.getCarro(tag);
     }
