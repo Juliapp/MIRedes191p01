@@ -16,7 +16,9 @@ public class ControladorCorrida {
         
     }
     
-    
+    public void ordenaCorrida(){
+        
+    }
     
     
     

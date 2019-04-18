@@ -1,4 +1,4 @@
-package servidor.servidorFacade;
+package servidor;
 
 import java.util.ArrayList;
 import servidor.controladores.ControladorFactory;
@@ -11,13 +11,14 @@ import servidor.model.Participante;
 import servidor.model.Piloto;
 
 public class ServidorFacade {
-    ControladorCorrida controladorCorrida;
+    ArrayList<ControladorCorrida> contrCorrida;
     ControladorDeDados Dados;
     ControladorFactory cf;
 
     public ServidorFacade() {
         Dados = new ControladorDeDados();
         cf = new ControladorFactory();
+        contrCorrida = new ArrayList<>();
     }
     
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
@@ -118,8 +119,22 @@ public class ServidorFacade {
     //Segunda parte do Facade dedicado ao recebimento de dados do sensor
     
     //Terceira parte do Facade dedicado a partida
+    
+    public ArrayList<Participante> selecionarParticipantes(String[] args){
+        ArrayList<Participante> participantesDaCorrida = new ArrayList<>();
 
+        for (String a : args) {
+            participantesDaCorrida.add(getPartPorPiloto(a));
+        }
+        
+        return participantesDaCorrida;
+        
+    }
+    
 
+    public void novaCorrida(){
+        
+    }
     
     
     
