@@ -17,18 +17,19 @@ import java.util.Iterator;
 import clienteCad.CadastroFacade.CadFacade;
 import clienteCad.model.Command;
 import clienteCad.model.Mensagem;
+import clienteCad.model.Participante;
 
 public class Client0001 {
 
     String opc = "N";
     ControladorCorrida cc;
-    CadFacade sf;
+    CadFacade cf;
     ControladorDeDados cdd;
 
     private Client0001() {
         this.cc = new ControladorCorrida();
-        this.sf = new CadFacade();
-        this.cdd = sf.getController();
+        this.cf = new CadFacade();
+        this.cdd = cf.getController();
     }
 
     private int voltarMenu(String opc) {
@@ -65,11 +66,11 @@ public class Client0001 {
         System.out.println("Informe a equipe pertencente!");
         String equipe = Console.readString();
 
-        Equipe e = this.sf.cadastrarEquipe(equipe);
+        Equipe e = this.cf.cadastrarEquipe(equipe);
 
-        Carro c = this.sf.cadastrarCarro(tag, cor, e);
+        Carro c = this.cf.cadastrarCarro(tag, cor, e);
 
-        boolean existe = sf.getCarros().contains(c);
+        boolean existe = cf.getCarros().contains(c);
         if (existe == true) {
             System.out.println("Cadastrado");
         }
@@ -87,7 +88,7 @@ public class Client0001 {
     public void iteraArrayCarros() {
         Carro c;
         int count = 1;
-        Iterator<Carro> iterCars = sf.getCarros().iterator();
+        Iterator<Carro> iterCars = cf.getCarros().iterator();
         while (iterCars.hasNext()) {
             c = iterCars.next();
             System.out.println(count + c.getCor());
@@ -100,7 +101,7 @@ public class Client0001 {
         System.out.println("Informe o seu nome:");
         String nome = Console.readString();
 
-        Piloto p = sf.cadastrarPiloto(nome, null);
+        Piloto p = cf.cadastrarPiloto(nome, null);
         System.out.println("Escolha o seu carro inserindo a cor!");
         iteraArrayCarros();
 
@@ -130,11 +131,24 @@ public class Client0001 {
         socket.close();
 
     }
+    
+    public void percorreParticipantes(){ //Esse método vai ser introduzido no outro cliente!!!
+        Iterator<Participante> iter_Part = cc.getParticipantes().iterator();
+        while(iter_Part.hasNext()){
+            Participante part = (Participante) iter_Part.next();
+            Carro c = part.getCarro();
+            Piloto p = part.getPiloto();
+            Equipe e = p.getEquipe();
+            System.out.println("------------------------------------------------------------------");
+            System.out.println("Nome:"+p.getNome()+ "Equipe:"+ e.getNome() + "Carro:"+ c.getCor());
+            System.out.println("------------------------------------------------------------------");
+        }
+    }
 
     public int iniciaPartida() {
         String op;
-        System.out.println("Com os dados cadastrados, a corrida será iniciada!\n" + "Haverá uma corrida de classificação!\n"
-                + "Aquele que tiver melhor tempo largará na primeira posição.");
+        System.out.println("Participantes da Corrida:");
+        percorreParticipantes();
         return 0;
     }
 

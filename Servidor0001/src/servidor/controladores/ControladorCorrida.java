@@ -16,6 +16,10 @@ public class ControladorCorrida {
         
     }
     
+    public ArrayList<Participante> getParticipantes() {
+        return this.participantes;
+    }
+    
     
     
     
