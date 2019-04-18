@@ -4,9 +4,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Cronometro extends Thread{
-    private int horas;
-    private int minutos;
-    private int segundos;
+    private double horas;
+    private double minutos;
+    private double segundos;
     private boolean rodando;
 
     public Cronometro() {

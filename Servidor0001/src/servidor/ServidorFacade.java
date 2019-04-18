@@ -1,6 +1,7 @@
-package servidor.servidorFacade;
+package servidor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import servidor.controladores.ControladorFactory;
 import servidor.controladores.ControladorCorrida;
 import servidor.controladores.ControladorDeDados;
@@ -9,15 +10,18 @@ import servidor.model.Carro;
 import servidor.model.Equipe;
 import servidor.model.Participante;
 import servidor.model.Piloto;
+import servidor.model.TagColetada;
 
 public class ServidorFacade {
-    ControladorCorrida controladorCorrida;
+    ArrayList<ControladorCorrida> contrCorrida;
     ControladorDeDados Dados;
     ControladorFactory cf;
+    ControladorCorrida corridaAtual;
 
     public ServidorFacade() {
         Dados = new ControladorDeDados();
         cf = new ControladorFactory();
+        contrCorrida = new ArrayList<>();
     }
     
     // Primeira parte do Facade dedicada as funções de cadastro no jogo 
@@ -119,8 +123,31 @@ public class ServidorFacade {
     
     //Terceira parte do Facade dedicado a partida
 
+    public ControladorCorrida getCorridaAtual() {
+        return corridaAtual;
+    }
+   
+    public ArrayList<Participante> selecionarParticipantes(String[] args){
+        ArrayList<Participante> participantesDaCorrida = new ArrayList<>();
 
+        for (String a : args) {
+            participantesDaCorrida.add(getPartPorPiloto(a));
+        }
+        
+        return participantesDaCorrida;
+        
+    }
     
+
+    public ControladorCorrida novaCorrida(String[] args, Date tempo){
+        ControladorCorrida c = new ControladorCorrida( selecionarParticipantes(args), tempo);
+        corridaAtual = c;
+        contrCorrida.add(c);
+        return  c;
+    }
     
+    public void coletorDeTags(TagColetada tag){
+        
+    }
     
 }
