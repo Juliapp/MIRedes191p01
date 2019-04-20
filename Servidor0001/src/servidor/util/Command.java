@@ -1,4 +1,4 @@
-package servidor.model;
+package servidor.util;
 
 public enum Command {
     CadPiloto, CadCarro, CadParticipante, CadEquipe, 

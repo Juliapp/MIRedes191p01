@@ -24,6 +24,12 @@ public class ControladorCorrida {
     
     public void comecarCorrida(){
         //rodar o cronometro
+        /******************
+         *
+         LEMBRAR DE COLOCAR UM CONTADORZINHO PRA FAZER A CONTAGEM REGRESSIVA PRA A PARTIDA COMEÇAR
+         COLOCAR MÚSIQUINHA DE START TAMBÉM É UMA OPÇÃO MUITO BEM-VINDA 
+         * 
+         *************************/
         cronometro.start();
     }    
     

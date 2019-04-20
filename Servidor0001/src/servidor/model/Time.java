@@ -65,6 +65,7 @@ public class Time implements Serializable{
         return (3600 * this.horas) + (60 * this.minutos) + (this.segundos);
     }
     
+    
     public int compareTo(Time time) {
         double contAtual = this.transformarEmSegundos();
         double contOutro = time.transformarEmSegundos();

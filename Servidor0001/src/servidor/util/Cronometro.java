@@ -12,6 +12,14 @@ public class Cronometro extends Thread{
         cronometro = new Time();
         rodando = false;
     }
+
+    public Time getCronometro() {
+        return cronometro;
+    }
+
+    public boolean isRodando() {
+        return rodando;
+    }
     
     
     @Override
@@ -44,10 +52,10 @@ public class Cronometro extends Thread{
     
     public void conta(){
         
-        if(cronometro.getSegundos() != 59){ 
+        if(cronometro.getSegundos() < 59){ 
             cronometro.incrementaSegundos();
             
-        }else if(cronometro.getMinutos()!= 59){ 
+        }else if(cronometro.getMinutos() < 59){ 
             cronometro.incrementaMinutos();
             cronometro.setSegundos(0);
         }else{ 

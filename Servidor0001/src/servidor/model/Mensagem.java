@@ -1,6 +1,6 @@
 package servidor.model;
 
-import servidor.model.Command;
+import servidor.util.Command;
 
 public class Mensagem {
     private Command command;

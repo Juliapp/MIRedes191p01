@@ -117,11 +117,8 @@ public class ServidorFacade {
         return Dados.getPartPorPiloto(piloto);
     }
     
-    //ainda falta decidir como vai icar as partidas
     
-    //Segunda parte do Facade dedicado ao recebimento de dados do sensor
-    
-    //Terceira parte do Facade dedicado a partida
+    //Segunda parte do Facade dedicado a partida
 
     public ControladorCorrida getCorridaAtual() {
         return corridaAtual;
@@ -147,6 +144,9 @@ public class ServidorFacade {
         return  c;
     }
     
+    public void comecarCorrida(){
+        corridaAtual.comecarCorrida();
+    }
     
     public void coletorDeTags(TagColetada tag){
         corridaAtual.pushTag(tag);
