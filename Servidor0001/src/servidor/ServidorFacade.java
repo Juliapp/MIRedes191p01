@@ -127,6 +127,7 @@ public class ServidorFacade {
         return corridaAtual;
     }
    
+    
     public ArrayList<Participante> selecionarParticipantes(String[] args){
         ArrayList<Participante> participantesDaCorrida = new ArrayList<>();
 
@@ -146,8 +147,9 @@ public class ServidorFacade {
         return  c;
     }
     
+    
     public void coletorDeTags(TagColetada tag){
-        
+        corridaAtual.pushTag(tag);
     }
     
 }

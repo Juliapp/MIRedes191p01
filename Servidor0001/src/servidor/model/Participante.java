@@ -7,8 +7,9 @@ import java.util.Objects;
 public class Participante {
     private Carro carro;
     private Piloto piloto;
-    private Date voltaMaisRapida;
-    private Date tempoDeCorrida;
+    private Time voltaMaisRapida;
+    private Time ultimaVoltaComputada;
+    private Time tempoDeCorridaFinal;
     private int voltas;
     private int pitStops;
     private int colocacao;  
@@ -35,21 +36,30 @@ public class Participante {
         this.piloto = piloto;
     }
 
-    public Date getVoltaMaisRapida() {
+    public Time getVoltaMaisRapida() {
         return voltaMaisRapida;
     }
 
-    public void setVoltaMaisRapida(Date voltaMaisRapida) {
+    public void setVoltaMaisRapida(Time voltaMaisRapida) {
         this.voltaMaisRapida = voltaMaisRapida;
     }
 
-    public Date getTempoDeCorrida() {
-        return tempoDeCorrida;
+    public Time getUltimaVoltaComputada() {
+        return ultimaVoltaComputada;
     }
 
-    public void setTempoDeCorrida(Date tempoDeCorrida) {
-        this.tempoDeCorrida = tempoDeCorrida;
+    public void setUltimaVoltaComputada(Time ultimaVoltaComputada) {
+        this.ultimaVoltaComputada = ultimaVoltaComputada;
     }
+
+    public Time getTempoDeCorrida() {
+        return tempoDeCorridaFinal;
+    }
+
+    public void setTempoDeCorrida(Time tempoDeCorrida) {
+        this.tempoDeCorridaFinal = tempoDeCorrida;
+    }
+
 
     public int getVolta() {
         return voltas;

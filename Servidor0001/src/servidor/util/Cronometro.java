@@ -1,18 +1,15 @@
-package servidor.model;
+package servidor.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import servidor.model.Time;
 
 public class Cronometro extends Thread{
-    private double horas;
-    private double minutos;
-    private double segundos;
+    private Time cronometro;
     private boolean rodando;
 
     public Cronometro() {
-        horas = 0;
-        minutos = 0;
-        segundos = 0;
+        cronometro = new Time();
         rodando = false;
     }
     
@@ -40,17 +37,23 @@ public class Cronometro extends Thread{
         rodando = false;
     }
     
+    public Time getCurrentTime(){
+        return cronometro.getCurrentTime();
+    }
+    
     
     public void conta(){
-        if(segundos != 59){ 
-            segundos++; 
-        }else if(minutos != 59){ 
-            minutos++; 
-            segundos = 0;
+        
+        if(cronometro.getSegundos() != 59){ 
+            cronometro.incrementaSegundos();
+            
+        }else if(cronometro.getMinutos()!= 59){ 
+            cronometro.incrementaMinutos();
+            cronometro.setSegundos(0);
         }else{ 
-            horas++;
-            segundos = 0;
-            minutos = 0;
+            cronometro.incrementaHoras();
+            cronometro.setMinutos(0);
+            cronometro.setSegundos(0);
         }
         
     }
