@@ -95,13 +95,12 @@ public class ControladorCorrida {
         
         Participante p;
         int posicao = 0;
-        boolean chegou = false;
         
         Iterator<Participante> it = participantes.iterator();
-        while (it.hasNext() && chegou == false) {
+        while (it.hasNext()) {
             p = it.next();
             if(jogador.getVolta() >= p.getVolta()) { posicao++; }
-            else{ chegou = true; }
+            else{ break; }
         }
         
         participantes.add(posicao, jogador);
