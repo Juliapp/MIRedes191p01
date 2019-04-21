@@ -3,7 +3,7 @@ package servidor.controladores;
 import java.util.List;
 import servidor.model.Carro;
 import servidor.model.Equipe;
-import servidor.model.Participante;
+import servidor.model.Jogador;
 import servidor.model.Piloto;
 
 public class ControladorFactory {
@@ -22,8 +22,8 @@ public class ControladorFactory {
         return new Piloto(nome, foto);
     }
     
-    public Participante factoryPar(Carro c, Piloto p) {
-        return new Participante(c, p);
+    public Jogador factoryJog(Carro c, Piloto p) {
+        return new Jogador(c, p);
     }
     
     

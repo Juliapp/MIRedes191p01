@@ -26,7 +26,7 @@ public class Cronometro extends Thread{
     public void run(){
         while(rodando){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1);
                 conta();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Cronometro.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,17 +51,20 @@ public class Cronometro extends Thread{
     
     
     public void conta(){
-        
-        if(cronometro.getSegundos() < 59){ 
+        if(cronometro.getMilisegundos() < 999){
+            cronometro.incrementaMilisegundos();
+        }else if(cronometro.getSegundos() < 59){ 
             cronometro.incrementaSegundos();
-            
+            cronometro.setMilisegundos(0);
         }else if(cronometro.getMinutos() < 59){ 
             cronometro.incrementaMinutos();
             cronometro.setSegundos(0);
+            cronometro.setMilisegundos(0);
         }else{ 
             cronometro.incrementaHoras();
             cronometro.setMinutos(0);
             cronometro.setSegundos(0);
+            cronometro.setMilisegundos(0);
         }
         
     }

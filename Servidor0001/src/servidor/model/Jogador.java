@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Participante {
+public class Jogador {
     private Carro carro;
     private Piloto piloto;
     private Time voltaMaisRapida;
@@ -14,7 +14,8 @@ public class Participante {
     private int pitStops;
     private int colocacao;  
 
-    public Participante(Carro carro, Piloto piloto) {
+    public Jogador(Carro carro, Piloto piloto) {
+        voltaMaisRapida = new Time(0,0,0,0);
         this.carro = carro;
         this.piloto = piloto;
         pitStops = 0;
@@ -102,8 +103,8 @@ public class Participante {
     @Override
     public boolean equals(Object obj) {
         
-        if(obj instanceof Participante){
-           Participante aux  = (Participante) obj;
+        if(obj instanceof Jogador){
+           Jogador aux  = (Jogador) obj;
            return this.carro.equals(aux.getCarro()) && this.piloto.equals(aux.getPiloto());  
         }
         return false;

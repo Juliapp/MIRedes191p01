@@ -7,16 +7,27 @@ import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
 import java.util.Objects;
 
 public class Carro {
+    private static int id = 1;
     private String tag;
     private String cor;
     private Equipe equipe; 
 
     public Carro(String tag, String cor, Equipe equipe) {
+        this.id++; //pode servir pra alguma coisa
         this.tag = tag;
         this.cor = cor;
         this.equipe = equipe;
     }
 
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        Carro.id = id;
+    }
+
+    
     public String getTag() {
         return tag;
     }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import servidor.execoes.PilotoNaoExisteException;
 import servidor.model.Carro;
 import servidor.model.Equipe;
-import servidor.model.Participante;
+import servidor.model.Jogador;
 import servidor.model.Piloto;
 
 
@@ -13,14 +13,13 @@ public class ControladorDeDados {
     private ArrayList<Piloto> pilotos;
     private ArrayList<Equipe> equipes;
     private ArrayList<Carro> carros;
-    private ArrayList<Participante> participantes;
-    //hash map de partidas
+    private ArrayList<Jogador> jogadores;
 
     public ControladorDeDados() {
         pilotos = new ArrayList<>();
         equipes = new ArrayList<>();
         carros  = new ArrayList<>();    
-        participantes = new ArrayList<>();
+        jogadores = new ArrayList<>();
     }    
     
 
@@ -214,6 +213,17 @@ public class ControladorDeDados {
         return null;
     }
     
+    public Carro getCarroPorId(int id){
+        Carro c;
+        while (itCarro().hasNext()) {
+            c = (Carro) itCarro().next();
+            if (c.getId() == id) {
+                return c;
+            }
+        }
+        return null;     
+    }
+    
     public boolean deleteCarro(String tag) {
         if(hasCarro(tag)){
            carros.remove(getIndexCarro(tag));
@@ -240,34 +250,34 @@ public class ControladorDeDados {
     
     
 
-    public boolean addParticipante(Participante part) {
-        return participantes.add(part);
+    public boolean addJogador(Jogador jogador) {
+        return jogadores.add(jogador);
     }
 
-    public boolean hasParticipante(Participante part) {
-        Participante p;
-        Iterator<Participante> it = itParticipantes();
+    public boolean hasParticipante(Jogador jogador) {
+        Jogador p;
+        Iterator<Jogador> it = itJogadores();
         while(it.hasNext()){
             p = it.next();
-            if(p.equals(part)){ return true; }
+            if(p.equals(jogador)){ return true; }
         }
         return false;
     }
 
-    public Iterator<Participante> itParticipantes() {
-        return this.participantes.iterator();
+    public Iterator<Jogador> itJogadores() {
+        return this.jogadores.iterator();
     }
 
-    public Participante getParticipantes(Participante part) {
+    public Jogador getJogadores(Jogador part) {
         if(hasParticipante(part)){
-            return participantes.get(getIndexParticipante(part));
+            return jogadores.get(getIndexJogador(part));
         }
         return null;
     }
     
-    public int getIndexParticipante(Participante part){
-        Participante p;
-        Iterator<Participante> it = itParticipantes();
+    public int getIndexJogador(Jogador part){
+        Jogador p;
+        Iterator<Jogador> it = itJogadores();
         int i = 0;
         while(it.hasNext()){
             p = it.next();
@@ -277,11 +287,11 @@ public class ControladorDeDados {
         return 0;
     }
     
-    public Participante getPartPorPiloto(String piloto){
+    public Jogador getJogadortPorNome(String piloto){
         if(hasPiloto(piloto)){
             
-          Iterator<Participante> it = itParticipantes();
-          Participante p;
+          Iterator<Jogador> it = itJogadores();
+          Jogador p;
           
             while(it.hasNext()){
                 p = it.next();
@@ -291,16 +301,16 @@ public class ControladorDeDados {
         return null;
     }
     
-    public boolean deleteParticipante(Participante part){
+    public boolean deleteJogador(Jogador part){
         if(hasParticipante(part)){
-            participantes.remove(getIndexParticipante(part));
+            jogadores.remove(getIndexJogador(part));
             return true;
         }
         return false;
     }
     
-    public ArrayList<Participante> getParticipantes() {
-        return participantes;
+    public ArrayList<Jogador> getJogadores() {
+        return jogadores;
     }
     
     

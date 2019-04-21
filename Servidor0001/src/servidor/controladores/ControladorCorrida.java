@@ -3,22 +3,23 @@ package servidor.controladores;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import servidor.execoes.TagInvalidaException;
 import servidor.model.Carro;
 import servidor.util.Cronometro;
-import servidor.model.Participante;
+import servidor.model.Jogador;
 import servidor.model.TagColetada;
 import servidor.model.Time;
 
 public class ControladorCorrida {
-    private ArrayList<Participante> participantes;
+    private ArrayList<Jogador> jogadores;
     private String id;
     private Date tempoTotal;
-    private Participante voltaMaisRapida; 
+    private Jogador jogadorDavoltaMaisRapida; 
     private Cronometro cronometro;
     
     
-    public ControladorCorrida(ArrayList<Participante> participantes, Date tempoTotal) {
-        this.participantes = participantes;
+    public ControladorCorrida(ArrayList<Jogador> jogadores, Date tempoTotal) {
+        this.jogadores = jogadores;
         this.tempoTotal = tempoTotal;
     }
     
@@ -33,11 +34,11 @@ public class ControladorCorrida {
         cronometro.start();
     }    
     
-    private Participante getParticipantePorTag(String tag){
+    private Jogador getJogadorPorTag(String tag){
         Carro c;
-        Participante p;
+        Jogador p;
         
-        Iterator<Participante> it = participantes.iterator();
+        Iterator<Jogador> it = jogadores.iterator();
         while (it.hasNext()) {
             p = it.next();
             c = p.getCarro();
@@ -47,8 +48,8 @@ public class ControladorCorrida {
     }
     
 
-    public void pushTag(TagColetada tag) {
-        Participante jogador = getParticipantePorTag(tag.getTag());
+    public void pushTag(TagColetada tag) throws TagInvalidaException {
+        Jogador jogador = getJogadorPorTag(tag.getTag());
         
         if(jogador != null){
             Time voltaComputada = cronometro.getCurrentTime();
@@ -57,53 +58,79 @@ public class ControladorCorrida {
             
             if(validarVolta(jogador,voltaComputada)){
                 jogador.setUltimaVoltaComputada(voltaComputada);
-                verificaMenorVolta(jogador,voltaComputada);
+                verificaMenorVoltaDoJogador(jogador,voltaComputada);
+                verificaMenorVoltaDaCorrida(jogador);
                 jogador.completouVolta();
-                ordenaCorrida(jogador);
-            
+                ordenaCorrida(jogador);            
             }else{ //A volta não é válida
             }
             
-        }else{//exceção de tagNaoCadastradaNaCorridaAtual 
-        }
+        }else{throw new TagInvalidaException("A tag não está cadastrada no sistema ou na corrida atual");}
             
         
     }
     
-    public boolean validarVolta(Participante p, Time voltaComputada){
-        double ultimo = p.getUltimaVoltaComputada().transformarEmSegundos();
-        double agora = voltaComputada.transformarEmSegundos();
+    public boolean validarVolta(Jogador p, Time voltaComputada){
+        double ultimo = p.getUltimaVoltaComputada().transformarEmMilisegundos();
+        double agora = voltaComputada.transformarEmMilisegundos();
         
-        return ultimo > agora + 6;
+        return ultimo < agora + 6000;
         
     }
     
-    public void verificaMenorVolta(Participante p, Time voltaComputada){
-        double ultimo = p.getVoltaMaisRapida().transformarEmSegundos();
-        double agora = voltaComputada.transformarEmSegundos();
+    public void verificaMenorVoltaDoJogador(Jogador p, Time voltaComputada){
+        double ultimo = p.getVoltaMaisRapida().transformarEmMilisegundos();
+        double agora = voltaComputada.transformarEmMilisegundos();
         
-        if(ultimo == 0 || ultimo < agora){
+        if(ultimo == 0 || ultimo > agora){
             p.setVoltaMaisRapida(voltaComputada);
         }
 
     }
     
-    
-    
-    public void ordenaCorrida(Participante jogador){
-        participantes.remove(jogador);
+    public void verificaMenorVoltaDaCorrida(Jogador jogadorAtual){
+        double ultimo = jogadorDavoltaMaisRapida.getVoltaMaisRapida().transformarEmMilisegundos();
+        double agora = jogadorAtual.getVoltaMaisRapida().transformarEmMilisegundos();
         
-        Participante p;
+        if(ultimo == 0 || ultimo < agora){
+            jogadorDavoltaMaisRapida = jogadorAtual;
+        }
+
+    }
+
+    public ArrayList<Jogador> getJogadores() {
+        return jogadores;
+    }
+
+    public Jogador getJogadorDavoltaMaisRapida() {
+        return jogadorDavoltaMaisRapida;
+    }
+
+    public Cronometro getCronometro() {
+        return cronometro;
+    }
+    
+    public void pitStop(Jogador jogador){
+        jogador.pitStop();
+    }
+    
+    
+    
+    
+    public void ordenaCorrida(Jogador jogador){
+        jogadores.remove(jogador);
+        
+        Jogador j;
         int posicao = 0;
         
-        Iterator<Participante> it = participantes.iterator();
+        Iterator<Jogador> it = jogadores.iterator();
         while (it.hasNext()) {
-            p = it.next();
-            if(jogador.getVolta() >= p.getVolta()) { posicao++; }
+            j = it.next();
+            if(jogador.getVolta() >= j.getVolta()) { posicao++; }
             else{ break; }
         }
         
-        participantes.add(posicao, jogador);
+        jogadores.add(posicao, jogador);
     }
     
     
