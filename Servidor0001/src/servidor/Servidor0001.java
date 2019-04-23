@@ -13,8 +13,18 @@ public class Servidor0001 {
     //private ServidorFacade f;
         
     
-    public static void main(String[] args){
-        
+    public static void main(String[] args) throws ClassNotFoundException{
+        ServerSocket serverSock;
+        try {
+            serverSock = new ServerSocket(5555);
+            while(true){
+                System.out.println("O servidor está rodando na porta"+serverSock.getLocalPort());
+                Socket recebido = serverSock.accept();
+                new Thread(new ImplementProtocol(recebido)).start();
+            }
+        } catch (IOException e) {
+        }
+       /* 
         ServidorFacade f = new ServidorFacade();
         System.out.println("Cadastrando");
         String equipe1 = "RedBull";
@@ -30,7 +40,7 @@ public class Servidor0001 {
         System.out.println("\n\n" + f.deleteEquipe(equipe4));
         f.listarEquipes();
         
-        
+        */
         
         /*
         
@@ -71,7 +81,7 @@ public class Servidor0001 {
     
 
     
-    
+    //Vou mexer nisso aqui!
     private void tratarConexao(Socket socket) throws IOException{
         //Ponto entre o cliente e o servidor
         try{

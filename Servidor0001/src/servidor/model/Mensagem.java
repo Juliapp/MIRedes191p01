@@ -1,8 +1,9 @@
 package servidor.model;
 
+import java.io.Serializable;
 import servidor.util.Command;
 
-public class Mensagem {
+public class Mensagem implements Serializable {
     private Command command;
     private Object object;
 
