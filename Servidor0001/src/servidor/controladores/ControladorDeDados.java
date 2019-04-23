@@ -254,7 +254,7 @@ public class ControladorDeDados {
         return jogadores.add(jogador);
     }
 
-    public boolean hasParticipante(Jogador jogador) {
+    public boolean hasJogador(Jogador jogador) {
         Jogador p;
         Iterator<Jogador> it = itJogadores();
         while(it.hasNext()){
@@ -269,7 +269,7 @@ public class ControladorDeDados {
     }
 
     public Jogador getJogadores(Jogador part) {
-        if(hasParticipante(part)){
+        if(hasJogador(part)){
             return jogadores.get(getIndexJogador(part));
         }
         return null;
@@ -302,7 +302,7 @@ public class ControladorDeDados {
     }
     
     public boolean deleteJogador(Jogador part){
-        if(hasParticipante(part)){
+        if(hasJogador(part)){
             jogadores.remove(getIndexJogador(part));
             return true;
         }

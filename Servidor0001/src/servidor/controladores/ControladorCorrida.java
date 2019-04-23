@@ -13,15 +13,18 @@ import servidor.model.Time;
 public class ControladorCorrida {
     private ArrayList<Jogador> jogadores;
     private String id;
+    private int quantidadeDeVoltas;
     private Date tempoTotal;
     private Jogador jogadorDavoltaMaisRapida; 
     private Cronometro cronometro;
     
     
-    public ControladorCorrida(ArrayList<Jogador> jogadores, Date tempoTotal) {
+    public ControladorCorrida(ArrayList<Jogador> jogadores, int quantidadeDeVoltas) {
         this.jogadores = jogadores;
         this.tempoTotal = tempoTotal;
+        this.quantidadeDeVoltas = quantidadeDeVoltas;
     }
+
     
     public void comecarCorrida(){
         //rodar o cronometro
