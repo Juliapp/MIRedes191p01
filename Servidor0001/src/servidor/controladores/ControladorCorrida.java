@@ -1,5 +1,6 @@
 package servidor.controladores;
 
+import servidor.execoes.CorridaNaoIniciadaException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;

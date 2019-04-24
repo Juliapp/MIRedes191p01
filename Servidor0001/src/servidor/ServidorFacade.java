@@ -5,7 +5,7 @@ import java.util.Date;
 import servidor.controladores.ControladorFactory;
 import servidor.controladores.ControladorCorrida;
 import servidor.controladores.ControladorDeDados;
-import servidor.controladores.CorridaNaoIniciadaException;
+import servidor.execoes.CorridaNaoIniciadaException;
 import servidor.execoes.PilotoNaoExisteException;
 import servidor.execoes.TagInvalidaException;
 import servidor.execoes.VoltaInvalidaException;
