@@ -1,9 +1,9 @@
 package clienteCad.model;
 
 public enum Command {
-    CadPiloto, CadCarro, CadParticipante, CadEquipe, 
+    CadPiloto, CadCarro, CadJogador, CadEquipe, 
     RemPiloto, RemCarro, RemParticipante, RemEquipe,
     EditPiloto, EditCarro, EditParticipante, EditEquipe,
     EditCorrida,
-    ComecarCorrida, PararCorrida,
+    ComecarCorrida, PararCorrida, IterarCarros,
 }
