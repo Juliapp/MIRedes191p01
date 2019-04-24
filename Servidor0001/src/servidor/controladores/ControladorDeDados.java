@@ -8,13 +8,19 @@ import servidor.model.Equipe;
 import servidor.model.Jogador;
 import servidor.model.Piloto;
 
-
+/**
+ *
+ * @author juli
+ */
 public class ControladorDeDados {
     private ArrayList<Piloto> pilotos;
     private ArrayList<Equipe> equipes;
     private ArrayList<Carro> carros;
     private ArrayList<Jogador> jogadores;
 
+    /**
+     *
+     */
     public ControladorDeDados() {
         pilotos = new ArrayList<>();
         equipes = new ArrayList<>();
@@ -22,7 +28,11 @@ public class ControladorDeDados {
         jogadores = new ArrayList<>();
     }    
     
-
+    /**
+     *
+     * @param p
+     * @return
+     */
     public boolean addPiloto(Piloto p) {
         if (this.pilotos.isEmpty()) {
             this.pilotos.add(p);
@@ -34,6 +44,11 @@ public class ControladorDeDados {
         return true;
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
     public boolean hasPiloto(String n) {
         Piloto p;
         Iterator<Piloto> it = itPiloto();
@@ -44,10 +59,19 @@ public class ControladorDeDados {
         return false; //jogar exceção piloto não existe
     }
 
+    /**
+     *
+     * @return
+     */
     public Iterator<Piloto> itPiloto() {
         return pilotos.iterator();
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public Piloto getPiloto(String nome) {
         if(hasPiloto(nome)){
             return pilotos.get(getIndexPiloto(nome));
@@ -55,6 +79,11 @@ public class ControladorDeDados {
         return null; //jogar exceção piloto não existe
     }
     
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public int getIndexPiloto(String nome){
         Piloto p;
         Iterator<Piloto> it = itPiloto();
@@ -67,6 +96,11 @@ public class ControladorDeDados {
         return 0;
     }
     
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public boolean deletePiloto(String nome) {
         if(hasPiloto(nome)){
             pilotos.remove(getIndexPiloto(nome));
@@ -75,6 +109,9 @@ public class ControladorDeDados {
         return false;
     }
     
+    /**
+     *
+     */
     public void listarPilotos() {
         Piloto p;
         Iterator<Piloto> it = itPiloto();
@@ -84,13 +121,19 @@ public class ControladorDeDados {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Piloto> getPilotos() {
         return pilotos;
     }    
     
-
-    
-    
+    /**
+     *
+     * @param e
+     * @return
+     */
     public boolean addEquipe(Equipe e) {
         if (this.equipes.isEmpty()) {
             this.equipes.add(e);
@@ -102,6 +145,11 @@ public class ControladorDeDados {
         return true;
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
     public boolean hasEquipe(String n) {
         Equipe e;
         Iterator<Equipe> it = itEquipe();
@@ -112,10 +160,19 @@ public class ControladorDeDados {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public Iterator<Equipe> itEquipe() {
         return equipes.iterator();
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public Equipe getEquipe(String nome) {
         if(hasEquipe(nome)){
             return equipes.get(getIndexEquipe(nome));
@@ -123,6 +180,11 @@ public class ControladorDeDados {
         return null;
     }
     
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public int getIndexEquipe(String nome){
         Equipe e;
         Iterator<Equipe> it = itEquipe();
@@ -135,6 +197,9 @@ public class ControladorDeDados {
         return 0;
     }
     
+    /**
+     *
+     */
     public void listarEquipes() {
         Equipe e;
         Iterator<Equipe> it = itEquipe();
@@ -144,6 +209,11 @@ public class ControladorDeDados {
         }        
     }
     
+    /**
+     *
+     * @param nome
+     * @return
+     */
     public boolean deleteEquipe(String nome) {
         if(hasEquipe(nome)){
             equipes.remove(getIndexEquipe(nome));
@@ -152,12 +222,19 @@ public class ControladorDeDados {
         return false;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Equipe> getEquipes() {
         return equipes;
     }
     
-    
-
+    /**
+     *
+     * @param c
+     * @return
+     */
     public boolean addCarro(Carro c) {
         if (this.carros.isEmpty()) {
             this.carros.add(c);
@@ -169,6 +246,11 @@ public class ControladorDeDados {
         return true;
     }
 
+    /**
+     *
+     * @param tag
+     * @return
+     */
     public boolean hasCarro(String tag) {
         Carro c;
         Iterator<Carro> it = itCarro();
@@ -179,10 +261,19 @@ public class ControladorDeDados {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public Iterator<Carro> itCarro() {
         return carros.iterator();
     }
 
+    /**
+     *
+     * @param tag
+     * @return
+     */
     public Carro getCarro(String tag) {
         if(hasCarro(tag)){
            return carros.remove(getIndexCarro(tag));
@@ -190,6 +281,11 @@ public class ControladorDeDados {
         return null;
     }
     
+    /**
+     *
+     * @param tag
+     * @return
+     */
     public int getIndexCarro(String tag){
         Carro c;
         Iterator<Carro> it = itCarro();
@@ -202,6 +298,11 @@ public class ControladorDeDados {
         return 0; 
     }
 
+    /**
+     *
+     * @param cor
+     * @return
+     */
     public Carro getCarroPorCor(String cor) {
         Carro c;
         while (itCarro().hasNext()) {
@@ -213,6 +314,11 @@ public class ControladorDeDados {
         return null;
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Carro getCarroPorId(int id){
         Carro c;
         while (itCarro().hasNext()) {
@@ -224,6 +330,11 @@ public class ControladorDeDados {
         return null;     
     }
     
+    /**
+     *
+     * @param tag
+     * @return
+     */
     public boolean deleteCarro(String tag) {
         if(hasCarro(tag)){
            carros.remove(getIndexCarro(tag));
@@ -232,6 +343,9 @@ public class ControladorDeDados {
         return false;
     }
     
+    /**
+     *
+     */
     public void listarCarros() {
         Carro c;
         Iterator<Carro> it = itCarro();
@@ -241,19 +355,28 @@ public class ControladorDeDados {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Carro> getCarros() {
         return carros;
     }
     
-    
-    
-    
-    
-
+    /**
+     *
+     * @param jogador
+     * @return
+     */
     public boolean addJogador(Jogador jogador) {
         return jogadores.add(jogador);
     }
 
+    /**
+     *
+     * @param jogador
+     * @return
+     */
     public boolean hasJogador(Jogador jogador) {
         Jogador p;
         Iterator<Jogador> it = itJogadores();
@@ -264,10 +387,19 @@ public class ControladorDeDados {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public Iterator<Jogador> itJogadores() {
         return this.jogadores.iterator();
     }
 
+    /**
+     *
+     * @param part
+     * @return
+     */
     public Jogador getJogadores(Jogador part) {
         if(hasJogador(part)){
             return jogadores.get(getIndexJogador(part));
@@ -275,6 +407,11 @@ public class ControladorDeDados {
         return null;
     }
     
+    /**
+     *
+     * @param part
+     * @return
+     */
     public int getIndexJogador(Jogador part){
         Jogador p;
         Iterator<Jogador> it = itJogadores();
@@ -287,6 +424,11 @@ public class ControladorDeDados {
         return 0;
     }
     
+    /**
+     *
+     * @param piloto
+     * @return
+     */
     public Jogador getJogadortPorNome(String piloto){
         if(hasPiloto(piloto)){
             
@@ -301,6 +443,11 @@ public class ControladorDeDados {
         return null;
     }
     
+    /**
+     *
+     * @param part
+     * @return
+     */
     public boolean deleteJogador(Jogador part){
         if(hasJogador(part)){
             jogadores.remove(getIndexJogador(part));
@@ -309,6 +456,10 @@ public class ControladorDeDados {
         return false;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Jogador> getJogadores() {
         return jogadores;
     }

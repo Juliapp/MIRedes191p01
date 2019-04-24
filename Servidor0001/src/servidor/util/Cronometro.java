@@ -4,19 +4,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import servidor.model.Time;
 
+/**
+ *
+ * @author juli
+ */
 public class Cronometro extends Thread{
     private Time cronometro;
     private boolean rodando;
 
+    /**
+     *
+     */
     public Cronometro() {
         cronometro = new Time();
         rodando = false;
     }
 
+    /**
+     *
+     * @return
+     */
     public Time getCronometro() {
         return cronometro;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isRodando() {
         return rodando;
     }
@@ -35,21 +50,32 @@ public class Cronometro extends Thread{
         }
     }
     
-    
+    /**
+     *
+     */
     public void comecar(){
         rodando = true;
         this.run();
     }
     
+    /**
+     *
+     */
     public void parar(){
         rodando = false;
     }
     
+    /**
+     *
+     * @return
+     */
     public Time getCurrentTime(){
         return cronometro.getCurrentTime();
     }
     
-    
+    /**
+     *
+     */
     public void conta(){
         if(cronometro.getMilisegundos() < 999){
             cronometro.incrementaMilisegundos();

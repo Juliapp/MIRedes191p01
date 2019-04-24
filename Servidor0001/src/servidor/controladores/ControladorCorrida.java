@@ -83,7 +83,7 @@ public class ControladorCorrida {
      * @param tag tag coletada do sensor
      * @throws TagInvalidaException caso a tag não foi cadastrada no sistema ou na partida atual
      * @throws servidor.execoes.VoltaInvalidaException caso a volta não foi instanciada ainda
-     * @throws servidor.controladores.CorridaNaoIniciadaException caso a corrida não foi iniciada ainda
+     * @throws servidor.execoes.CorridaNaoIniciadaException
      */
     public void pushTag(TagColetada tag) throws TagInvalidaException, VoltaInvalidaException, CorridaNaoIniciadaException {
         if(rodando == true){
