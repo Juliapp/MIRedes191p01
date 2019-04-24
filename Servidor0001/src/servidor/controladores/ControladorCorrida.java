@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import servidor.execoes.TagInvalidaException;
+import servidor.execoes.VoltaInvalidaException;
 import servidor.model.Carro;
 import servidor.util.Cronometro;
 import servidor.model.Jogador;
 import servidor.model.TagColetada;
 import servidor.model.Time;
 
+/**
+ *
+ * @author juli
+ */
 public class ControladorCorrida {
     private ArrayList<Jogador> jogadores;
     private String id;
@@ -17,15 +22,25 @@ public class ControladorCorrida {
     private Date tempoTotal;
     private Jogador jogadorDavoltaMaisRapida; 
     private Cronometro cronometro;
+    private boolean rodando;
+    private boolean corridaConcluida;
     
-    
+    /**
+     *Instanciação de um controlador de corrida
+     * @param jogadores ArrayList com os jogadores que irão participar da corrida
+     * @param quantidadeDeVoltas número total de voltas
+     */
     public ControladorCorrida(ArrayList<Jogador> jogadores, int quantidadeDeVoltas) {
         this.jogadores = jogadores;
         this.tempoTotal = tempoTotal;
         this.quantidadeDeVoltas = quantidadeDeVoltas;
+        rodando = false;
+        corridaConcluida = false;
     }
 
-    
+    /**
+     *Da o start no cronometro e permite os outros métodos para controlar a corrida serem manipulados
+     */
     public void comecarCorrida(){
         //rodar o cronometro
         /******************
@@ -34,64 +49,97 @@ public class ControladorCorrida {
          COLOCAR MÚSIQUINHA DE START TAMBÉM É UMA OPÇÃO MUITO BEM-VINDA 
          * 
          *************************/
-        cronometro.start();
+        if(!corridaConcluida){
+            rodando = true;
+            cronometro.start();
+        }
     }    
+    
+    /**
+     *força a parada da thread do cronometro e seta a corrida rodando para false
+     */
+    
+    public void pararCorrida(){
+        rodando = false;
+        cronometro.stop();
+    }
     
     private Jogador getJogadorPorTag(String tag){
         Carro c;
-        Jogador p;
+        Jogador jogador;
         
         Iterator<Jogador> it = jogadores.iterator();
         while (it.hasNext()) {
-            p = it.next();
-            c = p.getCarro();
-            if(c.equals(tag)) { return p; }
+            jogador = it.next();
+            c = jogador.getCarro();
+            if(c.equals(tag)) { return jogador; }
         }
         return null;    
     }
     
+    /**
+     *Tratamento da tag para ser validada e introduzida na corrida
+     * @param tag tag coletada do sensor
+     * @throws TagInvalidaException caso a tag não foi cadastrada no sistema ou na partida atual
+     * @throws servidor.execoes.VoltaInvalidaException caso a volta não foi instanciada ainda
+     * @throws servidor.controladores.CorridaNaoIniciadaException caso a corrida não foi iniciada ainda
+     */
+    public void pushTag(TagColetada tag) throws TagInvalidaException, VoltaInvalidaException, CorridaNaoIniciadaException {
+        if(rodando == true){
+            Jogador jogador = getJogadorPorTag(tag.getTag());
 
-    public void pushTag(TagColetada tag) throws TagInvalidaException {
-        Jogador jogador = getJogadorPorTag(tag.getTag());
-        
-        if(jogador != null){
-            Time voltaComputada = cronometro.getCurrentTime();
+            if(jogador != null){
+                Time voltaComputada = cronometro.getCurrentTime();
+
+                /************FAZENDO A VERIFICAÇÃO PRA VALIDAR A VOLTA********************/
+
+                if(validarVolta(jogador,voltaComputada)){
+                    jogador.setUltimaVoltaComputada(voltaComputada);
+                    verificaMenorVoltaDoJogador(jogador,voltaComputada);
+                    verificaMenorVoltaDaCorrida(jogador);
+                    jogador.completouVolta();
+                    ordenaCorrida(jogador);            
+                }else{ throw new VoltaInvalidaException("O sensor coletou uma volta inválida e não foi computada no sistema");}
+
+            }else{throw new TagInvalidaException("A tag não está cadastrada no sistema ou na corrida atual");}
             
-            /************FAZENDO A VERIFICAÇÃO PRA VALIDAR A VOLTA********************/
-            
-            if(validarVolta(jogador,voltaComputada)){
-                jogador.setUltimaVoltaComputada(voltaComputada);
-                verificaMenorVoltaDoJogador(jogador,voltaComputada);
-                verificaMenorVoltaDaCorrida(jogador);
-                jogador.completouVolta();
-                ordenaCorrida(jogador);            
-            }else{ //A volta não é válida
-            }
-            
-        }else{throw new TagInvalidaException("A tag não está cadastrada no sistema ou na corrida atual");}
-            
-        
+        }else{throw new CorridaNaoIniciadaException("A corrida já foi finalizada ou não foi inicializada");}
     }
     
-    public boolean validarVolta(Jogador p, Time voltaComputada){
-        double ultimo = p.getUltimaVoltaComputada().transformarEmMilisegundos();
+    /**
+     *Para a volta ser válida o sensor deve coletar a mesma tag no mínimo 6 segundos após a ultima passagem do mesmo jogador
+     * @param joador jogador pertencene a tag que foi coletada
+     * @param voltaComputada o tempo em que a tag foi coletada a partir do cronometro interno
+     * @return verdadeiro caso a volta seja válida
+     */
+    private boolean validarVolta(Jogador joador, Time voltaComputada){
+        double ultimo = joador.getUltimaVoltaComputada().transformarEmMilisegundos();
         double agora = voltaComputada.transformarEmMilisegundos();
         
-        return ultimo < agora + 6000;
-        
+        return ultimo <= agora - 6000;
     }
     
-    public void verificaMenorVoltaDoJogador(Jogador p, Time voltaComputada){
-        double ultimo = p.getVoltaMaisRapida().transformarEmMilisegundos();
+    /**
+     *Verifica se a tag coletada é a volta mais rápida do jogador, e muda se for verdadeira
+     * ela também implemeta a primeira volta do jogador
+     * @param jogador pertencene a tag que foi coletada
+     * @param voltaComputada o tempo em que a tag foi coletada a partir do cronometro interno
+     */
+    private void verificaMenorVoltaDoJogador(Jogador jogador, Time voltaComputada){
+        double ultimo = jogador.getVoltaMaisRapida().transformarEmMilisegundos();
         double agora = voltaComputada.transformarEmMilisegundos();
         
         if(ultimo == 0 || ultimo > agora){
-            p.setVoltaMaisRapida(voltaComputada);
+            jogador.setVoltaMaisRapida(voltaComputada);
         }
 
     }
     
-    public void verificaMenorVoltaDaCorrida(Jogador jogadorAtual){
+    /**
+     *Veriica se o jogador que acabou de passar fez uma volta mais rápida que a registrada
+     * @param jogadorAtual jogador coletado pela tag
+     */
+    private void verificaMenorVoltaDaCorrida(Jogador jogadorAtual){
         double ultimo = jogadorDavoltaMaisRapida.getVoltaMaisRapida().transformarEmMilisegundos();
         double agora = jogadorAtual.getVoltaMaisRapida().transformarEmMilisegundos();
         
@@ -101,40 +149,77 @@ public class ControladorCorrida {
 
     }
 
-    public ArrayList<Jogador> getJogadores() {
+    /**
+     *Pega o ArrayList de todos os jogadoress cadastrados na corrida
+     * @return ArrayList de jogadores
+     */
+    public ArrayList<Jogador> getJogadoresDaCorridaAtual() {
         return jogadores;
     }
 
+    /**
+     *Pega o jogador que fez a volta mais rápida da partida
+     * @return Jogador de volta mais rápida
+     */
     public Jogador getJogadorDavoltaMaisRapida() {
         return jogadorDavoltaMaisRapida;
     }
 
+    /**
+     *pega a referência do cronometro atual
+     * @return
+     */
     public Cronometro getCronometro() {
         return cronometro;
     }
     
+    /**
+     *Anuncia que o jogador fez um Pit Stop
+     * @param jogador
+     */
     public void pitStop(Jogador jogador){
         jogador.pitStop();
     }
     
-    
-    
-    
-    public void ordenaCorrida(Jogador jogador){
+    /**
+     *O método de ordenação primeiramente remove o jogador da lista e jogadores do jogo, e depois o realoca 
+     * para a posição logo após o ultimo jogador que passou na mesma volta que ele acabou de dar. 
+     * Sendo assim, caso ninguém tenha passado naquela volta ainda e o jogador atual foi o pioneiro, ele sera realocado para 
+     * o primeiro lugar do array.
+     * Ele também chama o método para averiguar se a corrida já terminou
+     * @param jogador jogador coletado
+     */
+    private void ordenaCorrida(Jogador jogador){
         jogadores.remove(jogador);
         
-        Jogador j;
+        Jogador jogadorAux;
         int posicao = 0;
+        int volta = jogador.getVolta();
         
         Iterator<Jogador> it = jogadores.iterator();
         while (it.hasNext()) {
-            j = it.next();
-            if(jogador.getVolta() >= j.getVolta()) { posicao++; }
+            jogadorAux = it.next();
+            if(volta >= jogadorAux.getVolta()) { 
+                posicao++; 
+                
+            }
             else{ break; }
         }
         
         jogadores.add(posicao, jogador);
+        criterioDeParada(jogador, posicao);
     }
-    
+
+    /**
+     * Checa se o jogador ficou em ultima posição e se completou a quantidade de voltas précadastradas
+     * @param jogador jogador coletado
+     * @param posicao posição do jogador na corrida
+     */
+    private void criterioDeParada(Jogador jogador, int posicao){
+        if(jogador.getVolta() == quantidadeDeVoltas && posicao == jogadores.size() -1){
+            pararCorrida();
+            corridaConcluida = true;
+        }
+    }
     
 }

@@ -5,8 +5,10 @@ import java.util.Date;
 import servidor.controladores.ControladorFactory;
 import servidor.controladores.ControladorCorrida;
 import servidor.controladores.ControladorDeDados;
+import servidor.controladores.CorridaNaoIniciadaException;
 import servidor.execoes.PilotoNaoExisteException;
 import servidor.execoes.TagInvalidaException;
+import servidor.execoes.VoltaInvalidaException;
 import servidor.model.Carro;
 import servidor.model.Equipe;
 import servidor.model.Jogador;
@@ -291,7 +293,7 @@ public class ServidorFacade {
      * @param tag Tag coletada do sensor
      * @throws TagInvalidaException Se a TAG não estiver cadastrada no Sistema ou na partida atual
      */
-    public void coletorDeTags(TagColetada tag) throws TagInvalidaException{
+    public void coletorDeTags(TagColetada tag) throws TagInvalidaException, CorridaNaoIniciadaException, VoltaInvalidaException{
         corridaAtual.pushTag(tag);
     }
     
