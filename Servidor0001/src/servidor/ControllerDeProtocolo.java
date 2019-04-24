@@ -18,12 +18,12 @@ import servidor.util.Command;
  *
  * @author Teeu Guima
  */
-public class ImplementProtocol implements Runnable {
+public class ControllerDeProtocolo implements Runnable {
 
     private Socket conexao;
     private Mensagem msg;
 
-    public ImplementProtocol(Socket socket) throws IOException, ClassNotFoundException {
+    public ControllerDeProtocolo(Socket socket) throws IOException, ClassNotFoundException {
         this.conexao = socket;
         this.msg = deserializarObjeto();
     }

@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Servidor0001 {
+public class Servidor {
     private ServerSocket serverSocket;
     //private ServidorFacade f;
         
@@ -20,7 +20,7 @@ public class Servidor0001 {
             while(true){
                 System.out.println("O servidor está rodando na porta"+serverSock.getLocalPort());
                 Socket recebido = serverSock.accept();
-                new Thread(new ImplementProtocol(recebido)).start();
+                new Thread(new ControllerDeProtocolo(recebido)).start();
             }
         } catch (IOException e) {
         }
