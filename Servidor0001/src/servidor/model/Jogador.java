@@ -1,10 +1,11 @@
 package servidor.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Jogador {
+public class Jogador implements Serializable {
     private Carro carro;
     private Piloto piloto;
     private Time voltaMaisRapida;

@@ -103,6 +103,10 @@ public class ServidorFacade {
         return Dados.getCarro(tag);
     }
     
+    public Carro getCarroPorId(int id){
+        return Dados.getCarroPorId(id);
+    }
+    
     /**
      *Deleta um carro do controlador de dados a partir de sua tag
      * @param tag TAG do carro a ser removido

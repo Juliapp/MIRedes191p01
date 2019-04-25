@@ -21,7 +21,7 @@ public enum Command implements Serializable {
     /**
      *
      */
-    CadParticipante, 
+    CadJogador, 
 
     /**
      *

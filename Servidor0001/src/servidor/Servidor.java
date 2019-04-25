@@ -20,7 +20,13 @@ public class Servidor {
             while(true){
                 System.out.println("O servidor está rodando na porta"+serverSock.getLocalPort());
                 Socket recebido = serverSock.accept();
-                new Thread(new ControllerDeProtocolo(recebido)).start();
+                
+                ObjectOutputStream os = new ObjectOutputStream(recebido.getOutputStream());
+                ObjectInputStream is = new ObjectInputStream(recebido.getInputStream());
+                
+                
+                Thread t = new ControllerDeTratamento(recebido, os, is);
+                t.start();
             }
         } catch (IOException e) {
         }

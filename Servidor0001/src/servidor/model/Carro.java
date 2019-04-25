@@ -1,12 +1,11 @@
 package servidor.model;
 
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import static com.sun.org.apache.bcel.internal.Repository.instanceOf;
-import java.util.Objects;
+import java.io.Serializable;
 
-public class Carro {
+
+
+
+public class Carro implements Serializable {
     private static int id = 1;
     private String tag;
     private String cor;
