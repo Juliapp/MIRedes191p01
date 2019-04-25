@@ -2,7 +2,7 @@ package clienteCad.model;
 
 import java.io.Serializable;
 
-public class Carro {
+public class Carro implements Serializable {
     private String tag;
     private String cor;
     private Equipe equipe; 

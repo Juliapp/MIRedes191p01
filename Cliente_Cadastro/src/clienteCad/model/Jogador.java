@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Participante {
+public class Jogador implements Serializable  {
     private Carro carro;
     private Piloto piloto;
     private Date voltaMaisRapida;
@@ -13,7 +13,7 @@ public class Participante {
     private int pitStops;
     private int colocacao;  
 
-    public Participante(Carro carro, Piloto piloto) {
+    public Jogador(Carro carro, Piloto piloto) {
         this.carro = carro;
         this.piloto = piloto;
         pitStops = 0;
@@ -92,8 +92,8 @@ public class Participante {
     @Override
     public boolean equals(Object obj) {
         
-        if(obj instanceof Participante){
-           Participante aux  = (Participante) obj;
+        if(obj instanceof Jogador){
+           Jogador aux  = (Jogador) obj;
            return this.carro.equals(aux.getCarro()) && this.piloto.equals(aux.getPiloto());  
         }
         return false;

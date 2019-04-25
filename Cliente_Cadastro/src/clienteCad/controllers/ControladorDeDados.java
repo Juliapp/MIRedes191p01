@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import clienteCad.model.Carro;
 import clienteCad.model.Equipe;
-import clienteCad.model.Participante;
+import clienteCad.model.Jogador;
 import clienteCad.model.Piloto;
 import java.util.LinkedList;
 
@@ -13,7 +13,7 @@ public class ControladorDeDados {
     private LinkedList<Piloto> pilotos;
     private LinkedList<Equipe> equipes;
     private LinkedList<Carro> carros;
-    private LinkedList<Participante> participantes;
+    private LinkedList<Jogador> participantes;
     //hash map de partidas
 
     public ControladorDeDados() {
@@ -132,13 +132,13 @@ public class ControladorDeDados {
     }
 
     public void addParticipantes(Carro c, Piloto p) {
-        Participante part = new Participante(c, p);
+        Jogador part = new Jogador(c, p);
         if (!hasParticipantes(part)) {
             this.participantes.add(part);
         }
     }
 
-    public boolean hasParticipantes(Participante part) {
+    public boolean hasParticipantes(Jogador part) {
         return this.participantes.contains(part);
     }
 
@@ -146,12 +146,12 @@ public class ControladorDeDados {
         return this.participantes.iterator();
     }
 
-    public Participante getParticipantes(String nome) {
+    public Jogador getParticipantes(String nome) {
         while (itPiloto().hasNext()) {
             Piloto p = (Piloto) itPiloto().next();
             if (p.getNome().equals(nome)) {
                 while (itParticipantes().hasNext()) {
-                    Participante part = (Participante) itParticipantes().next();
+                    Jogador part = (Jogador) itParticipantes().next();
                     if (part.getPiloto().equals(p)) {
                         return part;
                     }
@@ -164,7 +164,7 @@ public class ControladorDeDados {
         return null;
     }
 
-    public LinkedList<Participante> getParticipantes() {
+    public LinkedList<Jogador> getParticipantes() {
         return participantes;
     }
 

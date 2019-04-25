@@ -1,6 +1,8 @@
 package clienteCad.model;
 
-public class PreConfigCorrida {
+import java.io.Serializable;
+
+public class PreConfigCorrida implements Serializable {
     public int quantidadeVoltas;
     
 }

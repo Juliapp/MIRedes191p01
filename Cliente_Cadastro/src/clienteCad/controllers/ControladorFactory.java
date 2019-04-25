@@ -3,7 +3,7 @@ package clienteCad.controllers;
 import java.util.List;
 import clienteCad.model.Carro;
 import clienteCad.model.Equipe;
-import clienteCad.model.Participante;
+import clienteCad.model.Jogador;
 import clienteCad.model.Piloto;
 
 public class ControladorFactory {
@@ -20,8 +20,8 @@ public class ControladorFactory {
         return new Piloto(nome, foto);
     }
     
-    public Participante factoryPar(Carro c, Piloto p) {
-        return new Participante(c, p);
+    public Jogador factoryPar(Carro c, Piloto p) {
+        return new Jogador(c, p);
     }
     
     

@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import clienteCad.model.Carro;
 import clienteCad.model.Equipe;
-import clienteCad.model.Participante;
+import clienteCad.model.Jogador;
 import clienteCad.model.Piloto;
 
 public class ControladorCorrida {
 
     ControladorDeDados cdd;
-    private ArrayList<Participante> participantes;
+    private ArrayList<Jogador> participantes;
 
     public ControladorCorrida() {
         this.cdd = new ControladorDeDados();
@@ -19,7 +19,7 @@ public class ControladorCorrida {
     }
 
     public boolean adicionaParticipantes(Piloto p, Carro c) {
-        Participante part = new Participante(c, p);
+        Jogador part = new Jogador(c, p);
         if (this.participantes.isEmpty()) {
             this.participantes.add(part);
         } else if (!hasParticipante(part)) {
@@ -29,11 +29,11 @@ public class ControladorCorrida {
 
     }
 
-    public ArrayList<Participante> getParticipantes() {
+    public ArrayList<Jogador> getParticipantes() {
         return this.participantes;
     }
 
-    public boolean hasParticipante(Participante part) {
+    public boolean hasParticipante(Jogador part) {
         return this.participantes.contains(part);
     }
 

@@ -1,9 +1,10 @@
 package clienteCad.model;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Cronometro extends Thread{
+public class Cronometro extends Thread implements Serializable{
     private int horas;
     private int minutos;
     private int segundos;

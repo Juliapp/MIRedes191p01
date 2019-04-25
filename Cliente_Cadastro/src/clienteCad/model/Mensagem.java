@@ -1,6 +1,8 @@
 package clienteCad.model;
 
-public class Mensagem {
+import java.io.Serializable;
+
+public class Mensagem implements Serializable {
     private Command command;
     private Object object;
 

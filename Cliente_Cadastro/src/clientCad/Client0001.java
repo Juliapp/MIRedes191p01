@@ -17,7 +17,8 @@ import java.util.Iterator;
 import clienteCad.CadastroFacade.CadFacade;
 import clienteCad.model.Command;
 import clienteCad.model.Mensagem;
-import clienteCad.model.Participante;
+import clienteCad.model.Jogador;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class Client0001 {
@@ -46,7 +47,7 @@ public class Client0001 {
         return opc;
     }
 
-    public int menuPrincipal() throws IOException {
+    public int menuPrincipal(Socket socket) throws IOException {
         int opc;
         System.out.println("Menu Internet dos Brinquedos");
         System.out.println("1- Realizar Cadastro de Carros\n"
@@ -69,9 +70,43 @@ public class Client0001 {
 
         String[] obj = {tag, cor, equipe};
 
-        Mensagem msg = new Mensagem(Command.CadCarro, obj);
+        
+        enviaMensagem(socket, obj);
+        System.out.println("Deseja cadastrar novamente? S/N");
+        op = Console.readString();
+        if (op.equals("S")) {
+            return 1;
+        } else {
+            return 0;
+        }
 
-        enviaMensagem(socket, msg);
+    }
+
+    public void iteraArrayCarros() throws IOException, ClassNotFoundException {
+        /*
+        Iterator<Carro> iterCars = carro.iterator();
+        while (iterCars.hasNext()) {
+            Carro c = iterCars.next();
+            System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
+            count++;
+        }
+        
+    }
+         */
+    }
+
+    public int cadastroJogadores() throws IOException, ClassNotFoundException {
+        String op;
+        System.out.println("Informe o seu nome:");
+        String nome = Console.readString();
+
+        System.out.println("Escolha o seu carro inserindo a cor!");
+        //iteraArrayCarros();
+
+        String numCarro = Console.readString();
+
+        String[] obj = {numCarro, nome};
+       
 
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
@@ -83,76 +118,27 @@ public class Client0001 {
 
     }
 
-    public void iteraArrayCarros(Socket socket) throws IOException, ClassNotFoundException {
-        
-        
+    public void enviaMensagem(Socket socket, Object obj) throws IOException {
+
+       
         ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
-        Mensagem solicitacao = new Mensagem(Command.IterarCarros, null);
-        os.writeObject(solicitacao);
+        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+        
+        os.writeObject(obj);
         os.flush();
         
-        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
-        Mensagem obj = (Mensagem) is.readObject();
-        
-        if (obj.getCommand().IterarCarros == Command.IterarCarros) {
-            ArrayList<Carro> carro = (ArrayList<Carro>) obj.getObject();
-            int count = 1;
-            Iterator<Carro> iterCars = carro.iterator();
-            while (iterCars.hasNext()) {
-                Carro c = iterCars.next();
-                System.out.println(count +c.getTag()+ c.getCor() + c.getEquipe().getNome());
-                count++;
-            }
-        }
-        
+        System.out.println(is.readUTF());
+
         os.close();
         is.close();
         socket.close();
 
     }
 
-    public int cadastroJogadores(Socket socket) throws IOException, ClassNotFoundException {
-        String op;
-        System.out.println("Informe o seu nome:");
-        String nome = Console.readString();
-
-        System.out.println("Escolha o seu carro inserindo a cor!");
-        iteraArrayCarros(socket);
-
-        String numCarro = Console.readString();
-
-        String[] obj = {nome, numCarro};
-        Mensagem msg = new Mensagem(Command.CadJogador, obj);
-
-        enviaMensagem(socket, msg);
-
-        System.out.println("Deseja cadastrar novamente? S/N");
-        op = Console.readString();
-        if (op.equals("S")) {
-            return 1;
-        } else {
-            return 0;
-        }
-
-    }
-
-    public void enviaMensagem(Socket socket, Mensagem msg) throws IOException {
-
-        Object obj = (Object) msg;
-
-        ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
-        os.writeObject(obj);
-        os.flush();
-
-        os.close();
-        socket.close();
-
-    }
-
     public void percorreParticipantes() { //Esse método vai ser introduzido no outro cliente!!!
-        Iterator<Participante> iter_Part = cc.getParticipantes().iterator();
+        Iterator<Jogador> iter_Part = cc.getParticipantes().iterator();
         while (iter_Part.hasNext()) {
-            Participante part = (Participante) iter_Part.next();
+            Jogador part = (Jogador) iter_Part.next();
             Carro c = part.getCarro();
             Piloto p = part.getPiloto();
             Equipe e = p.getEquipe();
@@ -171,27 +157,32 @@ public class Client0001 {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Client0001 client = new Client0001();
-        Socket socket = new Socket("localhost", 5555);
-        int repeat = 0;
+        try {
+            int repeat = 0;
+            
+            InetAddress ip =  InetAddress.getByName("localhost");
+            Socket socket = new Socket(ip, 5555);   
 
-        do {
-            int controle = client.menuPrincipal();
-            switch (controle) {
+            do {
+                int controle = client.menuPrincipal(socket);
+                switch (controle) {
 
-                case 1:
-                    do {
-                        repeat = client.cadastroCarros(socket);
-                    } while (repeat == 1);
-                    break;
+                    case 1:
+                        do {
+                            repeat = client.cadastroCarros(socket);
+                        } while (repeat == 1);
+                        break;
 
-                case 2:
-                    do {
-                        repeat = client.cadastroJogadores(socket);
-                    } while (repeat == 1);
-                    break;
+                    case 2:
+                        do {
+                            repeat = client.cadastroJogadores();
+                        } while (repeat == 1);
+                        break;
 
-            }
-        } while (repeat == 0);
+                }
+            } while (repeat == 0);
+        } catch (Exception e) {
+        }
 
     }
     /*System.out.println("Realizar novo cadastro?\n" + "S/N");
