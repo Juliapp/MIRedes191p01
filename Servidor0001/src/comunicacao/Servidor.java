@@ -5,15 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Servidor {
     private ServerSocket serverSocket;
-    //private ServidorFacade f;
-        
     
     public static void main(String[] args) throws ClassNotFoundException{
+        ServidorFacade facade = ServidorFacade.getInstance();
         ServerSocket serverSock;
         try {
             serverSock = new ServerSocket(5555);
@@ -29,24 +26,10 @@ public class Servidor {
                 t.start();
             }
         } catch (IOException e) {
+            
         }
-       /* 
-        ServidorFacade f = new ServidorFacade();
-        System.out.println("Cadastrando");
-        String equipe1 = "RedBull";
-        String equipe2 = "Tesla";
-        String equipe3 = "Monster";
-        String equipe4 = "Mustang";
-        System.out.println(f.cadastrarEquipe(equipe1));
-        System.out.println(f.cadastrarEquipe(equipe1));
-        System.out.println(f.cadastrarEquipe(equipe2));        
-        System.out.println(f.cadastrarEquipe(equipe3));        
-        System.out.println(f.cadastrarEquipe(equipe4));
-        f.listarEquipes();
-        System.out.println("\n\n" + f.deleteEquipe(equipe4));
-        f.listarEquipes();
-        
-        */
+       
+
         
         /*
         
@@ -71,6 +54,8 @@ public class Servidor {
         */
         
     }
+
+    
     
     private void criarServerSocket(int porta) throws IOException{
         //cria um socket

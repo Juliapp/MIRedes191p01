@@ -23,15 +23,15 @@ public class ControllerDeTratamento extends Thread {
 
     private ServidorFacade sf;
 
-    final ObjectOutputStream os;
-    final ObjectInputStream is;
-    final Socket recebido;
+    private final ObjectOutputStream os;
+    private final ObjectInputStream is;
+    private final Socket recebido;
 
     public ControllerDeTratamento(Socket s, ObjectOutputStream os, ObjectInputStream is) {
         this.recebido = s;
         this.os = os;
         this.is = is;
-        this.sf = new ServidorFacade();
+        this.sf = ServidorFacade.getInstance();
     }
 
     public void trataMensagem() {

@@ -20,7 +20,7 @@ public class TesteServidorFacade {
 
     public TesteServidorFacade() {
 
-        this.sf = new ServidorFacade();
+        this.sf = ServidorFacade.getInstance();
     }
 
     @BeforeClass

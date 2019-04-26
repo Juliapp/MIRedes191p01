@@ -17,10 +17,11 @@ import servidor.model.TagColetada;
 
 public class ServidorFacade {
 
-    ArrayList<ControladorCorrida> contrCorrida;
-    ControladorDeDados Dados;
-    ControladorFactory cf;
-    ControladorCorrida corridaAtual;
+    private ArrayList<ControladorCorrida> contrCorrida;
+    private ControladorDeDados Dados;
+    private ControladorFactory cf;
+    private ControladorCorrida corridaAtual;
+    private static ServidorFacade facade;
 
     /**
      * Méodo construtor se inicializa instanciando cada um os controladores.
@@ -29,11 +30,15 @@ public class ServidorFacade {
      * feitas a partir desta classe, e nenhum controlador vai ser acessado senão
      * por ela.
      */
-    public ServidorFacade() {
+    private ServidorFacade() {
         Dados = new ControladorDeDados();
         cf = new ControladorFactory();
         contrCorrida = new ArrayList<>();
         corridaAtual = null;
+    }
+    
+    public static synchronized ServidorFacade getInstance(){
+        return (facade == null) ? facade = new ServidorFacade() : facade;
     }
 
     /**
