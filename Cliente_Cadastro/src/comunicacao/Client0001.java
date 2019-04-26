@@ -55,7 +55,7 @@ public class Client0001 {
         return opc;
     }
 
-    public int cadastroCarros(Socket socket) throws IOException {
+    public int cadastroCarros(Socket socket) throws IOException, ClassNotFoundException {
         String op;
         System.out.println("Infome a tag do carro(ID)!");
         String tag = Console.readString();
@@ -67,11 +67,11 @@ public class Client0001 {
         String equipe = Console.readString();
 
         String[] obj = {tag, cor, equipe};
-        
+
         Mensagem msg = new Mensagem(Command.CadCarro, obj);
-        
+
         enviaMensagem(socket, msg);
-        
+
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
         if (op.equals("S")) {
@@ -82,7 +82,19 @@ public class Client0001 {
 
     }
 
-    public void iteraArrayCarros() throws IOException, ClassNotFoundException {
+    public void iteraArrayCarros(Socket socket) throws IOException, ClassNotFoundException {
+        Mensagem msg = new Mensagem(Command.IterarCarros, null);
+        ArrayList<Carro> carros = (ArrayList<Carro>) enviaMensagem(socket, msg);
+        
+        int count = 1;
+        while(carros.iterator().hasNext()){
+            Carro c = (Carro)carros.iterator().next();
+            System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
+            count++;
+        }
+        
+        
+
         /*
         Iterator<Carro> iterCars = carro.iterator();
         while (iterCars.hasNext()) {
@@ -106,7 +118,6 @@ public class Client0001 {
         String numCarro = Console.readString();
 
         String[] obj = {numCarro, nome};
-       
 
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
@@ -118,22 +129,29 @@ public class Client0001 {
 
     }
 
-    public void enviaMensagem(Socket socket, Mensagem obj) throws IOException {
+    public Object enviaMensagem(Socket socket, Mensagem obj) throws IOException, ClassNotFoundException {
 
         Object objeto = (Object) obj;
-       
+
         ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
-        
+
         os.writeObject(objeto);
         os.flush();
-        
-        System.out.println(is.readUTF());
 
-        os.close();
-        is.close();
-        socket.close();
-
+        if (is.readObject() == null) {
+            System.out.println(is.readUTF());
+            os.close();
+            is.close();
+            socket.close();
+        }else{
+            os.close();
+            is.close();
+            socket.close();
+            return is.readObject();
+                   
+        }
+        return null;
     }
 
     public void percorreParticipantes() { //Esse método vai ser introduzido no outro cliente!!!
@@ -160,9 +178,9 @@ public class Client0001 {
         Client0001 client = new Client0001();
         try {
             int repeat = 0;
-            
-            InetAddress ip =  InetAddress.getByName("localhost");
-            Socket socket = new Socket(ip, 5555);   
+
+            InetAddress ip = InetAddress.getByName("localhost");
+            Socket socket = new Socket(ip, 5555);
 
             do {
                 int controle = client.menuPrincipal(socket);
