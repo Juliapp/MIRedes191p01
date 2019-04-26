@@ -68,7 +68,7 @@ public class Client0001 {
 
         String[] obj = {tag, cor, equipe};
 
-        Mensagem msg = new Mensagem(Command.CadCarro, obj);
+        Mensagem msg = new Mensagem(Command.CadCarro, obj, Solicitante.ClienteCad);
 
         enviaMensagem(socket, msg);
 
@@ -84,9 +84,8 @@ public class Client0001 {
 
     public void iteraArrayCarros(Socket socket) throws IOException, ClassNotFoundException {
 
-        /*
-        Mensagem msg = new Mensagem(Command.IterarCarros, null);
-        ArrayList<Carro> carros = (ArrayList<Carro>) enviaMensagem(socket, msg);
+        Mensagem msg = new Mensagem(Command.IterarCarros, null, Solicitante.ClienteCad);
+        ArrayList<Carro> carros = (ArrayList<Carro>) solicitaMensagem(socket, msg);
 
         int count = 1;
         while (carros.iterator().hasNext()) {
@@ -94,11 +93,10 @@ public class Client0001 {
             System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
             count++;
         }
-    
-         */
+
     }
 
-    public int cadastroJogadores() throws IOException, ClassNotFoundException {
+    public int cadastroJogadores(Socket socket) throws IOException, ClassNotFoundException {
         String op;
         System.out.println("Informe o seu nome:");
         String nome = Console.readString();
@@ -107,6 +105,7 @@ public class Client0001 {
         //iteraArrayCarros();
 
         String numCarro = Console.readString();
+        iteraArrayCarros(socket);
 
         String[] obj = {numCarro, nome};
 
@@ -136,8 +135,8 @@ public class Client0001 {
         socket.close();
 
     }
-    
-    public Object solicitaMensagem(Socket socket, Mensagem msg) throws IOException, ClassNotFoundException{
+
+    public Object solicitaMensagem(Socket socket, Mensagem msg) throws IOException, ClassNotFoundException {
         Object objeto = (Object) msg;
 
         ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
@@ -145,7 +144,7 @@ public class Client0001 {
 
         os.writeObject(objeto);
         os.flush();
-        
+
         return is.readObject();
     }
 
@@ -173,11 +172,10 @@ public class Client0001 {
         Client0001 client = new Client0001();
         try {
             int repeat = 0;
-
-            InetAddress ip = InetAddress.getByName("localhost");
-            Socket socket = new Socket(ip, 5555);
-
+            //Ta dando Erroooooo
             do {
+                InetAddress ip = InetAddress.getByName("localhost");
+                Socket socket = new Socket(ip, 5555);
                 int controle = client.menuPrincipal(socket);
                 switch (controle) {
 
@@ -189,7 +187,7 @@ public class Client0001 {
 
                     case 2:
                         do {
-                            repeat = client.cadastroJogadores();
+                            repeat = client.cadastroJogadores(socket);
                         } while (repeat == 1);
                         break;
 

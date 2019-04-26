@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class Mensagem implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private Solicitante solicitante;
     private Command command;
     private Object object;
 
-    public Mensagem(Command command, Object object) {
+    public Mensagem(Command command, Object object, Solicitante sol) {
         this.command = command;
         this.object = object;
+        this.solicitante = sol;
     }
 
     public Command getCommand() {
@@ -28,4 +30,14 @@ public class Mensagem implements Serializable {
     public void setObject(Object object) {
         this.object = object;
     }
+
+    public Solicitante getSolicitante() {
+        return solicitante;
+    }
+
+    public void setSolicitante(Solicitante solicitante) {
+        this.solicitante = solicitante;
+    }
+    
+    
 }
