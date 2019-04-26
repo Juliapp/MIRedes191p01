@@ -47,7 +47,8 @@ public class ControllerDeTratamento extends Thread {
                 Mensagem msg = (Mensagem) is.readObject();
                 if (msg.getCommand().CadCarro == Command.CadCarro) {
                     String[] dados = (String[]) msg.getObject();
-                    if (sf.cadastrarCarro(dados[0], dados[1], dados[2])) {
+                    boolean status = sf.cadastrarCarro(dados[0], dados[1], dados[2]);
+                    if (status == true) {
                         this.os.writeUTF("Carro Cadastrado");
                         this.os.flush();
                     }
