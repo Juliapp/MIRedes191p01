@@ -72,6 +72,21 @@ public enum Command implements Serializable {
      *
      */
     EditCorrida,
+    
+    /**
+     *
+     */
+    ListaEquipes,
+    
+    /**
+     *
+     */
+    ListaCarros,
+    
+    /**
+     *
+     */
+    ListaJogadores,
 
     /**
      *

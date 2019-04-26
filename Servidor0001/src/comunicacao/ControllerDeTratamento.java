@@ -40,32 +40,60 @@ public class ControllerDeTratamento extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            try {
 
-                // Ask user what he wants 
-                Mensagem msg = (Mensagem) is.readObject();
-                if (msg.getCommand().CadCarro == Command.CadCarro) {
-                    String[] dados = (String[]) msg.getObject();
-                    boolean status = sf.cadastrarCarro(dados[0], dados[1], dados[2]);
-                    if (status == true) {
-                        this.os.writeUTF("Carro Cadastrado");
-                        this.os.flush();
+        try {
+
+            // Ask user what he wants 
+            Mensagem msg = (Mensagem) is.readObject();
+
+            switch (msg.getSolicitante()) {
+                case ClienteCad:
+                    switch (msg.getCommand()) {
+                        case CadCarro:
+                            String[] dadosCarro = (String[]) msg.getObject();
+
+                            if (sf.cadastrarCarro(dadosCarro[0], dadosCarro[1], dadosCarro[2])) {
+                                this.os.writeUTF("Carro Cadastrado");
+                                this.os.flush();
+                            }
+                            break;
+
+                        case IterarCarros:
+                            Object arrayCarros = (Object) sf.getListaDeCarros();
+                            if (arrayCarros != null) {
+                                this.os.writeObject(arrayCarros);
+                                this.os.flush();
+                            }
+                            break;
+                        case CadPiloto:
+                            String[] dadosPiloto = (String[]) msg.getObject();
+                            if (sf.cadastrarPiloto(dadosPiloto[0], null)) {
+                                this.os.writeUTF("Piloto Cadastrado");
+                                this.os.flush();
+                            }
+                            break;
+                        case CadJogador:
+                            String[] dadosJogador = (String[]) msg.getObject();
+                            if(sf.CadastrarJogador(dadosJogador[0], dadosJogador[1])){
+                                this.os.writeUTF("Jogador Cadastrado");
+                                this.os.flush();
+                            }
+                            break;
+                        
+                        
                     }
 
-                } else if (msg.getCommand().IterarCarros == Command.IterarCarros) {
-                    Object arrayCarros = (Object) sf.getListaDeCarros();
-                    if(arrayCarros != null){
-                        this.os.writeObject(arrayCarros);
-                        this.os.flush();
-                    }
-
-                }
-
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                    break;
+                case ClienteExib:
+                    break;
+                case Sensor:
+                    break;
             }
-            break;
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (PilotoNaoExisteException ex) {
+            Logger.getLogger(ControllerDeTratamento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
