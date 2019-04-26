@@ -82,4 +82,10 @@ public enum Command implements Serializable {
      *
      */
     PararCorrida,
+    
+    /**
+     *
+     */
+    IterarCarros,
+    
 }

@@ -46,8 +46,18 @@ public class ControllerDeTratamento extends Thread {
                 // Ask user what he wants 
                 Mensagem msg = (Mensagem) is.readObject();
                 if (msg.getCommand().CadCarro == Command.CadCarro) {
-                    this.os.writeUTF("Carro Cadastrado");
-                    this.os.flush();
+                    String[] dados = (String[]) msg.getObject();
+                    if (sf.cadastrarCarro(dados[0], dados[1], dados[2])) {
+                        this.os.writeUTF("Carro Cadastrado");
+                        this.os.flush();
+                    }
+
+                } else if (msg.getCommand().IterarCarros == Command.IterarCarros) {
+                    Object arrayCarros = (Object) sf.getListaDeCarros();
+                    if(arrayCarros != null){
+                        this.os.writeObject(arrayCarros);
+                        this.os.flush();
+                    }
 
                 }
 
