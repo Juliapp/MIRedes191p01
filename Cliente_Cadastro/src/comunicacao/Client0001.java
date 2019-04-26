@@ -83,27 +83,18 @@ public class Client0001 {
     }
 
     public void iteraArrayCarros(Socket socket) throws IOException, ClassNotFoundException {
-        Mensagem msg = new Mensagem(Command.IterarCarros, null);
-        ArrayList<Carro> carros = (ArrayList<Carro>) enviaMensagem(socket, msg);
-        
-        int count = 1;
-        while(carros.iterator().hasNext()){
-            Carro c = (Carro)carros.iterator().next();
-            System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
-            count++;
-        }
-        
-        
 
         /*
-        Iterator<Carro> iterCars = carro.iterator();
-        while (iterCars.hasNext()) {
-            Carro c = iterCars.next();
+        Mensagem msg = new Mensagem(Command.IterarCarros, null);
+        ArrayList<Carro> carros = (ArrayList<Carro>) enviaMensagem(socket, msg);
+
+        int count = 1;
+        while (carros.iterator().hasNext()) {
+            Carro c = (Carro) carros.iterator().next();
             System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
             count++;
         }
-        
-    }
+    
          */
     }
 
@@ -129,7 +120,7 @@ public class Client0001 {
 
     }
 
-    public Object enviaMensagem(Socket socket, Mensagem obj) throws IOException, ClassNotFoundException {
+    public void enviaMensagem(Socket socket, Mensagem obj) throws IOException, ClassNotFoundException {
 
         Object objeto = (Object) obj;
 
@@ -139,19 +130,23 @@ public class Client0001 {
         os.writeObject(objeto);
         os.flush();
 
-        if (is.readObject() == null) {
-            System.out.println(is.readUTF());
-            os.close();
-            is.close();
-            socket.close();
-        }else{
-            os.close();
-            is.close();
-            socket.close();
-            return is.readObject();
-                   
-        }
-        return null;
+        System.out.println(is.readUTF());
+        os.close();
+        is.close();
+        socket.close();
+
+    }
+    
+    public Object solicitaMensagem(Socket socket, Mensagem msg) throws IOException, ClassNotFoundException{
+        Object objeto = (Object) msg;
+
+        ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+
+        os.writeObject(objeto);
+        os.flush();
+        
+        return is.readObject();
     }
 
     public void percorreParticipantes() { //Esse método vai ser introduzido no outro cliente!!!
