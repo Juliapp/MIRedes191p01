@@ -1,4 +1,4 @@
-package servidor.model;
+package clienteSensor.util;
 
 import java.io.Serializable;
 

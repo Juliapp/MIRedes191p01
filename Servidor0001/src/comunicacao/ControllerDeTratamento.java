@@ -51,7 +51,9 @@ public class ControllerDeTratamento extends Thread {
                     switch (msg.getCommand()) {
                         case CadCarro:
                             String[] dadosCarro = (String[]) msg.getObject();
-
+                            
+                            //nessa parte ele tem que pegar do coletor
+                            
                             if (sf.cadastrarCarro(dadosCarro[0], dadosCarro[1], dadosCarro[2])) {
                                 this.os.writeUTF("Carro Cadastrado");
                                 this.os.flush();
@@ -87,6 +89,8 @@ public class ControllerDeTratamento extends Thread {
                 case ClienteExib:
                     break;
                 case Sensor:
+                    
+                    //sf.coletorDeTags(tag);
                     break;
             }
 

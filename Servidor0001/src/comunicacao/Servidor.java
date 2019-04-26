@@ -10,7 +10,7 @@ public class Servidor {
     private ServerSocket serverSocket;
     
     public static void main(String[] args) throws ClassNotFoundException{
-        ServidorFacade facade = ServidorFacade.getInstance();
+
         ServerSocket serverSock;
         try {
             serverSock = new ServerSocket(5555);
