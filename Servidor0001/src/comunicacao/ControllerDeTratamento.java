@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidor;
+package comunicacao;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,8 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import servidor.execoes.PilotoNaoExisteException;
 import servidor.model.Jogador;
-import servidor.model.Mensagem;
-import servidor.util.Command;
 
 /**
  *
@@ -42,20 +40,30 @@ public class ControllerDeTratamento extends Thread {
 
     @Override
     public void run() {
-      
         while (true) {
             try {
-                String[] dados = (String[]) is.readObject();
 
-                sf.cadastrarCarro(dados[0], dados[1], dados[2]);
-                os.writeUTF("Carro Cadastrado");
+                // Ask user what he wants 
+                Mensagem msg = (Mensagem) is.readObject();
+                if (msg.getCommand().CadCarro == Command.CadCarro) {
+                    this.os.writeUTF("Carro Cadastrado");
+                    this.os.flush();
 
-            } catch (IOException ex) {
-                Logger.getLogger(ControllerDeTratamento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ControllerDeTratamento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
+            break;
+        }
 
+        try {
+            // closing resources 
+            this.is.close();
+            this.os.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

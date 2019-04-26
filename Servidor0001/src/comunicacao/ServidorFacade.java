@@ -1,4 +1,4 @@
-package servidor;
+package comunicacao;
 
 import java.util.ArrayList;
 import java.util.Date;

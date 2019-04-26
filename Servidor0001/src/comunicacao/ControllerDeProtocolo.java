@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidor;
+package comunicacao;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,9 +15,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import servidor.model.Mensagem;
-import servidor.util.Command;
-import servidor.ControllerDeTratamento;
+import comunicacao.ControllerDeTratamento;
 import servidor.execoes.PilotoNaoExisteException;
 
 /**

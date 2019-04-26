@@ -1,9 +1,9 @@
-package servidor.model;
+package comunicacao;
 
 import java.io.Serializable;
-import servidor.util.Command;
 
 public class Mensagem implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Command command;
     private Object object;
 

@@ -1,4 +1,4 @@
-package servidor;
+package comunicacao;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
