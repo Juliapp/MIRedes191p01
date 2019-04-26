@@ -1,8 +1,10 @@
-package clienteCad.model;
+package comunicacao;
 
 import java.io.Serializable;
 
 public class Mensagem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private Command command;
     private Object object;
 
@@ -27,5 +29,3 @@ public class Mensagem implements Serializable {
         this.object = object;
     }
 }
-
-

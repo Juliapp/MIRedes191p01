@@ -1,4 +1,4 @@
-package clientCad;
+package comunicacao;
 
 import clientCad.util.Console;
 import java.io.IOException;
@@ -15,8 +15,6 @@ import clienteCad.model.Piloto;
 import clienteCad.model.Equipe;
 import java.util.Iterator;
 import clienteCad.CadastroFacade.CadFacade;
-import clienteCad.model.Command;
-import clienteCad.model.Mensagem;
 import clienteCad.model.Jogador;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -69,9 +67,11 @@ public class Client0001 {
         String equipe = Console.readString();
 
         String[] obj = {tag, cor, equipe};
-
         
-        enviaMensagem(socket, obj);
+        Mensagem msg = new Mensagem(Command.CadCarro, obj);
+        
+        enviaMensagem(socket, msg);
+        
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
         if (op.equals("S")) {
@@ -118,13 +118,14 @@ public class Client0001 {
 
     }
 
-    public void enviaMensagem(Socket socket, Object obj) throws IOException {
+    public void enviaMensagem(Socket socket, Mensagem obj) throws IOException {
 
+        Object objeto = (Object) obj;
        
         ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
         
-        os.writeObject(obj);
+        os.writeObject(objeto);
         os.flush();
         
         System.out.println(is.readUTF());
