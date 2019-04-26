@@ -233,7 +233,7 @@ public class ServidorFacade {
      * @return O objeto jogador
      */
     public Jogador getJogador(String tag, String piloto) {
-        return Dados.getJogadores(cf.factoryJog(getCarro(tag), getPiloto(piloto)));
+        return Dados.getJogador(cf.factoryJog(getCarro(tag), getPiloto(piloto)));
     }
 
     /**
