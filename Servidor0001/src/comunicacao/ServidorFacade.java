@@ -16,6 +16,7 @@ import model.Piloto;
 import model.TagColetada;
 import model.Time;
 
+
 public class ServidorFacade {
 
     private ArrayList<ControladorCorrida> contrCorrida;
