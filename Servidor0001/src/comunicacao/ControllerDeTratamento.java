@@ -91,6 +91,10 @@ public class ControllerDeTratamento extends Thread {
                             if(arrayJogadores != null){
                                 this.os.writeObject(arrayJogadores);
                                 this.os.close();
+                            }else{
+                                String erroinfo = "Erro no array";
+                                this.os.writeObject(erroinfo);
+                                this.os.close();
                             }
                             
                             break;
