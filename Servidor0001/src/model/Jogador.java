@@ -109,7 +109,7 @@ public class Jogador implements Serializable {
         
         if(obj instanceof Jogador){
            Jogador aux  = (Jogador) obj;
-           return this.carro.equals(aux.getCarro()) && this.piloto.equals(aux.getPiloto());  
+           return this.getCarro().getTag().equals(aux.getCarro().getTag()) && this.getPiloto().getNome().equals(aux.getPiloto().getNome());
         }
         return false;
         
