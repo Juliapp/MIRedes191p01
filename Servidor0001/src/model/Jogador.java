@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Jogador implements Serializable {
+    private static final long serialVersionUID = 3L;
     private Carro carro;
     private Piloto piloto;
     private Time voltaMaisRapida;
@@ -13,13 +14,15 @@ public class Jogador implements Serializable {
     private Time tempoDeCorridaFinal;
     private int voltas;
     private int pitStops;
-    private int colocacao;  
+    private int colocacao;
+    private int id=0;
 
     public Jogador(Carro carro, Piloto piloto) {
         voltaMaisRapida = new Time(0,0,0,0);
         this.carro = carro;
         this.piloto = piloto;
         pitStops = 0;
+        this.id++;
     }
 
     public Carro getCarro() {
