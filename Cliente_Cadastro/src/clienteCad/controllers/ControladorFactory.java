@@ -5,6 +5,8 @@ import clienteCad.model.Carro;
 import clienteCad.model.Equipe;
 import clienteCad.model.Jogador;
 import clienteCad.model.Piloto;
+import java.io.IOException;
+import java.net.Socket;
 
 public class ControladorFactory {
 
@@ -24,6 +26,9 @@ public class ControladorFactory {
         return new Jogador(c, p);
     }
     
+    public Socket factorySocket() throws IOException{
+        return new Socket("localhost", 5555);
+    }
     
     
 }
