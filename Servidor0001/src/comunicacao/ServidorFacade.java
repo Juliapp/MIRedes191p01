@@ -2,18 +2,19 @@ package comunicacao;
 
 import java.util.ArrayList;
 import java.util.Date;
-import servidor.controladores.ControladorFactory;
-import servidor.controladores.ControladorCorrida;
-import servidor.controladores.ControladorDeDados;
-import servidor.execoes.CorridaNaoIniciadaException;
-import servidor.execoes.PilotoNaoExisteException;
-import servidor.execoes.TagInvalidaException;
-import servidor.execoes.VoltaInvalidaException;
-import servidor.model.Carro;
-import servidor.model.Equipe;
-import servidor.model.Jogador;
-import servidor.model.Piloto;
-import servidor.model.TagColetada;
+import controladores.ControladorFactory;
+import controladores.ControladorCorrida;
+import controladores.ControladorDeDados;
+import execoes.CorridaNaoIniciadaException;
+import execoes.PilotoNaoExisteException;
+import execoes.TagInvalidaException;
+import execoes.VoltaInvalidaException;
+import model.Carro;
+import model.Equipe;
+import model.Jogador;
+import model.Piloto;
+import model.TagColetada;
+import model.Time;
 
 public class ServidorFacade {
 
@@ -340,11 +341,14 @@ public class ServidorFacade {
      * controlador da corrida
      *
      * @param tag Tag coletada do sensor
+     * @param voltaComputada objeto Time coletado pelo sensor
      * @throws TagInvalidaException Se a TAG não estiver cadastrada no Sistema
      * ou na partida atual
+     * @throws execoes.CorridaNaoIniciadaException
+     * @throws execoes.VoltaInvalidaException
      */
-    public void coletorDeTags(TagColetada tag) throws TagInvalidaException, CorridaNaoIniciadaException, VoltaInvalidaException {
-        corridaAtual.pushTag(tag);
+    public void coletorDeTags(TagColetada tag, Time voltaComputada) throws TagInvalidaException, CorridaNaoIniciadaException, VoltaInvalidaException {
+        corridaAtual.pushTag(tag, voltaComputada);
     }
 
 }

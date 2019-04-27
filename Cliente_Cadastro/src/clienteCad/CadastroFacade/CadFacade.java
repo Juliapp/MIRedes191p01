@@ -1,12 +1,12 @@
 package clienteCad.CadastroFacade;
 
 import java.util.ArrayList;
-import clienteCad.controllers.ControladorFactory;
-import clienteCad.controllers.ControladorCorrida;
-import clienteCad.controllers.ControladorDeDados;
-import clienteCad.model.Carro;
-import clienteCad.model.Equipe;
-import clienteCad.model.Piloto;
+import controladores.ControladorFactory;
+import controladores.ControladorCorrida;
+import controladores.ControladorDeDados;
+import model.Carro;
+import model.Equipe;
+import model.Piloto;
 import java.util.LinkedList;
 
 public class CadFacade {

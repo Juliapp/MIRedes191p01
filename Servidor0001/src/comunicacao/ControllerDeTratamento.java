@@ -12,8 +12,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import servidor.execoes.PilotoNaoExisteException;
-import servidor.model.Jogador;
+import execoes.PilotoNaoExisteException;
+import model.Jogador;
 
 /**
  *
@@ -21,7 +21,7 @@ import servidor.model.Jogador;
  */
 public class ControllerDeTratamento extends Thread {
 
-    private ServidorFacade sf;
+    private ServidorFacade servidorFacade;
 
     private final ObjectOutputStream os;
     private final ObjectInputStream is;
@@ -31,7 +31,7 @@ public class ControllerDeTratamento extends Thread {
         this.recebido = s;
         this.os = os;
         this.is = is;
-        this.sf = ServidorFacade.getInstance();
+        this.servidorFacade = ServidorFacade.getInstance();
     }
 
     public void trataMensagem() {
@@ -54,14 +54,14 @@ public class ControllerDeTratamento extends Thread {
                             
                             //nessa parte ele tem que pegar do coletor
                             
-                            if (sf.cadastrarCarro(dadosCarro[0], dadosCarro[1], dadosCarro[2])) {
+                            if (servidorFacade.cadastrarCarro(dadosCarro[0], dadosCarro[1], dadosCarro[2])) {
                                 this.os.writeUTF("Carro Cadastrado");
                                 this.os.flush();
                             }
                             break;
 
                         case IterarCarros:
-                            Object arrayCarros = (Object) sf.getListaDeCarros();
+                            Object arrayCarros = (Object) servidorFacade.getListaDeCarros();
                             if (arrayCarros != null) {
                                 this.os.writeObject(arrayCarros);
                                 this.os.flush();
@@ -69,20 +69,20 @@ public class ControllerDeTratamento extends Thread {
                             break;
                         case CadPiloto:
                             String[] dadosPiloto = (String[]) msg.getObject();
-                            if (sf.cadastrarPiloto(dadosPiloto[0], null)) {
+                            if (servidorFacade.cadastrarPiloto(dadosPiloto[0], null)) {
                                 this.os.writeUTF("Piloto Cadastrado");
                                 this.os.flush();
                             }
                             break;
                         case CadJogador:
                             String[] dadosJogador = (String[]) msg.getObject();
-                            if(sf.CadastrarJogador(dadosJogador[0], dadosJogador[1])){
+                            if(servidorFacade.CadastrarJogador(dadosJogador[0], dadosJogador[1])){
                                 this.os.writeUTF("Jogador Cadastrado");
                                 this.os.flush();
                             }
                             break;
                         case ComecarCorrida:
-                            sf.comecarCorrida();
+                            servidorFacade.comecarCorrida();
                             
                             break;
                         
@@ -93,7 +93,7 @@ public class ControllerDeTratamento extends Thread {
                     break;
                 case Sensor:
                     
-                    //sf.coletorDeTags(tag);
+                    //sf.coletorDeTags(tag, tempoColetado);
                     break;
             }
 

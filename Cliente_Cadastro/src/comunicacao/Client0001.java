@@ -1,22 +1,22 @@
 package comunicacao;
 
-import clientCad.util.Console;
+import util.Console;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import clienteCad.controllers.ControladorCorrida;
-import clienteCad.controllers.ControladorDeDados;
-import clienteCad.controllers.ControladorFactory;
-import clienteCad.model.Carro;
-import clienteCad.model.Piloto;
-import clienteCad.model.Equipe;
+import controladores.ControladorCorrida;
+import controladores.ControladorDeDados;
+import controladores.ControladorFactory;
+import model.Carro;
+import model.Piloto;
+import model.Equipe;
 import java.util.Iterator;
 import clienteCad.CadastroFacade.CadFacade;
-import clienteCad.model.Jogador;
-import clienteCad.model.PreConfigCorrida;
+import model.Jogador;
+import model.PreConfigCorrida;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
