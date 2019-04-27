@@ -3,20 +3,34 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class Jogador implements Serializable  {
+public class Jogador implements Serializable {
+    private static final long serialVersionUID = 3L;
     private Carro carro;
     private Piloto piloto;
-    private Date voltaMaisRapida;
-    private Date tempoDeCorrida;
+    private Time voltaMaisRapida;
+    private Time ultimaVoltaComputada;
+    private Time tempoDeCorridaFinal;
     private int voltas;
     private int pitStops;
-    private int colocacao;  
+    private int colocacao;
+    private int id=0;
 
     public Jogador(Carro carro, Piloto piloto) {
+        voltaMaisRapida = new Time(0,0,0,0);
         this.carro = carro;
         this.piloto = piloto;
         pitStops = 0;
+        this.id++;
+    }
+
+    public Time getTempoDeCorridaFinal() {
+        return tempoDeCorridaFinal;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Carro getCarro() {
@@ -35,21 +49,30 @@ public class Jogador implements Serializable  {
         this.piloto = piloto;
     }
 
-    public Date getVoltaMaisRapida() {
+    public Time getVoltaMaisRapida() {
         return voltaMaisRapida;
     }
 
-    public void setVoltaMaisRapida(Date voltaMaisRapida) {
+    public void setVoltaMaisRapida(Time voltaMaisRapida) {
         this.voltaMaisRapida = voltaMaisRapida;
     }
 
-    public Date getTempoDeCorrida() {
-        return tempoDeCorrida;
+    public Time getUltimaVoltaComputada() {
+        return ultimaVoltaComputada;
     }
 
-    public void setTempoDeCorrida(Date tempoDeCorrida) {
-        this.tempoDeCorrida = tempoDeCorrida;
+    public void setUltimaVoltaComputada(Time ultimaVoltaComputada) {
+        this.ultimaVoltaComputada = ultimaVoltaComputada;
     }
+
+    public Time getTempoDeCorrida() {
+        return tempoDeCorridaFinal;
+    }
+
+    public void setTempoDeCorrida(Time tempoDeCorrida) {
+        this.tempoDeCorridaFinal = tempoDeCorrida;
+    }
+
 
     public int getVolta() {
         return voltas;

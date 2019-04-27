@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Piloto implements Serializable {
+    private static final long serialVersionUID = 5L;
     private String nome;
     private String foto;
     private Equipe equipe;
