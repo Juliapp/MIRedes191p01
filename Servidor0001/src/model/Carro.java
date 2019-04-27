@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Carro implements Serializable {
     private static final long serialVersionUID = 2L;
-    private static int id = 1;
+    private int id = 1;
     private String tag;
     private String cor;
     private Equipe equipe; 
@@ -19,12 +19,12 @@ public class Carro implements Serializable {
         this.equipe = equipe;
     }
 
-    public static int getId() {
+    public  int getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        Carro.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     

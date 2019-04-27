@@ -68,21 +68,30 @@ public class ControllerDeTratamento extends Thread {
                             }
                             break;
                         case CadPiloto:
-                            String[] dadosPiloto = (String[]) msg.getObject();
-                            if (servidorFacade.cadastrarPiloto(dadosPiloto[0], null)) {
+                            String dadosPiloto =  (String) msg.getObject();
+                            if (servidorFacade.cadastrarPiloto(dadosPiloto, null)) {
                                 this.os.writeUTF("Piloto Cadastrado");
                                 this.os.flush();
                             }
                             break;
                         case CadJogador:
                             String[] dadosJogador = (String[]) msg.getObject();
-                            if(servidorFacade.CadastrarJogador(dadosJogador[0], dadosJogador[1])){
+                            int id = Integer.parseInt(dadosJogador[0]);
+                            if(servidorFacade.CadastrarJogador(id, dadosJogador[1])){
                                 this.os.writeUTF("Jogador Cadastrado");
                                 this.os.flush();
                             }
                             break;
                         case ComecarCorrida:
                             servidorFacade.comecarCorrida();
+                            
+                            break;
+                        case IterarJogadores:
+                            Object arrayJogadores = (Object) servidorFacade.getListaDeJogadores();
+                            if(arrayJogadores != null){
+                                this.os.writeObject(arrayJogadores);
+                                this.os.close();
+                            }
                             
                             break;
                         

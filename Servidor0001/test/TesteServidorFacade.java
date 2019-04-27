@@ -5,6 +5,7 @@
  */
 
 import comunicacao.ServidorFacade;
+import model.Carro;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,11 +31,24 @@ public class TesteServidorFacade {
     @Before
     public void setUp() {
     }
-
+/*
     @Test
     public void testCadastroCarro() {
         boolean status = sf.cadastrarCarro("EPC0292123", "Vermelho", "Velozes");
         
         assertEquals(true, status);
+    }
+    */
+    @Test
+    public void testGetCarroPorID(){
+        boolean status = sf.cadastrarCarro("EPC0292123", "Vermelho", "Velozes");
+        boolean status1 = sf.cadastrarCarro("EPC0492123", "Vermelho", "Velozes");
+        
+        Carro idCar = sf.getCarroPorId(1);
+        Carro idCar1 = sf.getCarroPorId(2);
+        
+        assertEquals(idCar, idCar);
+        assertEquals(true, status1);
+        
     }
 }

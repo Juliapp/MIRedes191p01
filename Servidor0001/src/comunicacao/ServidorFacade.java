@@ -218,12 +218,12 @@ public class ServidorFacade {
      * classe jogador é a junção da classe Piloto, Equipe e Carro com os
      * atributos e métodos que um jogador tem durante a partida.
      *
-     * @param tag TAG do carro (deve estar pré cadastrada no sistema)
+     * @param id id do carro (definida ao cadastrar um carro no sistema)
      * @param piloto nome do piloto (deve estar pré cadastrado no sistema
      * @return Verdadeiro se o cadastro foi efetuado com sucesso
      */
-    public boolean CadastrarJogador(String tag, String piloto) {
-        return Dados.addJogador(cf.factoryJog(getCarro(tag), getPiloto(piloto)));
+    public boolean CadastrarJogador(int id, String piloto) {
+        return Dados.addJogador(cf.factoryJog(getCarroPorId(id), getPiloto(piloto)));
     }
 
     /**

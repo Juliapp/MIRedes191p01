@@ -320,8 +320,9 @@ public class ControladorDeDados {
      */
     public Carro getCarroPorId(int id){
         Carro c;
-        while (itCarro().hasNext()) {
-            c = (Carro) itCarro().next();
+        Iterator<Carro> iterCars = itCarro();
+        while (iterCars.hasNext()) {
+            c = (Carro) iterCars.next();
             if (c.getId() == id) {
                 return c;
             }
