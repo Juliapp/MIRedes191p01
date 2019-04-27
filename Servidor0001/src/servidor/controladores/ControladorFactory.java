@@ -1,10 +1,10 @@
 package servidor.controladores;
 
 import java.util.List;
-import servidor.model.Carro;
-import servidor.model.Equipe;
-import servidor.model.Jogador;
-import servidor.model.Piloto;
+import model.Carro;
+import model.Equipe;
+import model.Jogador;
+import model.Piloto;
 
 public class ControladorFactory {
 

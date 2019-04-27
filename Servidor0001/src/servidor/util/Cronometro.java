@@ -2,7 +2,7 @@ package servidor.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import servidor.model.Time;
+import model.Time;
 
 /**
  *

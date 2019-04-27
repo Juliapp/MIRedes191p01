@@ -9,11 +9,11 @@ import servidor.execoes.CorridaNaoIniciadaException;
 import servidor.execoes.PilotoNaoExisteException;
 import servidor.execoes.TagInvalidaException;
 import servidor.execoes.VoltaInvalidaException;
-import servidor.model.Carro;
-import servidor.model.Equipe;
-import servidor.model.Jogador;
-import servidor.model.Piloto;
-import servidor.model.TagColetada;
+import model.Carro;
+import model.Equipe;
+import model.Jogador;
+import model.Piloto;
+import model.TagColetada;
 
 public class ServidorFacade {
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import servidor.execoes.PilotoNaoExisteException;
-import servidor.model.Jogador;
+import model.Jogador;
 
 /**
  *

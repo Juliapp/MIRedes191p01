@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.Iterator;
 import servidor.execoes.TagInvalidaException;
 import servidor.execoes.VoltaInvalidaException;
-import servidor.model.Carro;
+import model.Carro;
 import servidor.util.Cronometro;
-import servidor.model.Jogador;
-import servidor.model.TagColetada;
-import servidor.model.Time;
+import model.Jogador;
+import model.TagColetada;
+import model.Time;
 
 /**
  *

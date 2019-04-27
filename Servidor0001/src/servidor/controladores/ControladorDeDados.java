@@ -2,10 +2,10 @@ package servidor.controladores;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import servidor.model.Carro;
-import servidor.model.Equipe;
-import servidor.model.Jogador;
-import servidor.model.Piloto;
+import model.Carro;
+import model.Equipe;
+import model.Jogador;
+import model.Piloto;
 
 /**
  *O controlador de dados controla os dados cadastráveis do sistema. Essa classe na segunda versão ganhará um banco de dados.
