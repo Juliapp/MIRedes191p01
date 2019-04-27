@@ -431,7 +431,7 @@ public class ControladorDeDados {
      * @param nomeDoPiloto nome do piloto
      * @return o objeto piloto caso exista na lista encadeada 
      */
-    public Jogador getJogadortPorNome(String nomeDoPiloto){
+    public Jogador getJogadorPorNomeDoPiloto(String nomeDoPiloto){
         if(hasPiloto(nomeDoPiloto)){
             
           Iterator<Jogador> it = itJogadores();
@@ -466,6 +466,28 @@ public class ControladorDeDados {
         return jogadores;
     }
     
+    
+    /**
+     * A partir de um array de nomes de jogadores pré cadastrados no sistem que
+     * querem participar da corrida ele joga os Objetos Jogador num array para
+     * que seja lançado na corrida atual
+     *
+     * @param args nome dos jogadores
+     * @return ArrayList de jogadores
+     */
+    public ArrayList<Jogador> selecionarJogadores(String[] args) {
+        ArrayList<Jogador> jogadoresDaCorrida = new ArrayList<>();
+
+        for (String a : args) {
+            Jogador jogador = getJogadorPorNomeDoPiloto(a);
+            if (jogador != null) {
+                jogadoresDaCorrida.add(jogador);
+            }
+        }
+
+        return jogadoresDaCorrida;
+
+    }    
     
 
 

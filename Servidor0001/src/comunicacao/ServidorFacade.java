@@ -278,7 +278,7 @@ public class ServidorFacade {
      * @return o objeto jogador requerido caso não nulo
      */
     public Jogador getJogadorPorNomeDoPiloto(String piloto) {
-        return Dados.getJogadortPorNome(piloto);
+        return Dados.getJogadorPorNomeDoPiloto(piloto);
     }
 
     /**
@@ -302,17 +302,7 @@ public class ServidorFacade {
      * @return ArrayList de jogadores
      */
     public ArrayList<Jogador> selecionarJogadores(String[] args) {
-        ArrayList<Jogador> jogadoresDaCorrida = new ArrayList<>();
-
-        for (String a : args) {
-            Jogador jogador = getJogadorPorNomeDoPiloto(a);
-            if (jogador != null) {
-                jogadoresDaCorrida.add(jogador);
-            }
-        }
-
-        return jogadoresDaCorrida;
-
+        return selecionarJogadores(args);
     }
 
     /**
