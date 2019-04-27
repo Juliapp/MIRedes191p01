@@ -5,6 +5,7 @@ import java.io.IOException;
 import model.Carro;
 import java.util.Iterator;
 import java.util.ArrayList;
+import model.Jogador;
 
 public class Client0001 {
 
@@ -68,9 +69,9 @@ public class Client0001 {
     public void iteraArrayCarros() throws IOException, ClassNotFoundException {
 
         Mensagem msg = new Mensagem(Command.IterarCarros, null, Solicitante.ClienteCad);
-        
+
         transm.solicitaMensagem(msg);
-        
+
         ArrayList<Carro> carros = (ArrayList<Carro>) transm.getDadoRecebido();
         Iterator<Carro> iterProx = carros.iterator();
 
@@ -78,7 +79,7 @@ public class Client0001 {
         while (iterProx.hasNext()) {
             Carro c = (Carro) iterProx.next();
             System.out.println("------------------------------------------------------------");
-            System.out.println("Id: "+count+" " + "Tag: "+c.getTag()+" "+"Cor: "+ c.getCor()+" "+"Equipe: "+ c.getEquipe().getNome());
+            System.out.println("ID: " + count + " " + "Tag: " + c.getTag() + " " + "Cor: " + c.getCor() + " " + "Equipe: " + c.getEquipe().getNome());
             System.out.println("------------------------------------------------------------");
             count++;
         }
@@ -90,13 +91,18 @@ public class Client0001 {
         System.out.println("Informe o seu nome:");
         String nome = Console.readString();
 
-        System.out.println("Escolha o seu carro inserindo a cor!");
+        Mensagem msg0 = new Mensagem(Command.CadPiloto, nome, Solicitante.ClienteCad);
+        transm.enviaMensagem(msg0);
+
+        System.out.println("Informe o ID do carro desejado!");
         iteraArrayCarros();
 
-        String numCarro = Console.readString();
-      
+        String idCarro = Console.readString();
 
-        String[] obj = {numCarro, nome};
+        String[] obj = {idCarro, nome};
+        Mensagem msg1 = new Mensagem(Command.CadJogador, obj, Solicitante.ClienteCad);
+
+        transm.enviaMensagem(msg1);
 
         System.out.println("Deseja cadastrar novamente? S/N");
         op = Console.readString();
@@ -108,44 +114,38 @@ public class Client0001 {
 
     }
 
-    
+    public void percorreParticipantes() throws IOException, ClassNotFoundException {
+        Mensagem msg = new Mensagem(Command.IterarJogadores, null, Solicitante.ClienteCad);
 
-    public void percorreParticipantes() { //Esse método vai ser introduzido no outro cliente!!!
-        /*Iterator<Jogador> iter_Part = cc.getParticipantes().iterator();
-        while (iter_Part.hasNext()) {
-            Jogador part = (Jogador) iter_Part.next();
-            Carro c = part.getCarro();
-            Piloto p = part.getPiloto();
-            Equipe e = p.getEquipe();
-            System.out.println("------------------------------------------------------------------");
-            System.out.println("Nome:" + p.getNome() + "Equipe:" + e.getNome() + "Carro:" + c.getCor());
-            System.out.println("------------------------------------------------------------------");
+        transm.enviaMensagem(msg);
+        ArrayList<Jogador> jogadores = (ArrayList<Jogador>) transm.getDadoRecebido();
+        Iterator<Jogador> iterJgdrs = jogadores.iterator();
+
+        int count = 1;
+        while (iterJgdrs.hasNext()) {
+            Jogador jgdr = (Jogador) iterJgdrs.next();
+            System.out.println("--------------------------------------------------------");
+            System.out.println("ID: " + count + " " + "Nome: " + jgdr.getPiloto().getNome() + " " + "Carro: " + " " + jgdr.getCarro().getId() + " " + "Equipe: " + jgdr.getPiloto().getEquipe().getNome());
+            System.out.println("--------------------------------------------------------");
+            count++;
         }
-        */
+
     }
 
-    public int iniciaPartida() throws IOException {
-        
-        
+    public void iniciaPartida() throws IOException, ClassNotFoundException {
+
         String op;
         System.out.println("Quantas voltas deseja?");
         int voltas = Console.readInt();
         String[] jogadores = new String[4];
+
         percorreParticipantes();
-        for(int count = 1; count <= 5; count++){
-            System.out.println("Informe o nome do jogador"+count+"para cadastrar na corrida!");
+        for (int count = 1; count <= 5; count++) {
+            System.out.println("Informe o nome do jogador" + count + "para cadastrar na corrida!");
             jogadores[count] = Console.readString();
-            
+
         }
-        
-        
-        System.out.println("Deseja cadastrar novamente? S/N");
-        op = Console.readString();
-        if (op.equals("S")) {
-            return 1;
-        } else {
-            return 0;
-        }
+
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -154,7 +154,7 @@ public class Client0001 {
             int repeat = 0;
             //Ta dando Erroooooo
             do {
-               
+
                 int controle = client.menuPrincipal();
                 switch (controle) {
 
@@ -170,9 +170,8 @@ public class Client0001 {
                         } while (repeat == 1);
                         break;
                     case 3:
-                        do {
-                            repeat = client.iniciaPartida();
-                        } while (repeat == 1);
+
+                        client.iniciaPartida();
 
                 }
             } while (repeat == 0);

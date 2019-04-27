@@ -5,16 +5,27 @@ import java.io.Serializable;
 public class Carro implements Serializable {
     
     private static final long serialVersionUID = 2L;
+    private int id = 0;
     private String tag;
     private String cor;
     private Equipe equipe; 
 
     public Carro(String tag, String cor, Equipe equipe) {
+        this.id++; //pode servir pra alguma coisa
         this.tag = tag;
         this.cor = cor;
         this.equipe = equipe;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public String getTag() {
         return tag;
     }
