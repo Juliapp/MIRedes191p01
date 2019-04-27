@@ -6,8 +6,8 @@
 
 import clienteCad.controllers.ControladorDeDados;
 import clienteCad.controllers.ControladorFactory;
-import clienteCad.model.Carro;
-import clienteCad.model.Equipe;
+import model.Carro;
+import model.Equipe;
 import java.util.Iterator;
 import org.junit.Before;
 import org.junit.BeforeClass;

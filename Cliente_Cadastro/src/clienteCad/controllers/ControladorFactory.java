@@ -1,10 +1,10 @@
 package clienteCad.controllers;
 
 import java.util.List;
-import clienteCad.model.Carro;
-import clienteCad.model.Equipe;
-import clienteCad.model.Jogador;
-import clienteCad.model.Piloto;
+import model.Carro;
+import model.Equipe;
+import model.Jogador;
+import model.Piloto;
 import java.io.IOException;
 import java.net.Socket;
 

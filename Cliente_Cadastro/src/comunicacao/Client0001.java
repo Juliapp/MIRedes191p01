@@ -10,13 +10,13 @@ import java.util.logging.Logger;
 import clienteCad.controllers.ControladorCorrida;
 import clienteCad.controllers.ControladorDeDados;
 import clienteCad.controllers.ControladorFactory;
-import clienteCad.model.Carro;
-import clienteCad.model.Piloto;
-import clienteCad.model.Equipe;
+import model.Carro;
+import model.Piloto;
+import model.Equipe;
 import java.util.Iterator;
 import clienteCad.CadastroFacade.CadFacade;
-import clienteCad.model.Jogador;
-import clienteCad.model.PreConfigCorrida;
+import model.Jogador;
+import model.PreConfigCorrida;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -82,12 +82,18 @@ public class Client0001 {
     public void iteraArrayCarros() throws IOException, ClassNotFoundException {
 
         Mensagem msg = new Mensagem(Command.IterarCarros, null, Solicitante.ClienteCad);
-        ArrayList<Carro> carros = (ArrayList<Carro>) transm.solicitaMensagem(msg);
+        
+        transm.solicitaMensagem(msg);
+        
+        ArrayList<Carro> carros = (ArrayList<Carro>) transm.getDadoRecebido();
+        Iterator<Carro> iterProx = carros.iterator();
 
         int count = 1;
-        while (carros.iterator().hasNext()) {
-            Carro c = (Carro) carros.iterator().next();
-            System.out.println(count + c.getTag() + c.getCor() + c.getEquipe().getNome());
+        while (iterProx.hasNext()) {
+            Carro c = (Carro) iterProx.next();
+            System.out.println("------------------------------------------------------------");
+            System.out.println("Id: "+count+" " + "Tag: "+c.getTag()+" "+"Cor: "+ c.getCor()+" "+"Equipe: "+ c.getEquipe().getNome());
+            System.out.println("------------------------------------------------------------");
             count++;
         }
 
@@ -184,7 +190,8 @@ public class Client0001 {
 
                 }
             } while (repeat == 0);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

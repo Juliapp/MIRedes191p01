@@ -15,7 +15,8 @@ import java.net.Socket;
  * @author Teeu Guima
  */
 public class Transmissao {
-
+    
+    private Object dadoRecebido;
     public Socket solicitaSocket() throws IOException {
         return new Socket("localhost", 5555);
     }
@@ -31,26 +32,41 @@ public class Transmissao {
         os.flush();
 
         System.out.println(is.readUTF());
+        os.reset();
         os.close();
         is.close();
         socket.close();
 
     }
 
-    public Object solicitaMensagem(Mensagem msg) throws IOException, ClassNotFoundException {
-        Object objeto = (Object) msg;
+    public void solicitaMensagem(Mensagem msg) throws IOException, ClassNotFoundException {
         Socket socket = solicitaSocket();
+        
+        Object objeto = (Object) msg;
+        
         ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+        
 
         os.writeObject(objeto);
         os.flush();
         
+        ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+        this.dadoRecebido = is.readObject();
+        
+        if(this.dadoRecebido == null){
+            System.out.println("Não chegou nada!");
+        }
+        os.reset();
         os.close();
         is.close();
         socket.close();
 
-        return is.readObject();
     }
+
+    public Object getDadoRecebido() {
+        return dadoRecebido;
+    }
+    
+    
 
 }
