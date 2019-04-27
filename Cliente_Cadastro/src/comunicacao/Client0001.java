@@ -118,17 +118,25 @@ public class Client0001 {
         Mensagem msg = new Mensagem(Command.IterarJogadores, null, Solicitante.ClienteCad);
 
         transm.solicitaMensagem(msg);
-        ArrayList<Jogador> jogadores = (ArrayList<Jogador>) transm.getDadoRecebido();
-        Iterator<Jogador> iterJgdrs = jogadores.iterator();
-
-    
-        while (iterJgdrs.hasNext()) {
+        
+        if(transm.getDadoRecebido() instanceof String){
+            System.out.println(transm.getDadoRecebido());
+        }else{
+            ArrayList<Jogador> jogadores = (ArrayList<Jogador>) transm.getDadoRecebido();
+            Iterator<Jogador> iterJgdrs = jogadores.iterator();
+            
+            while (iterJgdrs.hasNext()) {
             Jogador jgdr = (Jogador) iterJgdrs.next();
             System.out.println("--------------------------------------------------------");
             System.out.println("ID: " + jgdr.getId() + " " + "Nome: " + jgdr.getPiloto().getNome() + " " + "Carro: " + " " + jgdr.getCarro().getId() + " " + "Equipe: " + jgdr.getPiloto().getEquipe().getNome());
             System.out.println("--------------------------------------------------------");
            
         }
+        }
+        
+
+    
+        
 
     }
 
