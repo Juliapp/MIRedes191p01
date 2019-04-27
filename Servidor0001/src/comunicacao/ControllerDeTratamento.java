@@ -81,7 +81,10 @@ public class ControllerDeTratamento extends Thread {
                                 this.os.flush();
                             }
                             break;
-                        
+                        case ComecarCorrida:
+                            sf.comecarCorrida();
+                            
+                            break;
                         
                     }
 
