@@ -85,17 +85,19 @@ public class ControllerDeTratamento extends Thread {
                             break;
                         case ComecarCorrida:
                             servidorFacade.comecarCorrida();
+                            this.os.writeUTF("Tudo preparado...Foi dada a largada...Boa corrida!!!");
+                            this.os.flush();
                             
                             break;
                         case IterarJogadores:
                             Object arrayJogadores = (Object) servidorFacade.getListaDeJogadores();
                             if(arrayJogadores != null){
                                 this.os.writeObject(arrayJogadores);
-                                this.os.close();
+                                this.os.flush();
                             }else{
                                 String erroinfo = "Erro no array";
                                 this.os.writeObject(erroinfo);
-                                this.os.close();
+                                this.os.flush();
                             }
                             
                             break;
@@ -103,8 +105,11 @@ public class ControllerDeTratamento extends Thread {
                             if(msg.getObject() instanceof PreConfigCorrida){
                                 PreConfigCorrida preCor = (PreConfigCorrida) msg.getObject();
                                 servidorFacade.novaCorrida(preCor.getIdDosJogadores(), preCor.getQuantidadeVoltas());
+                                this.os.writeUTF("Partida configurada!");
+                                this.os.flush();
                             }
                             break;
+                        
                     }
 
                     break;
