@@ -34,7 +34,7 @@ public class Client0001 {
         int opc;
         System.out.println("Menu Internet dos Brinquedos");
         System.out.println("1- Realizar Cadastro de Carros\n"
-                + "2- Realizar Cadastro de Participantes\n"
+                + "2- Realizar Cadastro de Jogadores\n"
                 + "3- Iniciar Partida");
         opc = Console.readInt();
         return opc;
@@ -89,13 +89,13 @@ public class Client0001 {
 
     public int cadastroJogadores() throws IOException, ClassNotFoundException {
         String op;
-        
+
         System.out.println("Informe o seu nome:");
         String nome = Console.readString();
 
         Mensagem msg0 = new Mensagem(Command.CadPiloto, nome, Solicitante.ClienteCad);
         transm.enviaMensagem(msg0);
-        
+
         System.out.println("Informe o ID do carro desejado!");
         iteraArrayCarros();
 
@@ -120,51 +120,73 @@ public class Client0001 {
         Mensagem msg = new Mensagem(Command.IterarJogadores, null, Solicitante.ClienteCad);
 
         transm.solicitaMensagem(msg);
-        
-        if(transm.getDadoRecebido() instanceof String){
+
+        if (transm.getDadoRecebido() instanceof String) {
             System.out.println(transm.getDadoRecebido());
-        }else{
+        } else {
             ArrayList<Jogador> jogadores = (ArrayList<Jogador>) transm.getDadoRecebido();
             Iterator<Jogador> iterJgdrs = jogadores.iterator();
-            
+
             while (iterJgdrs.hasNext()) {
-                
+
                 Jogador jgdr = (Jogador) iterJgdrs.next();
                 System.out.println("--------------------------------------------------------");
                 System.out.println(jgdr);
                 System.out.println("--------------------------------------------------------");
-           
+
             }
         }
-        
-
-    
-        
 
     }
 
     public void iniciaPartida() throws IOException, ClassNotFoundException {
-        
+
         String op;
         System.out.println("Quantas voltas deseja?");
         int voltas = Console.readInt();
-        
+
         System.out.println("Quantos jogadores irão jogar?");
         String quant = Console.readString();
         Integer QuantosVaoJogar = new Integer(quant);
-        
+
         int[] jogadores = new int[QuantosVaoJogar];
-        
+
         percorreParticipantes();
         for (int count = 0; count < QuantosVaoJogar; count++) {
             System.out.println("Informe o ID do jogador que deseja cadastrar na corrida!");
             String aux = Console.readString();
             jogadores[count] = Integer.parseInt(aux);
         }
-        
+
         PreConfigCorrida preConfig = new PreConfigCorrida(voltas, jogadores);
         Mensagem mensagem = new Mensagem(Command.PreConfiguracaoCorrida, preConfig, Solicitante.ClienteCad);
         transm.enviaMensagem(mensagem);
+
+        for (int count = 0; count <= 100; count++) {
+            switch (count) {
+                case 0:
+                    System.out.println("Inicializando a partida...");
+                    break;
+                case 30:
+                    System.out.println("Apertando os parafusos...");
+                    break;
+                case 60:
+                    System.out.println("Colocando oléo nos motores...");
+                    break;
+                case 80:
+                    System.out.println("Preparando as bandeiras de largada...");
+                    break;
+                case 100:
+                    Mensagem msg = new Mensagem(Command.ComecarCorrida, null, Solicitante.ClienteCad);
+                    transm.enviaMensagem(msg);
+                    break;
+            }
+            System.out.println(".");
+            
+            
+
+        }
+
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
