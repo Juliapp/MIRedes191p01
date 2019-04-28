@@ -126,19 +126,47 @@ public class Time implements Serializable{
     }
     
     /**
-     *
-     * @return
+     * Pega o exato tempo que foi solicitado
+     * @return tempo atual
      */
     public Time getCurrentTime() {
         return new Time(this.getHoras(), this.getMinutos(), this.getSegundos(), this.getMilisegundos());
     }    
     
     /**
-     *
-     * @return
+     * Converte um tempo para milisegundos
+     * @return tempo em milisegundos
      */
     public double transformarEmMilisegundos(){
         return (3600000 * this.horas) + (60000 * this.minutos) + (1000 * this.segundos) + (this.milisegundos);
+    }
+ 
+    /**
+     *Mede a variação do tempo de acordo a dois tempos passados por parâmetro
+     * @param time novo tempo
+     * @return novo tempo com a variação
+     */
+    public Time deltaTime(Time time){
+        Time newTime = new Time();
+        if(this.compareTo(time) > 0){
+            divide(newTime, this, time);
+        } else if(this.compareTo(time) < 0){
+            divide(newTime, time, this);
+        }
+        
+         return newTime;
+    }
+    
+    private void divide(Time novo, Time maior, Time menor){
+        
+        double auxMaior = maior.transformarEmMilisegundos();
+        double auxMenor = menor.transformarEmMilisegundos();        
+        double delta = auxMaior - auxMenor;
+        
+        novo.setHoras(delta/3600000);
+        novo.setMinutos((delta%3600000) / 60000);
+        novo.setSegundos((delta%3600000) - (delta%60000) / 1000);
+        novo.setMilisegundos((delta%3600000) - (delta%60000) - (delta%1000));
     }
     
     /**
@@ -158,4 +186,10 @@ public class Time implements Serializable{
             return -1;
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("%2.0f", horas) + ":" + String.format("%2.0f", minutos) + ":" + String.format("%2.0f", segundos) + ":"+ String.format("%3.0f", milisegundos);
+    }
+    
 }

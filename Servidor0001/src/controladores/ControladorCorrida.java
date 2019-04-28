@@ -116,6 +116,7 @@ public class ControladorCorrida {
     /**
      *Verifica se a tag coletada é a volta mais rápida do jogador, e muda se for verdadeira
      * ela também implemeta a primeira volta do jogador
+     * è setado a variação da volta como volta mais rápida
      * @param jogador pertencene a tag que foi coletada
      * @param voltaComputada o tempo em que a tag foi coletada a partir do cronometro interno
      */
@@ -124,7 +125,7 @@ public class ControladorCorrida {
         double agora = voltaComputada.transformarEmMilisegundos();
         
         if(ultimo == 0 || ultimo > agora){
-            jogador.setVoltaMaisRapida(voltaComputada);
+            jogador.setVoltaMaisRapida(jogador.getVoltaMaisRapida().deltaTime(voltaComputada));
         }
 
     }
