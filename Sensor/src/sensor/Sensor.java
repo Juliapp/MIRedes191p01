@@ -19,24 +19,36 @@ public class Sensor {
 
     private final int tempo = 10000;
     private String[] tags = {"EPC00000", "EPC00001", "EPC00002", "EPC00003"};
-
-    public static void main(String[] args) throws IOException {
-        Sensor sensor = new Sensor();
-        Socket socket = new Socket("localhost", 5555);
-        ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
-        boolean repeat = true;
-        do {
-            int count = 0;
-            while (count <= sensor.tempo) {
+    private int count=0;
+    private Transmissao transm;
+    
+    public Sensor(){
+        this.transm = new Transmissao();
+    }
+    
+    public void lançaTags() throws IOException, ClassNotFoundException{
+        while(true){
+            while(this.count <= this.tempo){
                 count++;
             }
-            if (count == sensor.tempo) {
-                System.out.println(count);
-                os.writeObject(sensor.tags);
-                os.close();
-                socket.close();
+            if(count == this.tempo){
+                Mensagem msg = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
+                transm.enviaMensagem(msg);
+                this.count=0;
             }
-        } while (repeat);
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Sensor sensor = new Sensor();
+        try {
+             sensor.lançaTags();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+       
+        
+        
     }
 
 }
