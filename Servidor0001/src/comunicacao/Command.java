@@ -113,4 +113,10 @@ public enum Command implements Serializable {
      */
     PreConfiguracaoCorrida,
     
+    /**
+     *
+     */
+    EnviarTags,
+   
+    
 }

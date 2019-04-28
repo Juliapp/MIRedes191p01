@@ -116,8 +116,13 @@ public class ControllerDeTratamento extends Thread {
                 case ClienteExib:
                     break;
                 case Sensor:
+                    switch(msg.getCommand()){
+                        case EnviarTags:
+                            
+                            //servidorFacade.coletorDeTags(tag, tempoColetado);
+                            break;
+                    }
                     
-                    //sf.coletorDeTags(tag, tempoColetado);
                     break;
             }
 
