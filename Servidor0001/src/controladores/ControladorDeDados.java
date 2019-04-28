@@ -320,9 +320,9 @@ public class ControladorDeDados {
      */
     public Carro getCarroPorId(int id){
         Carro c;
-        Iterator<Carro> iterCars = itCarro();
-        while (iterCars.hasNext()) {
-            c = (Carro) iterCars.next();
+        Iterator<Carro> it = itCarro();
+        while (it.hasNext()) {
+            c = it.next();
             if (c.getId() == id) {
                 return c;
             }
@@ -387,6 +387,16 @@ public class ControladorDeDados {
         return false;
     }
     
+    public boolean hasJogador(String jogador) {
+        Jogador jogadorAux;
+        Iterator<Jogador> it = itJogadores();
+        while(it.hasNext()){
+            jogadorAux = it.next();
+            if(jogadorAux.getPiloto().getNome().equals(jogador)){ return true; }
+        }
+        return false;
+    }    
+    
     /**
      *Pega o iterador do ArrayList de jogadores
      * @return Iterador de jogadores
@@ -432,7 +442,7 @@ public class ControladorDeDados {
      * @return o objeto piloto caso exista na lista encadeada 
      */
     public Jogador getJogadorPorNomeDoPiloto(String nomeDoPiloto){
-        if(hasPiloto(nomeDoPiloto)){
+        if(hasJogador(nomeDoPiloto)){
             
           Iterator<Jogador> it = itJogadores();
           Jogador jogadorAux;
@@ -445,6 +455,31 @@ public class ControladorDeDados {
         return null;
     }
     
+    
+    /**
+     *Pega o jogador com determinado ID passado por parâmetro
+     * @param nomeDoPiloto nome do piloto
+     * @return o objeto piloto caso exista na lista encadeada 
+     */
+    public Jogador getJogadorPorID(int id){
+            
+          Iterator<Jogador> it = itJogadores();
+          Jogador jogadorAux;
+          
+            while(it.hasNext()){
+                jogadorAux = it.next();
+                if(jogadorAux.getID() == id){ return jogadorAux; }
+            }          
+        return null;
+    }    
+    
+    public ArrayList<Jogador> getJogadoresPorArrayDeID(int[] ids){
+        ArrayList<Jogador> jogadores = new ArrayList<>();
+        for (int id : ids) {
+            jogadores.add(getJogadorPorID(id));
+        }
+        return jogadores;
+    }
     /**
      *Deleta um objeto jogador
      * @param jogador a ser removido
@@ -468,7 +503,7 @@ public class ControladorDeDados {
     
     
     /**
-     * A partir de um array de nomes de jogadores pré cadastrados no sistem que
+     * A partir de um array de nomes de jogadores pré cadastrados no sistema que
      * querem participar da corrida ele joga os Objetos Jogador num array para
      * que seja lançado na corrida atual
      *

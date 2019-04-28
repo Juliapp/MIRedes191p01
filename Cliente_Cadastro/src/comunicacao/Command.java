@@ -8,4 +8,9 @@ public enum Command implements Serializable{
     EditPiloto, EditCarro, EditParticipante, EditEquipe,
     EditCorrida,
     ComecarCorrida, PararCorrida, IterarCarros, IterarJogadores,
+    
+    /**
+     *
+     */
+    PreConfiguracaoCorrida,
 }

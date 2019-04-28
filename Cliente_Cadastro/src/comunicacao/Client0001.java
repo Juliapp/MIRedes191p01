@@ -6,6 +6,7 @@ import model.Carro;
 import java.util.Iterator;
 import java.util.ArrayList;
 import model.Jogador;
+import model.PreConfigCorrida;
 
 public class Client0001 {
 
@@ -88,12 +89,13 @@ public class Client0001 {
 
     public int cadastroJogadores() throws IOException, ClassNotFoundException {
         String op;
+        
         System.out.println("Informe o seu nome:");
         String nome = Console.readString();
 
         Mensagem msg0 = new Mensagem(Command.CadPiloto, nome, Solicitante.ClienteCad);
         transm.enviaMensagem(msg0);
-
+        
         System.out.println("Informe o ID do carro desejado!");
         iteraArrayCarros();
 
@@ -126,12 +128,13 @@ public class Client0001 {
             Iterator<Jogador> iterJgdrs = jogadores.iterator();
             
             while (iterJgdrs.hasNext()) {
-            Jogador jgdr = (Jogador) iterJgdrs.next();
-            System.out.println("--------------------------------------------------------");
-            System.out.println("ID: " + jgdr.getId() + " " + "Nome: " + jgdr.getPiloto().getNome() + " " + "Carro: " + " " + jgdr.getCarro().getId() + " " + "Equipe: " + jgdr.getPiloto().getEquipe().getNome());
-            System.out.println("--------------------------------------------------------");
+                
+                Jogador jgdr = (Jogador) iterJgdrs.next();
+                System.out.println("--------------------------------------------------------");
+                System.out.println(jgdr);
+                System.out.println("--------------------------------------------------------");
            
-        }
+            }
         }
         
 
@@ -141,19 +144,27 @@ public class Client0001 {
     }
 
     public void iniciaPartida() throws IOException, ClassNotFoundException {
-
+        
         String op;
         System.out.println("Quantas voltas deseja?");
         int voltas = Console.readInt();
-        String[] jogadores = new String[4];
-
+        
+        System.out.println("Quantos jogadores irão jogar?");
+        String quant = Console.readString();
+        Integer QuantosVaoJogar = new Integer(quant);
+        
+        int[] jogadores = new int[QuantosVaoJogar];
+        
         percorreParticipantes();
-        for (int count = 1; count <= 5; count++) {
+        for (int count = 0; count < QuantosVaoJogar; count++) {
             System.out.println("Informe o ID do jogador que deseja cadastrar na corrida!");
-            jogadores[count] = Console.readString();
-
+            String aux = Console.readString();
+            jogadores[count] = Integer.parseInt(aux);
         }
-
+        
+        PreConfigCorrida preConfig = new PreConfigCorrida(voltas, jogadores);
+        Mensagem mensagem = new Mensagem(Command.PreConfiguracaoCorrida, preConfig, Solicitante.ClienteCad);
+        transm.enviaMensagem(mensagem);
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {

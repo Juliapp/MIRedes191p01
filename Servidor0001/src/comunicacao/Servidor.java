@@ -10,7 +10,7 @@ public class Servidor {
     private ServerSocket serverSocket;
     
     public static void main(String[] args) throws ClassNotFoundException{
-
+        preSet();
         ServerSocket serverSock;
         try {
             serverSock = new ServerSocket(5555);
@@ -102,6 +102,20 @@ public class Servidor {
         s.close();
     }
     
+    private static void preSet(){
+        ServidorFacade facade = ServidorFacade.getInstance();
+        facade.cadastrarEquipe("MUSTANG");
+        facade.cadastrarEquipe("REDBUL");
+        facade.cadastrarEquipe("TESLA");
+        facade.cadastrarEquipe("REDBONE");
+        facade.cadastrarEquipe("RIHANNA");
+        
+        facade.cadastrarCarro("E29JJA", "VERMELHO", "MUSTANG");
+        facade.cadastrarCarro("YUSH21", "LARANJA", "REDBUL");
+        facade.cadastrarCarro("2901S", "AMARELO", "TESLA");
+        facade.cadastrarCarro("8394SDF", "VERDE", "REDBONE");
+        facade.cadastrarCarro("SD252", "AZUL", "RIHANNA");
+    }
     
     
 }

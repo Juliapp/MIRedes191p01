@@ -3,15 +3,15 @@ package model;
 import java.io.Serializable;
 
 public class Carro implements Serializable {
-    
     private static final long serialVersionUID = 2L;
-    private int id = 0;
+    private static int numero = 0;
+    private int id;
     private String tag;
     private String cor;
     private Equipe equipe; 
 
     public Carro(String tag, String cor, Equipe equipe) {
-        this.id++; //pode servir pra alguma coisa
+        id = numero++; //pode servir pra alguma coisa
         this.tag = tag;
         this.cor = cor;
         this.equipe = equipe;
@@ -66,5 +66,12 @@ public class Carro implements Serializable {
         
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Carro{" + "tag=" + getTag() + ", cor=" + getCor() + ", equipe=" + getEquipe() + '}';
+    }
+    
+    
 
 }

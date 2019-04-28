@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import execoes.PilotoNaoExisteException;
 import model.Jogador;
+import model.PreConfigCorrida;
 
 /**
  *
@@ -98,7 +99,12 @@ public class ControllerDeTratamento extends Thread {
                             }
                             
                             break;
-                        
+                        case PreConfiguracaoCorrida:
+                            if(msg.getObject() instanceof PreConfigCorrida){
+                                PreConfigCorrida preCor = (PreConfigCorrida) msg.getObject();
+                                servidorFacade.novaCorrida(preCor.getIdDosJogadores(), preCor.getQuantidadeVoltas());
+                            }
+                            break;
                     }
 
                     break;

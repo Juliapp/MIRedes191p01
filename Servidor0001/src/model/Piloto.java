@@ -55,5 +55,10 @@ public class Piloto implements Serializable {
         
         return false;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Piloto{" + nome + '}';
+    }
+        
 }

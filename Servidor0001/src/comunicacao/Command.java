@@ -108,4 +108,9 @@ public enum Command implements Serializable {
      */
     IterarJogadores,
     
+    /**
+     *
+     */
+    PreConfiguracaoCorrida,
+    
 }

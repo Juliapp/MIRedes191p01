@@ -308,15 +308,19 @@ public class ServidorFacade {
     /**
      * Instancia uma nova corrida a partir de seu controlador
      *
-     * @param args nome dos jogadores que querem participar da corrida
+     * @param ids
      * @param quantidadeDeVoltas quantidades de voltas que vai ter na corrida
      * @return Caso a corrida foi instanciada com sucesso
      */
-    public boolean novaCorrida(String[] args, int quantidadeDeVoltas) {
-        ControladorCorrida c = new ControladorCorrida(selecionarJogadores(args), quantidadeDeVoltas);
+    public boolean novaCorrida(int[] ids, int quantidadeDeVoltas) {
+        ControladorCorrida c = new ControladorCorrida(getJogadoresPorArrayDeID(ids), quantidadeDeVoltas);
         corridaAtual = c;
         contrCorrida.add(c);
         return c != null;
+    }
+    
+    public ArrayList<Jogador> getJogadoresPorArrayDeID(int[] ids){
+        return Dados.getJogadoresPorArrayDeID(ids);
     }
 
     /**

@@ -15,21 +15,22 @@ public class Jogador implements Serializable {
     private int voltas;
     private int pitStops;
     private int colocacao;
-    private int id=0;
+    private static int numero =0;
+    private int id;
 
     public Jogador(Carro carro, Piloto piloto) {
         voltaMaisRapida = new Time(0,0,0,0);
         this.carro = carro;
         this.piloto = piloto;
         pitStops = 0;
-        this.id++;
+        this.id = numero++;
     }
 
     public Time getTempoDeCorridaFinal() {
         return tempoDeCorridaFinal;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -110,8 +111,8 @@ public class Jogador implements Serializable {
     public void setVoltas(int voltas) {
         this.voltas = voltas;
     }
-
-
+    
+    
     @Override
     public boolean equals(Object obj) {
         
@@ -121,6 +122,11 @@ public class Jogador implements Serializable {
         }
         return false;
         
+    }
+
+    @Override
+    public String toString() {
+        return "Jogador{ID = "+ id + " " + piloto + " " + carro + '}';
     }
     
     
