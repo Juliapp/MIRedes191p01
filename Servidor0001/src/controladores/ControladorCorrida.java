@@ -37,6 +37,7 @@ public class ControladorCorrida {
      */
     public void comecarCorrida(){
         //rodar o cronometro
+        cronometro.comecar();
         /******************
          *
          LEMBRAR DE COLOCAR UM CONTADORZINHO PRA FAZER A CONTAGEM REGRESSIVA PRA A PARTIDA COMEÇAR

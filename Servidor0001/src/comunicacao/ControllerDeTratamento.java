@@ -52,9 +52,8 @@ public class ControllerDeTratamento extends Thread {
                     switch (msg.getCommand()) {
                         case CadCarro:
                             String[] dadosCarro = (String[]) msg.getObject();
-                            
+
                             //nessa parte ele tem que pegar do coletor
-                            
                             if (servidorFacade.cadastrarCarro(dadosCarro[0], dadosCarro[1], dadosCarro[2])) {
                                 this.os.writeUTF("Carro Cadastrado");
                                 this.os.flush();
@@ -69,7 +68,7 @@ public class ControllerDeTratamento extends Thread {
                             }
                             break;
                         case CadPiloto:
-                            String dadosPiloto =  (String) msg.getObject();
+                            String dadosPiloto = (String) msg.getObject();
                             if (servidorFacade.cadastrarPiloto(dadosPiloto, null)) {
                                 this.os.writeUTF("Piloto Cadastrado");
                                 this.os.flush();
@@ -78,51 +77,57 @@ public class ControllerDeTratamento extends Thread {
                         case CadJogador:
                             String[] dadosJogador = (String[]) msg.getObject();
                             int id = Integer.parseInt(dadosJogador[0]);
-                            if(servidorFacade.CadastrarJogador(id, dadosJogador[1])){
+                            if (servidorFacade.CadastrarJogador(id, dadosJogador[1])) {
                                 this.os.writeUTF("Jogador Cadastrado");
                                 this.os.flush();
                             }
                             break;
                         case ComecarCorrida:
-                            servidorFacade.comecarCorrida();
-                            this.os.writeUTF("Tudo preparado...Foi dada a largada...Boa corrida!!!");
+                            
+                            this.os.writeUTF("Tudo pronto...Foi dada a largada...Que vença o melhor!!!");
                             this.os.flush();
                             
+                             Mensagem msg1 = new Mensagem(Command.ComecarCorrida, null, Solicitante.ClienteCad);
+                            Object obj = (Object) msg1;
+                            this.os.writeObject(msg1);
+                            this.os.flush();
+                            this.os.reset();
                             break;
                         case IterarJogadores:
                             Object arrayJogadores = (Object) servidorFacade.getListaDeJogadores();
-                            if(arrayJogadores != null){
+                            if (arrayJogadores != null) {
                                 this.os.writeObject(arrayJogadores);
                                 this.os.flush();
-                            }else{
+                            } else {
                                 String erroinfo = "Erro no array";
                                 this.os.writeObject(erroinfo);
                                 this.os.flush();
                             }
-                            
+
                             break;
                         case PreConfiguracaoCorrida:
-                            if(msg.getObject() instanceof PreConfigCorrida){
+                            if (msg.getObject() instanceof PreConfigCorrida) {
                                 PreConfigCorrida preCor = (PreConfigCorrida) msg.getObject();
                                 servidorFacade.novaCorrida(preCor.getIdDosJogadores(), preCor.getQuantidadeVoltas());
                                 this.os.writeUTF("Partida configurada!");
                                 this.os.flush();
                             }
                             break;
-                        
+
                     }
 
                     break;
                 case ClienteExib:
                     break;
                 case Sensor:
-                    switch(msg.getCommand()){
+                    switch (msg.getCommand()) {
                         case EnviarTags:
-                            
+                            String[] tags = (String[]) msg.getObject();
+
                             //servidorFacade.coletorDeTags(tag, tempoColetado);
                             break;
                     }
-                    
+
                     break;
             }
 
