@@ -39,6 +39,25 @@ public class Transmissao {
        
 
     }
+    
+    public void recebeMensagem(){
+        try(Socket socket = solicitaSocket()) {
+            ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
+            
+            this.dadoRecebido = is.readObject();
+            
+            os.close();
+            is.close();
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Object dadoRecebido(){
+        return this.dadoRecebido;
+    }
 
     
     

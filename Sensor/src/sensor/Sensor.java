@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
+import model.TagColetada;
 
 /**
  *
@@ -19,36 +21,50 @@ public class Sensor {
 
     private final int tempo = 10000;
     private String[] tags = {"EPC00000", "EPC00001", "EPC00002", "EPC00003"};
-    private int count=0;
+    private int count = 0;
     private Transmissao transm;
-    
-    public Sensor(){
+    private Cronometro cronometro;
+
+    public Sensor() {
         this.transm = new Transmissao();
+        this.cronometro = new Cronometro();
     }
-    
-    public void lançaTags() throws IOException, ClassNotFoundException{
-        while(true){
-            while(this.count <= this.tempo){
-                count++;
-            }
-            if(count == this.tempo){
-                Mensagem msg = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
-                transm.enviaMensagem(msg);
-                this.count=0;
-            }
+
+    public void lançaTags() throws IOException, ClassNotFoundException {
+        transm.recebeMensagem();
+
+        Mensagem msg = (Mensagem) transm.dadoRecebido();
+
+        switch (msg.getCommand()) {
+            case ComecarPartida:
+
+                cronometro.comecar();
+                while (true) {
+                    while (this.count <= this.tempo) {
+                        count++;
+                    }
+                    if (count == this.tempo) {
+                        Random num = new Random();
+                        TagColetada tag = new TagColetada(tags[num.nextInt(4)], cronometro.getCronometro());
+                        Mensagem msg1 = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
+                        transm.enviaMensagem(msg);
+                        this.count = 0;
+                    }
+                    break;
+                }
         }
+        
+
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Sensor sensor = new Sensor();
         try {
-             sensor.lançaTags();
+            sensor.lançaTags();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-       
-        
-        
+
     }
 
 }
