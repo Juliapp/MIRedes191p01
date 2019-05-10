@@ -118,5 +118,10 @@ public enum Command implements Serializable {
      */
     EnviarTags,
    
+    /**
+     *
+     */
+    StatusCorrida,
+    
     
 }
