@@ -55,8 +55,8 @@ public class Transmissao {
         }
     }
     
-    public Object dadoRecebido(){
-        return this.dadoRecebido;
+    public boolean dadoRecebido(){
+        return (boolean) this.dadoRecebido;
     }
 
     

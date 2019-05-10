@@ -31,36 +31,36 @@ public class Sensor {
     }
 
     public void lançaTags() throws IOException, ClassNotFoundException {
-        transm.recebeMensagem();
-
-        Mensagem msg = (Mensagem) transm.dadoRecebido();
-
-        switch (msg.getCommand()) {
-            case ComecarPartida:
-
-                cronometro.comecar();
-                while (true) {
-                    while (this.count <= this.tempo) {
-                        count++;
-                    }
-                    if (count == this.tempo) {
-                        Random num = new Random();
-                        TagColetada tag = new TagColetada(tags[num.nextInt(4)], cronometro.getCronometro());
-                        Mensagem msg1 = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
-                        transm.enviaMensagem(msg);
-                        this.count = 0;
-                    }
-                    break;
-                }
+        while (true) {
+            transm.enviaMensagem(new Mensagem(Command.StatusCorrida, null, Solicitante.Sensor));
+            if (transm.dadoRecebido()) {
+                break;
+            }
         }
-        
+        cronometro.comecar();
+        while (true) {
+            while (this.count <= this.tempo) {
+                count++;
+            }
+            if (count == this.tempo) {
+                Random num = new Random();
+                TagColetada tag = new TagColetada(tags[num.nextInt(4)], cronometro.getCronometro());
+                Mensagem msg1 = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
+                transm.enviaMensagem(msg1);
+                System.out.println("Enviou!!!");
+                this.count = 0;
+            }
 
+        }
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Sensor sensor = new Sensor();
         try {
-            sensor.lançaTags();
+            while (true) {
+                sensor.lançaTags();
+            }
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

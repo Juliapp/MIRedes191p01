@@ -3,5 +3,5 @@ package sensor;
 import java.io.Serializable;
 
 public enum Command implements Serializable{
-   EnviarTags, ComecarPartida,
+   EnviarTags, ComecarPartida, StatusCorrida
 }
