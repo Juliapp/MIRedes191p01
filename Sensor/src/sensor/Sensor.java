@@ -5,6 +5,11 @@
  */
 package sensor;
 
+import comunicacao.Command;
+import comunicacao.Cronometro;
+import comunicacao.Mensagem;
+import comunicacao.Solicitante;
+import comunicacao.Transmissao;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -29,37 +34,59 @@ public class Sensor {
         this.transm = new Transmissao();
         this.cronometro = new Cronometro();
     }
-
-    public void lançaTags() throws IOException, ClassNotFoundException {
-        while (true) {
-            transm.enviaMensagem(new Mensagem(Command.StatusCorrida, null, Solicitante.Sensor));
-            if (transm.dadoRecebido()) {
-                break;
-            }
+    
+    
+    public boolean verificaPermissao() throws IOException, ClassNotFoundException{
+        transm.enviaMensagem(new Mensagem(Command.StatusCorrida, null, Solicitante.Sensor));
+        if(transm.dadoRecebido() == false){
+            System.out.println("Deu Erro!");
+        }else{
+            System.out.println("Passou Carai!!!");
         }
-        cronometro.comecar();
-        while (true) {
-            while (this.count <= this.tempo) {
-                count++;
-            }
-            if (count == this.tempo) {
-                Random num = new Random();
-                TagColetada tag = new TagColetada(tags[num.nextInt(4)], cronometro.getCronometro());
-                Mensagem msg1 = new Mensagem(Command.EnviarTags, tags, Solicitante.Sensor);
-                transm.enviaMensagem(msg1);
-                System.out.println("Enviou!!!");
-                this.count = 0;
-            }
-
-        }
+        return transm.dadoRecebido();
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public void lançaTags() throws IOException, ClassNotFoundException {
+            Random num = new Random();
+            String[] ordem = new String[3]; //Cria um array para colocar uma ordem nas tags
+            for(int i = 0; i <= tags.length; i++){
+                ordem[i] = tags[num.nextInt(3)]; //Adiciona a tag pré-cadastrada com uma posição aleatória!
+                TagColetada tag = new TagColetada(ordem[i], cronometro.getCurrentTime()); //Cria o objeto TagColetada pra obter o tempo exato do cronometro
+                Mensagem msg = new Mensagem(Command.EnviarTags, tag, Solicitante.Sensor); //Cria o objeto Mensagem pra enviar pro servidor as informações coletadas do sensor!
+                transm.enviaMensagem(msg);
+            }
+            if(transm.dadoRecebido()==true){
+                System.out.println("Tag Coletada pelo servidor!");
+            }
+    }
+    
+    public boolean observador() throws ClassNotFoundException, IOException, InterruptedException{
+        boolean status;
+          
+            do{
+                Thread.sleep(5000);
+                status = verificaPermissao();
+                System.out.println("Enviando Tags.......");
+               
+            }while(status == false);
+        return status;
+            
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Sensor sensor = new Sensor();
         try {
-            while (true) {
-                sensor.lançaTags();
+             //O laço termina se a permissão for true, ou seja ter dado a largada na corrida
+            
+            while(sensor.observador() == true){
+                sensor.cronometro.comecar(); //Começa a contagem!
+                while(true){
+                    Thread.sleep(40000); //Espera 10 segs pra enviar as tags
+                    sensor.lançaTags(); //Chama o método que enviar para o servidor as tags!
+                    System.out.println("Tags enviadas.......");
+                }
             }
+            
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

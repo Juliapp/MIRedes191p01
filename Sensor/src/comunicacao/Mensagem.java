@@ -1,4 +1,4 @@
-package sensor;
+package comunicacao;
 
 import java.io.Serializable;
 
