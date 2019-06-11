@@ -36,7 +36,7 @@ public class ServidorFacade {
         Dados = new ControladorDeDados();
         cf = new ControladorFactory();
         contrCorrida = new ArrayList<>();
-        corridaAtual = null;
+        corridaAtual = new ControladorCorrida();
     }
     
     public static synchronized ServidorFacade getInstance(){
@@ -326,9 +326,14 @@ public class ServidorFacade {
     /**
      * Da o comando para que o cronometro comece a rodar e os métodos do
      * controlador de corrida estejam aptos a serem utilizados
+     * @return 
      */
-    public void comecarCorrida() {
-        corridaAtual.comecarCorrida();
+    public boolean comecarCorrida() {
+        return corridaAtual.iniciarCorrida();
+    }
+    
+    public boolean statusCorrida(){
+        return corridaAtual.getStatus();
     }
 
     /**

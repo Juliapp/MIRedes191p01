@@ -12,9 +12,9 @@ import model.TagColetada;
 import model.Time;
 
 public class ControladorCorrida {
-    private final ArrayList<Jogador> jogadores;
+    private ArrayList<Jogador> jogadores;
     private String id;
-    private final int quantidadeDeVoltas;
+    private int quantidadeDeVoltas;
     private Jogador jogadorDavoltaMaisRapida; 
     private Cronometro cronometro;
     private boolean rodando;
@@ -32,23 +32,45 @@ public class ControladorCorrida {
         corridaConcluida = false;
     }
 
+    public ControladorCorrida() {
+    }
+    
+
+    
+ 
+    
     /**
      *Da o start no cronometro e permite os outros métodos para controlar a corrida serem manipulados
+     * @return 
      */
+    /*
     public void comecarCorrida(){
         //rodar o cronometro
         cronometro.comecar();
-        /******************
-         *
+      
+        *******************************************
          LEMBRAR DE COLOCAR UM CONTADORZINHO PRA FAZER A CONTAGEM REGRESSIVA PRA A PARTIDA COMEÇAR
          COLOCAR MÚSIQUINHA DE START TAMBÉM É UMA OPÇÃO MUITO BEM-VINDA 
-         * 
-         *************************/
+        *******************************************
+        
         if(!corridaConcluida){
             rodando = true;
             cronometro.start();
         }
-    }    
+    }
+  */
+    
+    /**
+     *Da o start no cronometro e permite os outros métodos para controlar a corrida serem manipulados
+     * @return 
+     */
+    public boolean iniciarCorrida(){
+        return this.rodando = true;
+    }
+    
+    public boolean getStatus(){
+        return this.rodando;
+    }
     
     /**
      *força a parada da thread do cronometro e seta a corrida rodando para false

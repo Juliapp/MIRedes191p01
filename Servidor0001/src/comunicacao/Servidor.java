@@ -16,6 +16,7 @@ public class Servidor {
             serverSock = new ServerSocket(5555);
             while(true){
                 System.out.println("O servidor está rodando na porta"+serverSock.getLocalPort());
+                
                 Socket recebido = serverSock.accept();
                 
                 ObjectOutputStream os = new ObjectOutputStream(recebido.getOutputStream());

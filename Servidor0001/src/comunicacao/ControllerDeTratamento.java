@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import execoes.PilotoNaoExisteException;
 import model.Jogador;
 import model.PreConfigCorrida;
+import model.TagColetada;
 
 /**
  *
@@ -27,7 +28,8 @@ public class ControllerDeTratamento extends Thread {
     private final ObjectOutputStream os;
     private final ObjectInputStream is;
     private final Socket recebido;
-    private boolean status = false;
+    private int i = 0;
+    private boolean status;
 
     public ControllerDeTratamento(Socket s, ObjectOutputStream os, ObjectInputStream is) {
         this.recebido = s;
@@ -36,9 +38,10 @@ public class ControllerDeTratamento extends Thread {
         this.servidorFacade = ServidorFacade.getInstance();
     }
 
-    public void startCronometro() {
+    public boolean startCronometro() {
 
         this.status = true;
+        return this.status;
 
     }
 
@@ -90,9 +93,19 @@ public class ControllerDeTratamento extends Thread {
                             }
                             break;
                         case ComecarCorrida:
-                            startCronometro();
-                            this.os.writeUTF("Tudo pronto...Foi dada a largada...Que vença o melhor!!!");
-                            this.os.flush();
+
+                            /*Socket sock = new Socket("192.181.0.1", 5555);
+                                ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());
+                                
+                                int confirmacao = 0;
+                                output.writeObject((Object)confirmacao);
+                                output.flush();
+                             */
+                            if (servidorFacade.comecarCorrida()) {
+                                this.os.writeUTF("Tudo pronto...Foi dada a largada...Que vença o melhor!!!");
+                                this.os.flush();
+                            }
+
                             break;
                         case IterarJogadores:
                             Object arrayJogadores = (Object) servidorFacade.getListaDeJogadores();
@@ -121,9 +134,17 @@ public class ControllerDeTratamento extends Thread {
                 case Sensor:
                     switch (msg.getCommand()) {
                         case StatusCorrida:
-                            this.os.writeObject(getStatus());
+                            this.os.writeObject((Object)servidorFacade.statusCorrida());
                             this.os.flush();
                             //servidorFacade.coletorDeTags(tag, tempoColetado);
+                            break;
+
+                        case EnviarTags:
+                            boolean statusEnvio = true;
+                            TagColetada tag = (TagColetada) msg.getObject(); //Tag coletada com o tempo inserido!
+                            this.os.writeObject((Object) statusEnvio);
+                            this.os.flush();
+
                             break;
                     }
 
