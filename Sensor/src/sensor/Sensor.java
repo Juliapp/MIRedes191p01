@@ -36,14 +36,8 @@ public class Sensor {
     }
     
     
-    public boolean verificaPermissao() throws IOException, ClassNotFoundException{
-        transm.enviaMensagem(new Mensagem(Command.StatusCorrida, null, Solicitante.Sensor));
-        if(transm.dadoRecebido() == false){
-            System.out.println("Deu Erro!");
-        }else{
-            System.out.println("Passou Carai!!!");
-        }
-        return transm.dadoRecebido();
+    public void abreConexão() throws IOException, ClassNotFoundException{
+        transm.esperaMensagem();
     }
 
     public void lançaTags() throws IOException, ClassNotFoundException {
@@ -77,7 +71,8 @@ public class Sensor {
         Sensor sensor = new Sensor();
         try {
              //O laço termina se a permissão for true, ou seja ter dado a largada na corrida
-            
+            sensor.abreConexão();
+            /*
             while(sensor.observador() == true){
                 sensor.cronometro.comecar(); //Começa a contagem!
                 while(true){
@@ -86,6 +81,7 @@ public class Sensor {
                     System.out.println("Tags enviadas.......");
                 }
             }
+            */
             
 
         } catch (IOException | ClassNotFoundException e) {
