@@ -48,6 +48,13 @@ public class ControllerDeTratamento extends Thread {
     public boolean getStatus() {
         return this.status;
     }
+    
+    public void AlertaSensor() throws IOException{
+        if(recebido.getInetAddress().getHostAddress().equals("127.0.0.1")){
+           this.os.writeObject((Object)servidorFacade.statusCorrida());
+           this.os.flush(); 
+        }
+    }
 
     @Override
     public void run() {
@@ -156,9 +163,11 @@ public class ControllerDeTratamento extends Thread {
         } catch (PilotoNaoExisteException ex) {
             Logger.getLogger(ControllerDeTratamento.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
 
         try {
-            // closing resources 
+            AlertaSensor();
             this.is.close();
             this.os.close();
 
