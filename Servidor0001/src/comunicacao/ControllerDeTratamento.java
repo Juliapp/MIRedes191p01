@@ -45,17 +45,6 @@ public class ControllerDeTratamento extends Thread {
 
     }
 
-    public boolean getStatus() {
-        return this.status;
-    }
-    
-    public void AlertaSensor() throws IOException{
-        if(recebido.getInetAddress().getHostAddress().equals("127.0.0.1")){
-           this.os.writeObject((Object)servidorFacade.statusCorrida());
-           this.os.flush(); 
-        }
-    }
-
     @Override
     public void run() {
 
@@ -100,14 +89,6 @@ public class ControllerDeTratamento extends Thread {
                             }
                             break;
                         case ComecarCorrida:
-
-                            /*Socket sock = new Socket("192.181.0.1", 5555);
-                                ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());
-                                
-                                int confirmacao = 0;
-                                output.writeObject((Object)confirmacao);
-                                output.flush();
-                             */
                             if (servidorFacade.comecarCorrida()) {
                                 this.os.writeUTF("Tudo pronto...Foi dada a largada...Que vença o melhor!!!");
                                 this.os.flush();
@@ -141,7 +122,7 @@ public class ControllerDeTratamento extends Thread {
                 case Sensor:
                     switch (msg.getCommand()) {
                         case StatusCorrida:
-                            this.os.writeObject((Object)servidorFacade.statusCorrida());
+                            this.os.writeObject((Object) servidorFacade.statusCorrida());
                             this.os.flush();
                             //servidorFacade.coletorDeTags(tag, tempoColetado);
                             break;
@@ -163,14 +144,11 @@ public class ControllerDeTratamento extends Thread {
         } catch (PilotoNaoExisteException ex) {
             Logger.getLogger(ControllerDeTratamento.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
         try {
-            AlertaSensor();
+
             this.is.close();
             this.os.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
