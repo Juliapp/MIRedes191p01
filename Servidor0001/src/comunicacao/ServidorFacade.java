@@ -335,6 +335,10 @@ public class ServidorFacade {
     public boolean statusCorrida(){
         return corridaAtual.getStatus();
     }
+    
+    public ArrayList<Object> getInfoCorrida(){
+        return corridaAtual.dadosDaCorrida();
+    }
 
     /**
      * Recolhe as tags que são pegadas pelo sensor e jogam diretamente no

@@ -123,5 +123,10 @@ public enum Command implements Serializable {
      */
     StatusCorrida,
     
+    /**
+     *
+     */
+    ListaDeJogadoresCorrida
+    
     
 }

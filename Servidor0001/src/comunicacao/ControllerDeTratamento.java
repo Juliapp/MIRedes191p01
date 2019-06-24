@@ -118,6 +118,17 @@ public class ControllerDeTratamento extends Thread {
 
                     break;
                 case ClienteExib:
+                    switch (msg.getCommand()) {
+                        case ListaDeJogadoresCorrida:
+                            this.os.writeObject((Object) servidorFacade.getInfoCorrida());
+                            this.os.flush();
+                            break;
+                        case StatusCorrida:
+                            this.os.writeObject((Object) servidorFacade.statusCorrida());
+                            this.os.flush();
+                            //servidorFacade.coletorDeTags(tag, tempoColetado);
+                            break;
+                    }
                     break;
                 case Sensor:
                     switch (msg.getCommand()) {

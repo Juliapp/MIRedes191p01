@@ -174,6 +174,15 @@ public class ControladorCorrida {
     public ArrayList<Jogador> getJogadoresDaCorridaAtual() {
         return jogadores;
     }
+    
+    public ArrayList<Object> dadosDaCorrida(){
+        ArrayList<Object> info = new ArrayList<>();
+        
+        info.add(jogadores);
+        info.add(quantidadeDeVoltas);
+        
+        return info;
+    }
 
     /**
      *Pega o jogador que fez a volta mais rápida da partida
